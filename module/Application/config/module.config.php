@@ -6,52 +6,23 @@
  * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
-
 return array(
     'router' => array(
         'routes' => array(
-            'home' => array(
-                'type' => 'Zend\Mvc\Router\Http\Literal',
-                'options' => array(
-                    'route'    => '/',
-                    'defaults' => array(
-                        'controller' => 'Application\Controller\Index',
-                        'action'     => 'index',
-                    ),
-                ),
-            ),
-            // The following is a route to simplify getting started creating
-            // new controllers and actions without needing to create a new
-            // module. Simply drop new controllers in, and you can access them
-            // using the path /application/:controller/:action
-            'application' => array(
-                'type'    => 'Literal',
-                'options' => array(
-                    'route'    => '/application',
-                    'defaults' => array(
-                        '__NAMESPACE__' => 'Application\Controller',
-                        'controller'    => 'Index',
-                        'action'        => 'index',
-                    ),
-                ),
-                'may_terminate' => true,
-                'child_routes' => array(
-                    'default' => array(
-                        'type'    => 'Segment',
-                        'options' => array(
-                            'route'    => '/[:controller[/:action]]',
-                            'constraints' => array(
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                            ),
-                            'defaults' => array(
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        ),
-    ),
+	    // A Route that no matter what :controller is specified
+	    // Always calls the Object Controller
+	    // Otherwise defaults to standard Index
+	    'test' => array(
+            	'type' => 'Literal',
+            	'options' => array(
+            		'route' => '/',
+			'defaults' => array(
+				'controller' => 'Application\Controller\Index',
+				'action' => 'index'
+			),
+	     	),
+	),
+    )),
     'service_manager' => array(
         'abstract_factories' => array(
             'Zend\Cache\Service\StorageCacheAbstractServiceFactory',
@@ -99,6 +70,12 @@ return array(
             ),
         ),
     ),
+    'view_helpers' => array(  
+        'invokables' => array(  
+            'customHelper' => 'Application\View\Helper\CustomHelper',  
+                // more helpers here ...  
+        )  
+    ),  
     // doctrine
     'doctrine' => array(
 	'driver' => array(

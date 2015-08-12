@@ -13,21 +13,17 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Hex\View\Helper\CustomHelper;
 
-class IndexController extends AbstractActionController
+class IssueController extends AbstractActionController
 {
-    public function indexAction()
+    public function contentsAction()
     {
 	$view = new ViewModel();
 
 	$articleView = new ViewModel(array('article' => $article));
         $articleView->setTemplate('content/article');
 
-	$view->content = $this->content();
+	$view->content = "contents";
 
         return $view;
-    }
-    public function content()
-    {
-	return "content";
     }
 }

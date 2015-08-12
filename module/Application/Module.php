@@ -36,4 +36,15 @@ class Module
             ),
         );
     }
+    public function getViewHelperConfig()
+    {
+        return array(
+            'factories' => array(
+                'test_helper' => function($sm) {
+                    $helper = new View\Helper\CustomHelper;
+                    return $helper;
+                }
+            )
+        );   
+    }
 }
