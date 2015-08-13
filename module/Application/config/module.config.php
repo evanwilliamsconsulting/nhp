@@ -31,25 +31,25 @@ return array(
                         '__NAMESPACE__' => 'Application\Controller',
                         'controller'    => 'Index',
                         'action'        => 'index',
-                    ),
-                ),
-                'may_terminate' => true,
-                'child_routes' => array(
-                    'default' => array(
-                        'type'    => 'Segment',
-                        'options' => array(
-                            'route'    => '/[:controller[/:action]]',
-                            'constraints' => array(
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                            ),
-                            'defaults' => array(
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        ),
+                     ),
+                 ),
+             ),
+             'object' => array(
+                 'type' => 'Segment',
+                 'options' => array(
+                      'route' => '/[:controller]/[:action]',
+                      'constraints' => array(
+                          'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                          'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                      ),
+                      'defaults' => array(
+                          '__NAMESPACE__' => 'Application\Controller',
+                          'controller'    => 'Index',
+                          'action'        => 'index',
+                      ),
+                  ),
+              ),
+         ),
     ),
     'service_manager' => array(
         'abstract_factories' => array(
@@ -72,7 +72,8 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Application\Controller\Index' => 'Application\Controller\IndexController'
+            'Application\Controller\Index' => 'Application\Controller\IndexController',
+            'Application\Controller\Object' => 'Application\Controller\ObjectController'
         ),
     ),
     'view_manager' => array(
