@@ -73,7 +73,17 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Application\Controller\Index' => 'Application\Controller\IndexController',
-            'Application\Controller\Object' => 'Application\Controller\ObjectController'
+            'Application\Controller\Issue' => 'Application\Controller\IssueController',
+            'Application\Controller\Broadsheet' => 'Application\Controller\BroadsheetController',
+            'Application\Controller\Block' => 'Application\Controller\BlockController',
+            'Application\Controller\Container' => 'Application\Controller\ContainerController',
+            'Application\Controller\Richcontent' => 'Application\Controller\RichcontentController',
+            'Application\Controller\Textcontent' => 'Application\Controller\TextcontentController',
+            'Application\Controller\Headline' => 'Application\Controller\HeadlineController',
+            'Application\Controller\Pix' => 'Application\Controller\PixController',
+            'Application\Controller\PixLink' => 'Application\Controller\PixlinkController',
+            'Application\Controller\Wordage' => 'Application\Controller\VerbageController',
+            'Application\Controller\Article' => 'Application\Controller\ArticleController',
         ),
     ),
     'view_manager' => array(
