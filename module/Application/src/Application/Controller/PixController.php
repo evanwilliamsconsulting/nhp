@@ -13,7 +13,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Hex\View\Helper\CustomHelper;
 
-class IndexController extends AbstractActionController
+class PixController extends AbstractActionController
 {
     public function indexAction()
     {
