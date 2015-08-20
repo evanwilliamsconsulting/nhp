@@ -1,29 +1,106 @@
 <?php
-namespace Application\Entity;
+
+
+
 use Doctrine\ORM\Mapping as ORM;
-/** @ORM\Entity */
-class Picture {
-		/**
-		 * @ORM\Id
-		 * @ORM\GeneratedValue(strategy="AUTO")
-		 * @ORM\Column(type="integer")
-		 */
-		 protected $id;
-		 
-		 /** @ORM\Column(type="string") */
-		 protected $caption;
 
-		 /** @ORM\Column(type="string") */
-		 protected $credit;
+/**
+ * Picture
+ *
+ * @ORM\Table(name="Picture")
+ * @ORM\Entity
+ */
+class Picture
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
 
-		 /** @ORM\Column(type="blob") */
-		 protected $picture;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="caption", type="string", length=255, nullable=false)
+     */
+    private $caption;
 
-		 /** @ORM\Column(type="integer") */
-		 protected $width;
+    public function getCaption()
+    {
+        return $this->caption;
+    }
 
-		 /** @ORM\Column(type="integer") */
-		 protected $height;
-		 
-		 // getters/setters
+    public function setCaption($value)
+    {
+        $this->caption = $value;
+    }
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="credit", type="string", length=255, nullable=false)
+     */
+    private $credit;
+
+    public function getCredit()
+    {
+        return $this->credit;
+    }
+
+    public function setCredit($value)
+    {
+        $this->credit=$value;
+    }
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="picture", type="blob", nullable=false)
+     */
+    private $picture;
+
+    public function getPicture()
+    {
+         return $this->picture;
+    }
+    
+    public function setPicture($value)
+    {
+         $this->picture = $value;
+    }
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="width", type="integer", nullable=false)
+     */
+    private $width;
+
+    public function getWidth()
+    {
+        return $this->width;
+    }
+    public function setWidth($value)
+    {
+        $this->width = $value
+    } 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="height", type="integer", nullable=false)
+     */
+    private $height;
+   
+    public function getHeight()
+    {
+        return $this->height;
+    }
+    public function setHeight($value)
+    {
+        $this->height = $value;
+    }
+
 }
