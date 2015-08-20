@@ -26,6 +26,14 @@ class IndexController extends AbstractActionController
 
         return $view;
     }
+    public function welcomeAction()
+    {
+        $view = new ViewModel();
+
+        $view->content = $this->content();
+        
+        return $view;
+    }
     public function content()
     {
 	return "content";

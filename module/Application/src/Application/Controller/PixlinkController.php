@@ -11,9 +11,12 @@ namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Application\Entity\Textcolumn;
 use Hex\View\Helper\CustomHelper;
+use Doctrine\ORM\EntityManager;
+use Application\Form\Entity\PixLinkForm;
 
-class PixlinkController extends AbstractActionController
+class PixLinkController extends AbstractActionController
 {
     public function indexAction()
     {
@@ -29,5 +32,23 @@ class PixlinkController extends AbstractActionController
     public function content()
     {
 	return "content";
+    }
+
+    public function getForm()
+    {
+        $form = new PixLinkForm();
+        $form->get('submit')->setValue('Add');
+
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+        }
+	return $form;
+    }
+    public function newAction()
+    {
+	$view = new ViewModel();
+	$form = $this->getForm();
+	$view->form = $form;
+	return $view;
     }
 }

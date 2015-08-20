@@ -6,12 +6,14 @@
  * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
-
 namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Application\Entity\Textcolumn;
 use Hex\View\Helper\CustomHelper;
+use Doctrine\ORM\EntityManager;
+use Application\Form\Entity\TextColumnForm;
 
 class TextcolumnController extends AbstractActionController
 {
@@ -29,5 +31,23 @@ class TextcolumnController extends AbstractActionController
     public function content()
     {
 	return "content";
+    }
+
+    public function getForm()
+    {
+        $form = new TextColumnForm();
+        $form->get('submit')->setValue('Add');
+
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+        }
+	return $form;
+    }
+    public function newAction()
+    {
+	$view = new ViewModel();
+	$form = $this->getForm();
+	$view->form = $form;
+	return $view;
     }
 }
