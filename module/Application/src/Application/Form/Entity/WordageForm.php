@@ -15,15 +15,15 @@ class WordageForm extends Form
             'type' => 'hidden'
         ));
         $this->add(array(
-            'name' => 'wordage',
-            'type' => 'Text',
+	    'name'=>'wordage',
+            'type' => 'Textarea',
             'options' => array(
                 'label' => 'Wordage',
             ),
         ));
         $this->add(array(
             'name' => 'columnSize',
-            'type' => 'Text',
+            'type' => 'Number',
             'options' => array(
                 'label' => 'columnSize',
             ),
