@@ -39,10 +39,16 @@
     <script src="/files/home//data.js"></script>
     <script src="/resources/scripts/axure/legacy.js"></script>
     <script src="/resources/scripts/axure/viewer.js"></script>
+    <script type="text/javascript" src="/tinymce/tinymce.min.js"></script>
     <script type="text/javascript">
       $axure.utils.getTransparentGifPath = function() { return '/resources//images/transparent.gif'; };
       $axure.utils.getOtherPath = function() { return '/resources/Other.html'; };
       $axure.utils.getReloadPath = function() { return '/resources/reload.html'; };
+    </script>
+<script type="text/javascript">
+        tinymce.init({
+            selector: "#wordarea"
+        });
     </script>
   </head>
   <body>
