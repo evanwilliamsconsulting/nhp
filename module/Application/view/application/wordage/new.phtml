@@ -3,7 +3,9 @@
 	<?php
 	    echo $this->form()->openTag($form);
 	    echo $this->formHidden($form->get('id'));
-            echo $this->formRow($form->get('wordage'));
+	    ?>
+		<label><span>Wordage</span><textarea id="wordarea" name="wordage" rows='8' cols='60'></textarea></label><label>
+	    <?php
             echo $this->formRow($form->get('columnSize'));
             echo $this->formSubmit($form->get('submit'));
             echo $this->form()->closeTag();
