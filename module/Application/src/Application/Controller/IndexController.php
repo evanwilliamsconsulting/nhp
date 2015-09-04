@@ -19,9 +19,6 @@ class IndexController extends AbstractActionController
     {
 	$view = new ViewModel();
 
-	$articleView = new ViewModel(array('article' => $article));
-        $articleView->setTemplate('content/article');
-
 	$view->content = $this->content();
 
         return $view;

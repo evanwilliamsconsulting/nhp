@@ -84,7 +84,7 @@ class WordageController extends AbstractActionController
 	    {
 	       $em->persist($wordage);
 	       $em->flush();
-	       return $this->redirect()->toUrl('http://www.approcut.pro/wordage/index');
+	       return $this->redirect()->toUrl('http://www.newhollandpress.com/wordage/index');
 	    }
 
 /*
