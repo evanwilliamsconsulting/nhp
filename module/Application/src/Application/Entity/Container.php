@@ -6,84 +6,134 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Container
- *
- * @ORM\Table(name="Container")
- * @ORM\Entity
  */
 class Container
 {
     /**
      * @var integer
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="background", type="blob", nullable=false)
      */
     private $background;
 
+    /**
+     * @var boolean
+     */
+    private $frame;
+
+    /**
+     * @var integer
+     */
+    private $backgroundwidth;
+
+    /**
+     * @var integer
+     */
+    private $backgroundheight;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set background
+     *
+     * @param string $background
+     * @return Container
+     */
+    public function setBackground($background)
+    {
+        $this->background = $background;
+
+        return $this;
+    }
+
+    /**
+     * Get background
+     *
+     * @return string 
+     */
     public function getBackground()
     {
         return $this->background;
     }
-    public function setBackground($value)
+
+    /**
+     * Set frame
+     *
+     * @param boolean $frame
+     * @return Container
+     */
+    public function setFrame($frame)
     {
-        $this->background = $value;
+        $this->frame = $frame;
+
+        return $this;
     }
 
     /**
-     * @var boolean
+     * Get frame
      *
-     * @ORM\Column(name="frame", type="boolean", nullable=false)
+     * @return boolean 
      */
-    private $frame;
-
     public function getFrame()
     {
         return $this->frame;
     }
-    public function setFrame($value)
+
+    /**
+     * Set backgroundwidth
+     *
+     * @param integer $backgroundwidth
+     * @return Container
+     */
+    public function setBackgroundwidth($backgroundwidth)
     {
-        $this->frame = $value;
+        $this->backgroundwidth = $backgroundwidth;
+
+        return $this;
     }
 
     /**
-     * @var integer
+     * Get backgroundwidth
      *
-     * @ORM\Column(name="backgroundwidth", type="integer", nullable=false)
+     * @return integer 
      */
-    private $backgroundwidth;
-
     public function getBackgroundwidth()
     {
         return $this->backgroundwidth;
     }
-    public function setBackgroundwidth($value)
+
+    /**
+     * Set backgroundheight
+     *
+     * @param integer $backgroundheight
+     * @return Container
+     */
+    public function setBackgroundheight($backgroundheight)
     {
-        $this->backgroundwidth = $value;
+        $this->backgroundheight = $backgroundheight;
+
+        return $this;
     }
 
     /**
-     * @var integer
+     * Get backgroundheight
      *
-     * @ORM\Column(name="backgroundheight", type="integer", nullable=false)
+     * @return integer 
      */
-    private $backgroundheight;
-
     public function getBackgroundheight()
     {
         return $this->backgroundheight;
     }
-    public function setBackgroundHeight($value)
-    {
-        $this->backgroundheight = $value;
-    }
-
-
 }

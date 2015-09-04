@@ -6,246 +6,414 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Pixlink
- *
- * @ORM\Table(name="PixLink")
- * @ORM\Entity
  */
 class Pixlink
 {
     /**
      * @var integer
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
-    /** ELEMENT START **/
     /**
      * @var integer
-     *
-     * @ORM\Column(name="width", type="integer", nullable=false)
      */
     private $width;
 
+    /**
+     * @var integer
+     */
+    private $height;
+
+    /**
+     * @var boolean
+     */
+    private $gluex;
+
+    /**
+     * @var boolean
+     */
+    private $gluey;
+
+    /**
+     * @var boolean
+     */
+    private $prevx;
+
+    /**
+     * @var boolean
+     */
+    private $prevy;
+
+    /**
+     * @var boolean
+     */
+    private $resetx;
+
+    /**
+     * @var boolean
+     */
+    private $resety;
+
+    /**
+     * @var boolean
+     */
+    private $drift;
+
+    /**
+     * @var boolean
+     */
+    private $gravity;
+
+    /**
+     * @var integer
+     */
+    private $offsetx;
+
+    /**
+     * @var integer
+     */
+    private $offsety;
+
+    /**
+     * @var string
+     */
+    private $pixclass;
+
+    /**
+     * @var \stdClass
+     */
+    private $pixreference;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set width
+     *
+     * @param integer $width
+     * @return Pixlink
+     */
+    public function setWidth($width)
+    {
+        $this->width = $width;
+
+        return $this;
+    }
+
+    /**
+     * Get width
+     *
+     * @return integer 
+     */
     public function getWidth()
     {
         return $this->width;
     }
-    public function setWidth($width)
+
+    /**
+     * Set height
+     *
+     * @param integer $height
+     * @return Pixlink
+     */
+    public function setHeight($height)
     {
-        $this->width = $width;
+        $this->height = $height;
+
+        return $this;
     }
 
     /**
-     * @var integer
+     * Get height
      *
-     * @ORM\Column(name="height", type="integer", nullable=false)
+     * @return integer 
      */
-    private $height;
-
     public function getHeight()
     {
         return $this->height;
     }
-    public function setHeight($height)
+
+    /**
+     * Set gluex
+     *
+     * @param boolean $gluex
+     * @return Pixlink
+     */
+    public function setGluex($gluex)
     {
-        $this->height=$height;
+        $this->gluex = $gluex;
+
+        return $this;
     }
 
     /**
-     * @var boolean
+     * Get gluex
      *
-     * @ORM\Column(name="gluex", type="boolean", nullable=false)
+     * @return boolean 
      */
-    private $gluex;
-
     public function getGluex()
     {
         return $this->gluex;
     }
-    public function setGluex($gluex)
+
+    /**
+     * Set gluey
+     *
+     * @param boolean $gluey
+     * @return Pixlink
+     */
+    public function setGluey($gluey)
     {
-        $this->gluex = $gluex;
+        $this->gluey = $gluey;
+
+        return $this;
     }
 
     /**
-     * @var boolean
+     * Get gluey
      *
-     * @ORM\Column(name="gluey", type="boolean", nullable=false)
+     * @return boolean 
      */
-    private $gluey;
-
     public function getGluey()
     {
         return $this->gluey;
     }
-    public function setGluey($gluey)
+
+    /**
+     * Set prevx
+     *
+     * @param boolean $prevx
+     * @return Pixlink
+     */
+    public function setPrevx($prevx)
     {
-        $this->gluey = $gluey;
+        $this->prevx = $prevx;
+
+        return $this;
     }
 
     /**
-     * @var boolean
+     * Get prevx
      *
-     * @ORM\Column(name="prevx", type="boolean", nullable=false)
+     * @return boolean 
      */
-    private $prevx;
-
     public function getPrevx()
     {
         return $this->prevx;
     }
-    public function setPrevx($prevx)
+
+    /**
+     * Set prevy
+     *
+     * @param boolean $prevy
+     * @return Pixlink
+     */
+    public function setPrevy($prevy)
     {
-        $this->prevx = $prevx;
+        $this->prevy = $prevy;
+
+        return $this;
     }
 
     /**
-     * @var boolean
+     * Get prevy
      *
-     * @ORM\Column(name="prevy", type="boolean", nullable=false)
+     * @return boolean 
      */
-    private $prevy;
-
     public function getPrevy()
     {
         return $this->prevy;
     }
-    public function setPrevy($value)
+
+    /**
+     * Set resetx
+     *
+     * @param boolean $resetx
+     * @return Pixlink
+     */
+    public function setResetx($resetx)
     {
-        $this->prevy=$value;
+        $this->resetx = $resetx;
+
+        return $this;
     }
 
     /**
-     * @var boolean
+     * Get resetx
      *
-     * @ORM\Column(name="resetx", type="boolean", nullable=false)
+     * @return boolean 
      */
-    private $resetx;
-
     public function getResetx()
     {
         return $this->resetx;
     }
-    public function setResetx($value)
+
+    /**
+     * Set resety
+     *
+     * @param boolean $resety
+     * @return Pixlink
+     */
+    public function setResety($resety)
     {
-        $this->resetx = $value;
+        $this->resety = $resety;
+
+        return $this;
     }
 
     /**
-     * @var boolean
+     * Get resety
      *
-     * @ORM\Column(name="resety", type="boolean", nullable=false)
+     * @return boolean 
      */
-    private $resety;
-
     public function getResety()
     {
-        return $this-resety;
-    }
-    public function setResety($value)
-    {
-        $this->resety=$value;
+        return $this->resety;
     }
 
     /**
-     * @var boolean
+     * Set drift
      *
-     * @ORM\Column(name="drift", type="boolean", nullable=false)
+     * @param boolean $drift
+     * @return Pixlink
      */
-    private $drift;
+    public function setDrift($drift)
+    {
+        $this->drift = $drift;
 
+        return $this;
+    }
+
+    /**
+     * Get drift
+     *
+     * @return boolean 
+     */
     public function getDrift()
     {
         return $this->drift;
     }
-    public function setDrift($value)
+
+    /**
+     * Set gravity
+     *
+     * @param boolean $gravity
+     * @return Pixlink
+     */
+    public function setGravity($gravity)
     {
-        $this->drift = $value;
+        $this->gravity = $gravity;
+
+        return $this;
     }
 
     /**
-     * @var boolean
+     * Get gravity
      *
-     * @ORM\Column(name="gravity", type="boolean", nullable=false)
+     * @return boolean 
      */
-    private $gravity;
-
     public function getGravity()
     {
         return $this->gravity;
     }
-    public function setGravity($value)
+
+    /**
+     * Set offsetx
+     *
+     * @param integer $offsetx
+     * @return Pixlink
+     */
+    public function setOffsetx($offsetx)
     {
-        $this->gravity = $value;
+        $this->offsetx = $offsetx;
+
+        return $this;
     }
 
     /**
-     * @var integer
+     * Get offsetx
      *
-     * @ORM\Column(name="offsetx", type="integer", nullable=false)
+     * @return integer 
      */
-    private $offsetx;
-
     public function getOffsetx()
     {
         return $this->offsetx;
     }
-    public function setOffsetx($value)
+
+    /**
+     * Set offsety
+     *
+     * @param integer $offsety
+     * @return Pixlink
+     */
+    public function setOffsety($offsety)
     {
-        $this->offsetx = $value;
+        $this->offsety = $offsety;
+
+        return $this;
     }
 
     /**
-     * @var integer
+     * Get offsety
      *
-     * @ORM\Column(name="offsety", type="integer", nullable=false)
+     * @return integer 
      */
-    private $offsety;
-
     public function getOffsety()
     {
         return $this->offsety;
     }
-    public function setOffsety($value)
-    {
-        $this->offsety = $value;
-    }
-    /** ELEMENT END **/
 
     /**
-     * @var string
+     * Set pixclass
      *
-     * @ORM\Column(name="pixclass", type="string", length=255, nullable=false)
+     * @param string $pixclass
+     * @return Pixlink
      */
-    private $pixclass;
+    public function setPixclass($pixclass)
+    {
+        $this->pixclass = $pixclass;
 
+        return $this;
+    }
+
+    /**
+     * Get pixclass
+     *
+     * @return string 
+     */
     public function getPixclass()
     {
         return $this->pixclass;
     }
-   
-    public function setPixclass($value)
+
+    /**
+     * Set pixreference
+     *
+     * @param \stdClass $pixreference
+     * @return Pixlink
+     */
+    public function setPixreference($pixreference)
     {
-        $this->pixclass = $value;
+        $this->pixreference = $pixreference;
+
+        return $this;
     }
 
     /**
-     * @var \stdClass
+     * Get pixreference
      *
-     * @ORM\Column(name="pixReference", type="object", nullable=false)
+     * @return \stdClass 
      */
-    private $pixreference;
-
     public function getPixreference()
     {
         return $this->pixreference;
     }
-    public function setPixreference($value)
-    {
-       $this->pixreference = $value;
-    }
-
 }

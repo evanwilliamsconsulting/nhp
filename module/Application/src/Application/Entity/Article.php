@@ -6,52 +6,78 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Article
- *
- * @ORM\Table(name="Article")
- * @ORM\Entity
  */
 class Article
 {
     /**
      * @var integer
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var integer
-     *
-     * @ORM\Column(name="columnSize", type="integer", nullable=false)
      */
     private $columnsize;
 
+    /**
+     * @var string
+     */
+    private $verbage;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set columnsize
+     *
+     * @param integer $columnsize
+     * @return Article
+     */
+    public function setColumnsize($columnsize)
+    {
+        $this->columnsize = $columnsize;
+
+        return $this;
+    }
+
+    /**
+     * Get columnsize
+     *
+     * @return integer 
+     */
     public function getColumnsize()
     {
         return $this->columnsize;
     }
-    public function setColumnsize($value)
+
+    /**
+     * Set verbage
+     *
+     * @param string $verbage
+     * @return Article
+     */
+    public function setVerbage($verbage)
     {
-        $this->columnsize = $value;
+        $this->verbage = $verbage;
+
+        return $this;
     }
 
     /**
-     * @var string
+     * Get verbage
      *
-     * @ORM\Column(name="verbage", type="string", length=255, nullable=false)
+     * @return string 
      */
-    private $verbage;
-
     public function getVerbage()
     {
         return $this->verbage;
     }
-    public function setVerbage($value)
-    {
-        $this->verbage = $value;
-    }
-
-
 }

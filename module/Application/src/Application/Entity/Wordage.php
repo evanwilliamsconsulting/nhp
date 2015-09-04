@@ -9,10 +9,8 @@ use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
 /**
- * Wordage
- *
- * @ORM\Table(name="Wordage")
  * @ORM\Entity
+ * @ORM\Table(name="Wordage")
  */
 class Wordage implements InputFilterAwareInterface
 {
@@ -32,30 +30,68 @@ class Wordage implements InputFilterAwareInterface
      */
     private $wordage;
 
+    /**
+     *
+     * @ORM\Column(name="columnSize", type="integer", length=255, nullable=false)
+     * @var integer
+     */
+    private $columnsize;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set wordage
+     *
+     * @param string $wordage
+     * @return Wordage
+     */
+    public function setWordage($wordage)
+    {
+        $this->wordage = $wordage;
+
+        return $this;
+    }
+
+    /**
+     * Get wordage
+     *
+     * @return string 
+     */
     public function getWordage()
     {
         return $this->wordage;
     }
-    public function setWordage($value)
+
+    /**
+     * Set columnsize
+     *
+     * @param integer $columnsize
+     * @return Wordage
+     */
+    public function setColumnsize($columnsize)
     {
-	$this->wordage = $value;
+        $this->columnsize = $columnsize;
+
+        return $this;
     }
 
     /**
-     * @var integer
+     * Get columnsize
      *
-     * @ORM\Column(name="columnSize", type="integer", nullable=false)
+     * @return integer 
      */
-    private $columnSize;
-
-    public function getColumnSize()
+    public function getColumnsize()
     {
-        return $this->columnSize;
-    }
-
-    public function setColumnSize($value)
-    {
-        $this->columnSize = $value;
+        return $this->columnsize;
     }
 
     protected $inputFilter;
@@ -66,31 +102,29 @@ class Wordage implements InputFilterAwareInterface
         $this->wordage = (isset($data['wordage'])) ? $data['wordage'] : null;
         $this->columnSize = (isset($data['columnSize'])) ? $data['columnSize'] : null;
     }
-    
     public function getInputFilter()
     {
         if (!$this->inputFilter) {
             $inputFilter = new InputFilter();
-    
 
             $inputFilter->add(array(
                 'name' => 'id',
                 'required' => false,
-	    ));
+            ));
 
             $inputFilter->add(array(
                 'name' => 'wordage',
                 'required' => false,
-	    ));
+            ));
+
             $inputFilter->add(array(
                 'name' => 'columnSize',
                 'required' => false,
-	    ));
-
-	   $this->inputFilter = $inputFilter;
+            ));
+ 
+            $this->inputFilter = $inputFilter;
         }
-       
-	return $this->inputFilter;
+        return $this->inputFilter;
     }
     public function setInputFilter(InputFilterInterface $inputFilter)
     {

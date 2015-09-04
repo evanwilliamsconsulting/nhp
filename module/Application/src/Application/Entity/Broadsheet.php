@@ -6,66 +6,106 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Broadsheet
- *
- * @ORM\Table(name="Broadsheet")
- * @ORM\Entity
  */
 class Broadsheet
 {
     /**
      * @var integer
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var integer
-     *
-     * @ORM\Column(name="pageNo", type="integer", nullable=false)
      */
     private $pageno;
 
-    public function getPageno()
-    {
-	return $this->pageno;
-    }
-    public function setPageno($value)
-    {
-        $this->pageno = $value;
-    }
-
     /**
      * @var integer
-     *
-     * @ORM\Column(name="pageWidth", type="integer", nullable=false)
      */
     private $pagewidth;
 
+    /**
+     * @var integer
+     */
+    private $pageheight;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set pageno
+     *
+     * @param integer $pageno
+     * @return Broadsheet
+     */
+    public function setPageno($pageno)
+    {
+        $this->pageno = $pageno;
+
+        return $this;
+    }
+
+    /**
+     * Get pageno
+     *
+     * @return integer 
+     */
+    public function getPageno()
+    {
+        return $this->pageno;
+    }
+
+    /**
+     * Set pagewidth
+     *
+     * @param integer $pagewidth
+     * @return Broadsheet
+     */
+    public function setPagewidth($pagewidth)
+    {
+        $this->pagewidth = $pagewidth;
+
+        return $this;
+    }
+
+    /**
+     * Get pagewidth
+     *
+     * @return integer 
+     */
     public function getPagewidth()
     {
         return $this->pagewidth;
     }
-    public function setPagewidth($value)
+
+    /**
+     * Set pageheight
+     *
+     * @param integer $pageheight
+     * @return Broadsheet
+     */
+    public function setPageheight($pageheight)
     {
-        $this->pagewidth = $value;
+        $this->pageheight = $pageheight;
+
+        return $this;
     }
 
     /**
-     * @var integer
+     * Get pageheight
      *
-     * @ORM\Column(name="pageHeight", type="integer", nullable=false)
+     * @return integer 
      */
-    private $pageheight;
-
     public function getPageheight()
     {
         return $this->pageheight;
-    }
-    public function setPageheight($value)
-    {
-	$this->pageheight = $value;        
     }
 }

@@ -6,148 +6,246 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Issue
- *
- * @ORM\Table(name="Issue")
- * @ORM\Entity
  */
 class Issue
 {
     /**
      * @var integer
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var \DateTime
-     *
-     * @ORM\Column(name="dateOfPublication", type="datetime", nullable=false)
      */
     private $dateofpublication;
 
+    /**
+     * @var boolean
+     */
+    private $toggledivtagson;
+
+    /**
+     * @var string
+     */
+    private $priceofcopy;
+
+    /**
+     * @var string
+     */
+    private $tagline;
+
+    /**
+     * @var string
+     */
+    private $qrimage;
+
+    /**
+     * @var string
+     */
+    private $headingtheme;
+
+    /**
+     * @var string
+     */
+    private $secondtheme;
+
+    /**
+     * @var string
+     */
+    private $brace;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set dateofpublication
+     *
+     * @param \DateTime $dateofpublication
+     * @return Issue
+     */
+    public function setDateofpublication($dateofpublication)
+    {
+        $this->dateofpublication = $dateofpublication;
+
+        return $this;
+    }
+
+    /**
+     * Get dateofpublication
+     *
+     * @return \DateTime 
+     */
     public function getDateofpublication()
     {
         return $this->dateofpublication;
     }
-    public function setDateofpublication($value)
+
+    /**
+     * Set toggledivtagson
+     *
+     * @param boolean $toggledivtagson
+     * @return Issue
+     */
+    public function setToggledivtagson($toggledivtagson)
     {
-        $this->dateofpublication = $value;
+        $this->toggledivtagson = $toggledivtagson;
+
+        return $this;
     }
 
     /**
-     * @var boolean
+     * Get toggledivtagson
      *
-     * @ORM\Column(name="toggleDivTagsOn", type="boolean", nullable=false)
+     * @return boolean 
      */
-    private $toggledivtagson;
-
     public function getToggledivtagson()
     {
         return $this->toggledivtagson;
     }
-    public function setToggledivtagson($value)
+
+    /**
+     * Set priceofcopy
+     *
+     * @param string $priceofcopy
+     * @return Issue
+     */
+    public function setPriceofcopy($priceofcopy)
     {
-        $this->toggledivtagson = $value;
+        $this->priceofcopy = $priceofcopy;
+
+        return $this;
     }
 
     /**
-     * @var string
+     * Get priceofcopy
      *
-     * @ORM\Column(name="priceOfCopy", type="decimal", precision=10, scale=0, nullable=false)
+     * @return string 
      */
-    private $priceofcopy;
-
     public function getPriceofcopy()
     {
         return $this->priceofcopy;
     }
-    public function setPriceofcopy($value)
+
+    /**
+     * Set tagline
+     *
+     * @param string $tagline
+     * @return Issue
+     */
+    public function setTagline($tagline)
     {
-        $this->priceofcopy = $value;
+        $this->tagline = $tagline;
+
+        return $this;
     }
 
     /**
-     * @var string
+     * Get tagline
      *
-     * @ORM\Column(name="tagLine", type="string", length=255, nullable=false)
+     * @return string 
      */
-    private $tagline;
-
     public function getTagline()
     {
         return $this->tagline;
     }
-    public function setTagline($value)
+
+    /**
+     * Set qrimage
+     *
+     * @param string $qrimage
+     * @return Issue
+     */
+    public function setQrimage($qrimage)
     {
-        $this->tagline = $value;
+        $this->qrimage = $qrimage;
+
+        return $this;
     }
 
     /**
-     * @var string
+     * Get qrimage
      *
-     * @ORM\Column(name="QRImage", type="blob", nullable=false)
+     * @return string 
      */
-    private $qrimage;
-
     public function getQrimage()
     {
         return $this->qrimage;
     }
-    public function setQrimage($value)
+
+    /**
+     * Set headingtheme
+     *
+     * @param string $headingtheme
+     * @return Issue
+     */
+    public function setHeadingtheme($headingtheme)
     {
-        $this->qrimage=$value;
+        $this->headingtheme = $headingtheme;
+
+        return $this;
     }
 
     /**
-     * @var string
+     * Get headingtheme
      *
-     * @ORM\Column(name="headingTheme", type="string", length=255, nullable=false)
+     * @return string 
      */
-    private $headingtheme;
-
     public function getHeadingtheme()
     {
-        return $this-headingtheme;
-    }
-    public function setHeadingtheme($value)
-    {
-        $this->headingtheme = $value;
+        return $this->headingtheme;
     }
 
     /**
-     * @var string
+     * Set secondtheme
      *
-     * @ORM\Column(name="secondTheme", type="string", length=255, nullable=false)
+     * @param string $secondtheme
+     * @return Issue
      */
-    private $secondtheme;
+    public function setSecondtheme($secondtheme)
+    {
+        $this->secondtheme = $secondtheme;
 
+        return $this;
+    }
+
+    /**
+     * Get secondtheme
+     *
+     * @return string 
+     */
     public function getSecondtheme()
     {
-         return $this->secondtheme;
-    }
-    public function setSecondtheme($value)
-    {
-         $this->secondtheme=$value;
+        return $this->secondtheme;
     }
 
     /**
-     * @var string
+     * Set brace
      *
-     * @ORM\Column(name="brace", type="string", length=255, nullable=false)
+     * @param string $brace
+     * @return Issue
      */
-    private $brace;
+    public function setBrace($brace)
+    {
+        $this->brace = $brace;
 
+        return $this;
+    }
+
+    /**
+     * Get brace
+     *
+     * @return string 
+     */
     public function getBrace()
     {
-         return $this->brace;
+        return $this->brace;
     }
-    public function setBrace($value)
-    {
-        $this->brace = $value;
-    }
-
-
 }

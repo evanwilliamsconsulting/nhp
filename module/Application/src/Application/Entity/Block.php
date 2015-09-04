@@ -6,36 +6,50 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Block
- *
- * @ORM\Table(name="Block")
- * @ORM\Entity
  */
 class Block
 {
     /**
      * @var integer
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var \stdClass
-     *
-     * @ORM\Column(name="containerReference", type="object", nullable=false)
      */
     private $containerreference;
 
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set containerreference
+     *
+     * @param \stdClass $containerreference
+     * @return Block
+     */
+    public function setContainerreference($containerreference)
+    {
+        $this->containerreference = $containerreference;
+
+        return $this;
+    }
+
+    /**
+     * Get containerreference
+     *
+     * @return \stdClass 
+     */
     public function getContainerreference()
     {
-       return $this->containerreference;
+        return $this->containerreference;
     }
-    public function setContainerreference($value)
-    {
-       $this->containerreference = $value
-    }
-
-
 }

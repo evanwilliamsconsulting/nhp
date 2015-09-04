@@ -5,102 +5,163 @@
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Picture
- *
- * @ORM\Table(name="Pix")
- * @ORM\Entity
+ * Pix
  */
 class Pix
 {
     /**
      * @var integer
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="caption", type="string", length=255, nullable=false)
      */
     private $caption;
 
+    /**
+     * @var string
+     */
+    private $credit;
+
+    /**
+     * @var string
+     */
+    private $picture;
+
+    /**
+     * @var integer
+     */
+    private $width;
+
+    /**
+     * @var integer
+     */
+    private $height;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set caption
+     *
+     * @param string $caption
+     * @return Pix
+     */
+    public function setCaption($caption)
+    {
+        $this->caption = $caption;
+
+        return $this;
+    }
+
+    /**
+     * Get caption
+     *
+     * @return string 
+     */
     public function getCaption()
     {
         return $this->caption;
     }
 
-    public function setCaption($value)
+    /**
+     * Set credit
+     *
+     * @param string $credit
+     * @return Pix
+     */
+    public function setCredit($credit)
     {
-        $this->caption = $value;
+        $this->credit = $credit;
+
+        return $this;
     }
 
     /**
-     * @var string
+     * Get credit
      *
-     * @ORM\Column(name="credit", type="string", length=255, nullable=false)
+     * @return string 
      */
-    private $credit;
-
     public function getCredit()
     {
         return $this->credit;
     }
 
-    public function setCredit($value)
+    /**
+     * Set picture
+     *
+     * @param string $picture
+     * @return Pix
+     */
+    public function setPicture($picture)
     {
-        $this->credit=$value;
+        $this->picture = $picture;
+
+        return $this;
     }
 
     /**
-     * @var string
+     * Get picture
      *
-     * @ORM\Column(name="picture", type="blob", nullable=false)
+     * @return string 
      */
-    private $picture;
-
     public function getPicture()
     {
-         return $this->picture;
-    }
-    
-    public function setPicture($value)
-    {
-         $this->picture = $value;
+        return $this->picture;
     }
 
     /**
-     * @var integer
+     * Set width
      *
-     * @ORM\Column(name="width", type="integer", nullable=false)
+     * @param integer $width
+     * @return Pix
      */
-    private $width;
+    public function setWidth($width)
+    {
+        $this->width = $width;
 
+        return $this;
+    }
+
+    /**
+     * Get width
+     *
+     * @return integer 
+     */
     public function getWidth()
     {
         return $this->width;
     }
-    public function setWidth($value)
-    {
-        $this->width = $value
-    } 
+
     /**
-     * @var integer
+     * Set height
      *
-     * @ORM\Column(name="height", type="integer", nullable=false)
+     * @param integer $height
+     * @return Pix
      */
-    private $height;
-   
+    public function setHeight($height)
+    {
+        $this->height = $height;
+
+        return $this;
+    }
+
+    /**
+     * Get height
+     *
+     * @return integer 
+     */
     public function getHeight()
     {
         return $this->height;
     }
-    public function setHeight($value)
-    {
-        $this->height = $value;
-    }
-
 }

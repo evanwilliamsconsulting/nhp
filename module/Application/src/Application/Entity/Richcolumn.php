@@ -6,385 +6,666 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Richcolumn
- *
- * @ORM\Table(name="RichColumn")
- * @ORM\Entity
  */
 class Richcolumn
 {
     /**
      * @var integer
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
-    /** ELEMENT START **/
-
     /**
      * @var integer
-     *
-     * @ORM\Column(name="width", type="integer", nullable=false)
      */
     private $width;
 
+    /**
+     * @var integer
+     */
+    private $height;
+
+    /**
+     * @var boolean
+     */
+    private $gluex;
+
+    /**
+     * @var boolean
+     */
+    private $gluey;
+
+    /**
+     * @var boolean
+     */
+    private $prevx;
+
+    /**
+     * @var boolean
+     */
+    private $prevy;
+
+    /**
+     * @var boolean
+     */
+    private $resetx;
+
+    /**
+     * @var boolean
+     */
+    private $resety;
+
+    /**
+     * @var boolean
+     */
+    private $drift;
+
+    /**
+     * @var boolean
+     */
+    private $gravity;
+
+    /**
+     * @var integer
+     */
+    private $offsetx;
+
+    /**
+     * @var integer
+     */
+    private $offsety;
+
+    /**
+     * @var \stdClass
+     */
+    private $article;
+
+    /**
+     * @var integer
+     */
+    private $startline;
+
+    /**
+     * @var integer
+     */
+    private $endline;
+
+    /**
+     * @var boolean
+     */
+    private $useremainder;
+
+    /**
+     * @var boolean
+     */
+    private $usecontinuedon;
+
+    /**
+     * @var string
+     */
+    private $continuedon;
+
+    /**
+     * @var boolean
+     */
+    private $usecontinuedfrom;
+
+    /**
+     * @var string
+     */
+    private $continuedfrom;
+
+    /**
+     * @var integer
+     */
+    private $charsperline;
+
+    /**
+     * @var string
+     */
+    private $textclass;
+
+    /**
+     * @var boolean
+     */
+    private $addlineheight;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set width
+     *
+     * @param integer $width
+     * @return Richcolumn
+     */
+    public function setWidth($width)
+    {
+        $this->width = $width;
+
+        return $this;
+    }
+
+    /**
+     * Get width
+     *
+     * @return integer 
+     */
     public function getWidth()
     {
         return $this->width;
     }
-    public function setWidth($width)
+
+    /**
+     * Set height
+     *
+     * @param integer $height
+     * @return Richcolumn
+     */
+    public function setHeight($height)
     {
-        $this->width = $width;
+        $this->height = $height;
+
+        return $this;
     }
 
     /**
-     * @var integer
+     * Get height
      *
-     * @ORM\Column(name="height", type="integer", nullable=false)
+     * @return integer 
      */
-    private $height;
-
     public function getHeight()
     {
         return $this->height;
     }
-    public function setHeight($height)
+
+    /**
+     * Set gluex
+     *
+     * @param boolean $gluex
+     * @return Richcolumn
+     */
+    public function setGluex($gluex)
     {
-        $this->height=$height;
+        $this->gluex = $gluex;
+
+        return $this;
     }
 
     /**
-     * @var boolean
+     * Get gluex
      *
-     * @ORM\Column(name="gluex", type="boolean", nullable=false)
+     * @return boolean 
      */
-    private $gluex;
-
     public function getGluex()
     {
         return $this->gluex;
     }
-    public function setGluex($gluex)
+
+    /**
+     * Set gluey
+     *
+     * @param boolean $gluey
+     * @return Richcolumn
+     */
+    public function setGluey($gluey)
     {
-        $this->gluex = $gluex;
+        $this->gluey = $gluey;
+
+        return $this;
     }
 
     /**
-     * @var boolean
+     * Get gluey
      *
-     * @ORM\Column(name="gluey", type="boolean", nullable=false)
+     * @return boolean 
      */
-    private $gluey;
-
     public function getGluey()
     {
         return $this->gluey;
     }
-    public function setGluey($gluey)
+
+    /**
+     * Set prevx
+     *
+     * @param boolean $prevx
+     * @return Richcolumn
+     */
+    public function setPrevx($prevx)
     {
-        $this->gluey = $gluey;
+        $this->prevx = $prevx;
+
+        return $this;
     }
 
     /**
-     * @var boolean
+     * Get prevx
      *
-     * @ORM\Column(name="prevx", type="boolean", nullable=false)
+     * @return boolean 
      */
-    private $prevx;
-
     public function getPrevx()
     {
         return $this->prevx;
     }
-    public function setPrevx($prevx)
+
+    /**
+     * Set prevy
+     *
+     * @param boolean $prevy
+     * @return Richcolumn
+     */
+    public function setPrevy($prevy)
     {
-        $this->prevx = $prevx;
+        $this->prevy = $prevy;
+
+        return $this;
     }
 
     /**
-     * @var boolean
+     * Get prevy
      *
-     * @ORM\Column(name="prevy", type="boolean", nullable=false)
+     * @return boolean 
      */
-    private $prevy;
-
     public function getPrevy()
     {
         return $this->prevy;
     }
-    public function setPrevy($value)
+
+    /**
+     * Set resetx
+     *
+     * @param boolean $resetx
+     * @return Richcolumn
+     */
+    public function setResetx($resetx)
     {
-        $this->prevy=$value;
+        $this->resetx = $resetx;
+
+        return $this;
     }
 
     /**
-     * @var boolean
+     * Get resetx
      *
-     * @ORM\Column(name="resetx", type="boolean", nullable=false)
+     * @return boolean 
      */
-    private $resetx;
-
     public function getResetx()
     {
         return $this->resetx;
     }
-    public function setResetx($value)
+
+    /**
+     * Set resety
+     *
+     * @param boolean $resety
+     * @return Richcolumn
+     */
+    public function setResety($resety)
     {
-        $this->resetx = $value;
+        $this->resety = $resety;
+
+        return $this;
     }
 
     /**
-     * @var boolean
+     * Get resety
      *
-     * @ORM\Column(name="resety", type="boolean", nullable=false)
+     * @return boolean 
      */
-    private $resety;
-
     public function getResety()
     {
-        return $this-resety;
-    }
-    public function setResety($value)
-    {
-        $this->resety=$value;
+        return $this->resety;
     }
 
     /**
-     * @var boolean
+     * Set drift
      *
-     * @ORM\Column(name="drift", type="boolean", nullable=false)
+     * @param boolean $drift
+     * @return Richcolumn
      */
-    private $drift;
+    public function setDrift($drift)
+    {
+        $this->drift = $drift;
 
+        return $this;
+    }
+
+    /**
+     * Get drift
+     *
+     * @return boolean 
+     */
     public function getDrift()
     {
         return $this->drift;
     }
-    public function setDrift($value)
+
+    /**
+     * Set gravity
+     *
+     * @param boolean $gravity
+     * @return Richcolumn
+     */
+    public function setGravity($gravity)
     {
-        $this->drift = $value;
+        $this->gravity = $gravity;
+
+        return $this;
     }
 
     /**
-     * @var boolean
+     * Get gravity
      *
-     * @ORM\Column(name="gravity", type="boolean", nullable=false)
+     * @return boolean 
      */
-    private $gravity;
-
     public function getGravity()
     {
         return $this->gravity;
     }
-    public function setGravity($value)
+
+    /**
+     * Set offsetx
+     *
+     * @param integer $offsetx
+     * @return Richcolumn
+     */
+    public function setOffsetx($offsetx)
     {
-        $this->gravity = $value;
+        $this->offsetx = $offsetx;
+
+        return $this;
     }
 
     /**
-     * @var integer
+     * Get offsetx
      *
-     * @ORM\Column(name="offsetx", type="integer", nullable=false)
+     * @return integer 
      */
-    private $offsetx;
-
     public function getOffsetx()
     {
         return $this->offsetx;
     }
-    public function setOffsetx($value)
+
+    /**
+     * Set offsety
+     *
+     * @param integer $offsety
+     * @return Richcolumn
+     */
+    public function setOffsety($offsety)
     {
-        $this->offsetx = $value;
+        $this->offsety = $offsety;
+
+        return $this;
     }
 
     /**
-     * @var integer
+     * Get offsety
      *
-     * @ORM\Column(name="offsety", type="integer", nullable=false)
+     * @return integer 
      */
-    private $offsety;
-
     public function getOffsety()
     {
         return $this->offsety;
     }
-    public function setOffsety($value)
-    {
-        $this->offsety = $value;
-    }
-    /** ELEMENT END **/
-    /**
-     * @var \stdClass
-     *
-     * @ORM\Column(name="article", type="object", nullable=false)
-     */
-    private $article;
 
-    public getArticle()
+    /**
+     * Set article
+     *
+     * @param \stdClass $article
+     * @return Richcolumn
+     */
+    public function setArticle($article)
     {
-	return $this->article;
-    }
-    public setArticle($value)
-    {
-       $this->article = $value;
+        $this->article = $article;
+
+        return $this;
     }
 
     /**
-     * @var integer
+     * Get article
      *
-     * @ORM\Column(name="startLine", type="integer", nullable=false)
+     * @return \stdClass 
      */
-    private $startline;
+    public function getArticle()
+    {
+        return $this->article;
+    }
+
+    /**
+     * Set startline
+     *
+     * @param integer $startline
+     * @return Richcolumn
+     */
+    public function setStartline($startline)
+    {
+        $this->startline = $startline;
+
+        return $this;
+    }
+
+    /**
+     * Get startline
+     *
+     * @return integer 
+     */
     public function getStartline()
     {
         return $this->startline;
     }
-    public function setStartline($value)
+
+    /**
+     * Set endline
+     *
+     * @param integer $endline
+     * @return Richcolumn
+     */
+    public function setEndline($endline)
     {
-        $this->startline = $value;
+        $this->endline = $endline;
+
+        return $this;
     }
 
     /**
-     * @var integer
+     * Get endline
      *
-     * @ORM\Column(name="endLine", type="integer", nullable=false)
+     * @return integer 
      */
-    private $endline;
-    public function getEndLine()
+    public function getEndline()
     {
         return $this->endline;
     }
-    public function setEndline($value)
+
+    /**
+     * Set useremainder
+     *
+     * @param boolean $useremainder
+     * @return Richcolumn
+     */
+    public function setUseremainder($useremainder)
     {
-        $this->endline=$Value;
+        $this->useremainder = $useremainder;
+
+        return $this;
     }
 
     /**
-     * @var boolean
+     * Get useremainder
      *
-     * @ORM\Column(name="useRemainder", type="boolean", nullable=false)
+     * @return boolean 
      */
-    private $useremainder;
     public function getUseremainder()
     {
         return $this->useremainder;
     }
-    public function setUseremainder($value)
+
+    /**
+     * Set usecontinuedon
+     *
+     * @param boolean $usecontinuedon
+     * @return Richcolumn
+     */
+    public function setUsecontinuedon($usecontinuedon)
     {
-        $this->useremainder = $value;
+        $this->usecontinuedon = $usecontinuedon;
+
+        return $this;
     }
 
     /**
-     * @var boolean
+     * Get usecontinuedon
      *
-     * @ORM\Column(name="useContinuedOn", type="boolean", nullable=false)
+     * @return boolean 
      */
-    private $usecontinuedon;
-    public function setUsecontinuedon($value)
-    {
-        $this->usecontinuedon = $value;
-    }
     public function getUsecontinuedon()
     {
         return $this->usecontinuedon;
     }
 
     /**
-     * @var string
+     * Set continuedon
      *
-     * @ORM\Column(name="continuedOn", type="string", length=255, nullable=false)
+     * @param string $continuedon
+     * @return Richcolumn
      */
-    private $continuedon;
-    public function setContinuedOn($value)
+    public function setContinuedon($continuedon)
     {
-        $this->continuedon = $value;
-    ]
-    public function getContinuedOn()
-    {
-        return $value;
+        $this->continuedon = $continuedon;
+
+        return $this;
     }
 
     /**
-     * @var boolean
+     * Get continuedon
      *
-     * @ORM\Column(name="useContinuedFrom", type="boolean", nullable=false)
+     * @return string 
      */
-    private $usecontinuedfrom;
-
-    public function setUsecontinuedfrom($value)
+    public function getContinuedon()
     {
-        $this->usecontinuedfrom = $value;
+        return $this->continuedon;
     }
+
+    /**
+     * Set usecontinuedfrom
+     *
+     * @param boolean $usecontinuedfrom
+     * @return Richcolumn
+     */
+    public function setUsecontinuedfrom($usecontinuedfrom)
+    {
+        $this->usecontinuedfrom = $usecontinuedfrom;
+
+        return $this;
+    }
+
+    /**
+     * Get usecontinuedfrom
+     *
+     * @return boolean 
+     */
     public function getUsecontinuedfrom()
     {
         return $this->usecontinuedfrom;
     }
 
     /**
-     * @var string
+     * Set continuedfrom
      *
-     * @ORM\Column(name="continuedFrom", type="string", length=255, nullable=false)
+     * @param string $continuedfrom
+     * @return Richcolumn
      */
-    private $continuedfrom;
+    public function setContinuedfrom($continuedfrom)
+    {
+        $this->continuedfrom = $continuedfrom;
 
-    public function setContinuedFrom($value)
-    {
-        $this->continuedFrom = $value;
-    }
-    public function getContinuedFrom()
-    {
-        return $this->continuedFrom;
+        return $this;
     }
 
     /**
-     * @var integer
+     * Get continuedfrom
      *
-     * @ORM\Column(name="charsPerLine", type="integer", nullable=false)
+     * @return string 
      */
-    private $charsperline;
+    public function getContinuedfrom()
+    {
+        return $this->continuedfrom;
+    }
 
+    /**
+     * Set charsperline
+     *
+     * @param integer $charsperline
+     * @return Richcolumn
+     */
+    public function setCharsperline($charsperline)
+    {
+        $this->charsperline = $charsperline;
+
+        return $this;
+    }
+
+    /**
+     * Get charsperline
+     *
+     * @return integer 
+     */
     public function getCharsperline()
     {
         return $this->charsperline;
     }
-    public function setCharsperline($value);
+
+    /**
+     * Set textclass
+     *
+     * @param string $textclass
+     * @return Richcolumn
+     */
+    public function setTextclass($textclass)
     {
-        $this->charsperline = $value;
+        $this->textclass = $textclass;
+
+        return $this;
     }
 
     /**
-     * @var string
+     * Get textclass
      *
-     * @ORM\Column(name="textClass", type="string", length=255, nullable=false)
+     * @return string 
      */
-    private $textclass;
- 
     public function getTextclass()
     {
         return $this->textclass;
     }
-    public function setTextclass($value)
+
+    /**
+     * Set addlineheight
+     *
+     * @param boolean $addlineheight
+     * @return Richcolumn
+     */
+    public function setAddlineheight($addlineheight)
     {
-        $this->textclass = $value;
+        $this->addlineheight = $addlineheight;
+
+        return $this;
     }
 
     /**
-     * @var boolean
+     * Get addlineheight
      *
-     * @ORM\Column(name="addLineHeight", type="boolean", nullable=false)
+     * @return boolean 
      */
-    private $addlineheight;
-   
     public function getAddlineheight()
     {
         return $this->addlineheight;
     }
-    public function setAddlineheight($value)
-    {
-        $this->addlineheight = $value;
-    }
-
-
 }

@@ -1,313 +1,531 @@
 <?php
 
-namespace Application\Entity;
+
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Headline
- *
- * @ORM\Table(name="Headline")
- * @ORM\Entity
  */
 class Headline
 {
     /**
      * @var integer
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var integer
-     *
-     * @ORM\Column(name="width", type="integer", nullable=false)
      */
     private $width;
 
+    /**
+     * @var integer
+     */
+    private $height;
+
+    /**
+     * @var boolean
+     */
+    private $gluex;
+
+    /**
+     * @var boolean
+     */
+    private $gluey;
+
+    /**
+     * @var boolean
+     */
+    private $prevx;
+
+    /**
+     * @var boolean
+     */
+    private $prevy;
+
+    /**
+     * @var boolean
+     */
+    private $resetx;
+
+    /**
+     * @var boolean
+     */
+    private $resety;
+
+    /**
+     * @var boolean
+     */
+    private $drift;
+
+    /**
+     * @var boolean
+     */
+    private $gravity;
+
+    /**
+     * @var integer
+     */
+    private $offsetx;
+
+    /**
+     * @var integer
+     */
+    private $offsety;
+
+    /**
+     * @var string
+     */
+    private $headline;
+
+    /**
+     * @var string
+     */
+    private $topline;
+
+    /**
+     * @var boolean
+     */
+    private $usetopline;
+
+    /**
+     * @var integer
+     */
+    private $fontsize;
+
+    /**
+     * @var string
+     */
+    private $headlineclass;
+
+    /**
+     * @var boolean
+     */
+    private $italic;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set width
+     *
+     * @param integer $width
+     * @return Headline
+     */
+    public function setWidth($width)
+    {
+        $this->width = $width;
+
+        return $this;
+    }
+
+    /**
+     * Get width
+     *
+     * @return integer 
+     */
     public function getWidth()
     {
         return $this->width;
     }
-    public function setWidth($width)
+
+    /**
+     * Set height
+     *
+     * @param integer $height
+     * @return Headline
+     */
+    public function setHeight($height)
     {
-        $this->width = $width;
+        $this->height = $height;
+
+        return $this;
     }
 
     /**
-     * @var integer
+     * Get height
      *
-     * @ORM\Column(name="height", type="integer", nullable=false)
+     * @return integer 
      */
-    private $height;
-
     public function getHeight()
     {
         return $this->height;
     }
-    public function setHeight($height)
+
+    /**
+     * Set gluex
+     *
+     * @param boolean $gluex
+     * @return Headline
+     */
+    public function setGluex($gluex)
     {
-        $this->height=$height;
+        $this->gluex = $gluex;
+
+        return $this;
     }
 
     /**
-     * @var boolean
+     * Get gluex
      *
-     * @ORM\Column(name="gluex", type="boolean", nullable=false)
+     * @return boolean 
      */
-    private $gluex;
-
     public function getGluex()
     {
         return $this->gluex;
     }
-    public function setGluex($gluex)
+
+    /**
+     * Set gluey
+     *
+     * @param boolean $gluey
+     * @return Headline
+     */
+    public function setGluey($gluey)
     {
-        $this->gluex = $gluex;
+        $this->gluey = $gluey;
+
+        return $this;
     }
 
     /**
-     * @var boolean
+     * Get gluey
      *
-     * @ORM\Column(name="gluey", type="boolean", nullable=false)
+     * @return boolean 
      */
-    private $gluey;
-
     public function getGluey()
     {
         return $this->gluey;
     }
-    public function setGluey($gluey)
+
+    /**
+     * Set prevx
+     *
+     * @param boolean $prevx
+     * @return Headline
+     */
+    public function setPrevx($prevx)
     {
-        $this->gluey = $gluey;
+        $this->prevx = $prevx;
+
+        return $this;
     }
 
     /**
-     * @var boolean
+     * Get prevx
      *
-     * @ORM\Column(name="prevx", type="boolean", nullable=false)
+     * @return boolean 
      */
-    private $prevx;
-
     public function getPrevx()
     {
         return $this->prevx;
     }
-    public function setPrevx($prevx)
+
+    /**
+     * Set prevy
+     *
+     * @param boolean $prevy
+     * @return Headline
+     */
+    public function setPrevy($prevy)
     {
-        $this->prevx = $prevx;
+        $this->prevy = $prevy;
+
+        return $this;
     }
 
     /**
-     * @var boolean
+     * Get prevy
      *
-     * @ORM\Column(name="prevy", type="boolean", nullable=false)
+     * @return boolean 
      */
-    private $prevy;
-
     public function getPrevy()
     {
         return $this->prevy;
     }
-    public function setPrevy($value)
+
+    /**
+     * Set resetx
+     *
+     * @param boolean $resetx
+     * @return Headline
+     */
+    public function setResetx($resetx)
     {
-        $this->prevy=$value;
+        $this->resetx = $resetx;
+
+        return $this;
     }
 
     /**
-     * @var boolean
+     * Get resetx
      *
-     * @ORM\Column(name="resetx", type="boolean", nullable=false)
+     * @return boolean 
      */
-    private $resetx;
-
     public function getResetx()
     {
         return $this->resetx;
     }
-    public function setResetx($value)
+
+    /**
+     * Set resety
+     *
+     * @param boolean $resety
+     * @return Headline
+     */
+    public function setResety($resety)
     {
-        $this->resetx = $value;
+        $this->resety = $resety;
+
+        return $this;
     }
 
     /**
-     * @var boolean
+     * Get resety
      *
-     * @ORM\Column(name="resety", type="boolean", nullable=false)
+     * @return boolean 
      */
-    private $resety;
-
     public function getResety()
     {
-        return $this-resety;
-    }
-    public function setResety($value)
-    {
-        $this->resety=$value;
+        return $this->resety;
     }
 
     /**
-     * @var boolean
+     * Set drift
      *
-     * @ORM\Column(name="drift", type="boolean", nullable=false)
+     * @param boolean $drift
+     * @return Headline
      */
-    private $drift;
+    public function setDrift($drift)
+    {
+        $this->drift = $drift;
 
+        return $this;
+    }
+
+    /**
+     * Get drift
+     *
+     * @return boolean 
+     */
     public function getDrift()
     {
         return $this->drift;
     }
-    public function setDrift($value)
+
+    /**
+     * Set gravity
+     *
+     * @param boolean $gravity
+     * @return Headline
+     */
+    public function setGravity($gravity)
     {
-        $this->drift = $value;
+        $this->gravity = $gravity;
+
+        return $this;
     }
 
     /**
-     * @var boolean
+     * Get gravity
      *
-     * @ORM\Column(name="gravity", type="boolean", nullable=false)
+     * @return boolean 
      */
-    private $gravity;
-
     public function getGravity()
     {
         return $this->gravity;
     }
-    public function setGravity($value)
+
+    /**
+     * Set offsetx
+     *
+     * @param integer $offsetx
+     * @return Headline
+     */
+    public function setOffsetx($offsetx)
     {
-        $this->gravity = $value;
+        $this->offsetx = $offsetx;
+
+        return $this;
     }
 
     /**
-     * @var integer
+     * Get offsetx
      *
-     * @ORM\Column(name="offsetx", type="integer", nullable=false)
+     * @return integer 
      */
-    private $offsetx;
-
     public function getOffsetx()
     {
         return $this->offsetx;
     }
-    public function setOffsetx($value)
+
+    /**
+     * Set offsety
+     *
+     * @param integer $offsety
+     * @return Headline
+     */
+    public function setOffsety($offsety)
     {
-        $this->offsetx = $value;
+        $this->offsety = $offsety;
+
+        return $this;
     }
 
     /**
-     * @var integer
+     * Get offsety
      *
-     * @ORM\Column(name="offsety", type="integer", nullable=false)
+     * @return integer 
      */
-    private $offsety;
-
     public function getOffsety()
     {
         return $this->offsety;
     }
-    public function setOffsety($value)
+
+    /**
+     * Set headline
+     *
+     * @param string $headline
+     * @return Headline
+     */
+    public function setHeadline($headline)
     {
-        $this->offsety = $value;
+        $this->headline = $headline;
+
+        return $this;
     }
 
     /**
-     * @var string
+     * Get headline
      *
-     * @ORM\Column(name="headline", type="string", length=255, nullable=false)
+     * @return string 
      */
-    private $headline;
-
     public function getHeadline()
     {
         return $this->headline;
     }
-    public function setHeadline($headline)
+
+    /**
+     * Set topline
+     *
+     * @param string $topline
+     * @return Headline
+     */
+    public function setTopline($topline)
     {
-	$this->headline=$headline;
+        $this->topline = $topline;
+
+        return $this;
     }
 
     /**
-     * @var string
+     * Get topline
      *
-     * @ORM\Column(name="topline", type="string", length=255, nullable=false)
+     * @return string 
      */
-    private $topline;
-
     public function getTopline()
     {
         return $this->topline;
-    } 
-    public function setTopline($value)
-    {
-        $this->topline = $value;
     }
 
     /**
-     * @var boolean
+     * Set usetopline
      *
-     * @ORM\Column(name="usetopline", type="boolean", nullable=false)
+     * @param boolean $usetopline
+     * @return Headline
      */
-    private $usetopline;
+    public function setUsetopline($usetopline)
+    {
+        $this->usetopline = $usetopline;
 
+        return $this;
+    }
+
+    /**
+     * Get usetopline
+     *
+     * @return boolean 
+     */
     public function getUsetopline()
     {
         return $this->usetopline;
     }
-    public function setUsetopline($value)
+
+    /**
+     * Set fontsize
+     *
+     * @param integer $fontsize
+     * @return Headline
+     */
+    public function setFontsize($fontsize)
     {
-       $this->usetopline = $value;
+        $this->fontsize = $fontsize;
+
+        return $this;
     }
 
     /**
-     * @var integer
+     * Get fontsize
      *
-     * @ORM\Column(name="fontsize", type="integer", nullable=false)
+     * @return integer 
      */
-    private $fontsize;
-
     public function getFontsize()
     {
         return $this->fontsize;
     }
-    public function setFontsize($value)
+
+    /**
+     * Set headlineclass
+     *
+     * @param string $headlineclass
+     * @return Headline
+     */
+    public function setHeadlineclass($headlineclass)
     {
-        $this->fontsize = $value;
+        $this->headlineclass = $headlineclass;
+
+        return $this;
     }
 
     /**
-     * @var string
+     * Get headlineclass
      *
-     * @ORM\Column(name="headlineclass", type="string", length=255, nullable=false)
+     * @return string 
      */
-    private $headlineclass;
-
     public function getHeadlineclass()
     {
         return $this->headlineclass;
     }
-    public function setHeadlineclass($value)
+
+    /**
+     * Set italic
+     *
+     * @param boolean $italic
+     * @return Headline
+     */
+    public function setItalic($italic)
     {
-        $this->headlineclass = $value;
+        $this->italic = $italic;
+
+        return $this;
     }
 
     /**
-     * @var boolean
+     * Get italic
      *
-     * @ORM\Column(name="italic", type="boolean", nullable=false)
+     * @return boolean 
      */
-    private $italic;
-
     public function getItalic()
     {
         return $this->italic;
     }
-    public function setItalic($value)
-    {
-        $this->italic = $value;
-    }
-
-
 }
