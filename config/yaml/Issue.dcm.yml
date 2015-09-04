@@ -1,0 +1,65 @@
+Issue:
+    type: entity
+    table: Issue
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        dateofpublication:
+            type: datetime
+            nullable: false
+            comment: ''
+            column: dateOfPublication
+        toggledivtagson:
+            type: boolean
+            nullable: false
+            comment: ''
+            column: toggleDivTagsOn
+        priceofcopy:
+            type: decimal
+            nullable: false
+            precision: 10
+            scale: 0
+            comment: ''
+            column: priceOfCopy
+        tagline:
+            type: string
+            nullable: false
+            length: 255
+            fixed: false
+            comment: ''
+            column: tagLine
+        qrimage:
+            type: blob
+            nullable: false
+            length: null
+            fixed: false
+            comment: ''
+            column: QRImage
+        headingtheme:
+            type: string
+            nullable: false
+            length: 255
+            fixed: false
+            comment: ''
+            column: headingTheme
+        secondtheme:
+            type: string
+            nullable: false
+            length: 255
+            fixed: false
+            comment: ''
+            column: secondTheme
+        brace:
+            type: string
+            nullable: false
+            length: 255
+            fixed: false
+            comment: ''
+    lifecycleCallbacks: {  }

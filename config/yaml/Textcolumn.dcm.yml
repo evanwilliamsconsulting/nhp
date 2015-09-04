@@ -1,0 +1,131 @@
+Textcolumn:
+    type: entity
+    table: TextColumn
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        width:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+        height:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+        gluex:
+            type: boolean
+            nullable: false
+            comment: ''
+        gluey:
+            type: boolean
+            nullable: false
+            comment: ''
+        prevx:
+            type: boolean
+            nullable: false
+            comment: ''
+        prevy:
+            type: boolean
+            nullable: false
+            comment: ''
+        resetx:
+            type: boolean
+            nullable: false
+            comment: ''
+        resety:
+            type: boolean
+            nullable: false
+            comment: ''
+        drift:
+            type: boolean
+            nullable: false
+            comment: ''
+        gravity:
+            type: boolean
+            nullable: false
+            comment: ''
+        offsetx:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+        offsety:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+        startline:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            column: startLine
+        endline:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            column: endLine
+        fontsize:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            column: fontSize
+        useremainder:
+            type: boolean
+            nullable: false
+            comment: ''
+            column: useRemainder
+        usecontinuedon:
+            type: boolean
+            nullable: false
+            comment: ''
+            column: useContinuedOn
+        usecontinuedfrom:
+            type: boolean
+            nullable: false
+            comment: ''
+            column: useContinuedFrom
+        continuedon:
+            type: string
+            nullable: false
+            length: 255
+            fixed: false
+            comment: ''
+            column: continuedOn
+        continuedfrom:
+            type: string
+            nullable: false
+            length: 255
+            fixed: false
+            comment: ''
+            column: continuedFrom
+        charsperline:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            column: charsPerLine
+        textclass:
+            type: string
+            nullable: false
+            length: 255
+            fixed: false
+            comment: ''
+        wordage:
+            type: object
+            nullable: false
+            length: null
+            fixed: false
+            comment: ''
+    lifecycleCallbacks: {  }

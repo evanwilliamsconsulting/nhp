@@ -1,0 +1,26 @@
+Wordage:
+    type: entity
+    table: Wordage
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        wordage:
+            type: string
+            nullable: false
+            length: 255
+            fixed: false
+            comment: ''
+        columnsize:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            column: columnSize
+    lifecycleCallbacks: {  }

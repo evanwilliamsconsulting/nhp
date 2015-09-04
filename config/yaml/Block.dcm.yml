@@ -1,0 +1,21 @@
+Block:
+    type: entity
+    table: Block
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        containerreference:
+            type: object
+            nullable: false
+            length: null
+            fixed: false
+            comment: ''
+            column: containerReference
+    lifecycleCallbacks: {  }
