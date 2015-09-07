@@ -9,6 +9,58 @@
 return array(
     'router' => array(
         'routes' => array(
+            'login' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/auth/login',
+                    'defaults' => array(
+                       '__NAMESPACE__' => 'Application\Controller',
+                       'controller' => 'Auth',
+                       'action' => 'login',
+                    ),
+                ), 
+                'may_terminate' => true,
+                'child_routes' => array(
+                    'process' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/[:action]',
+                            'constraints' => array(
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                            ),
+                        ),
+                    ),
+                ),
+            ), 
+            'correspondant' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/correspondant/',
+                    'defaults' => array(
+                       '__NAMESPACE__' => 'Application\Controller',
+                       'controller' => 'correspondant',
+                       'action' => 'index',
+                    ),
+                ), 
+                'may_terminate' => true,
+                'child_routes' => array(
+                    'process' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/[:action]',
+                            'constraints' => array(
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                            ),
+                        ),
+                    ),
+                ),
+            ), 
             'home' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
@@ -72,6 +124,8 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
+            'Application\Controller\Auth' => 'Application\Controller\AuthController',
+            'Application\Controller\Success' => 'Application\Controller\SuccessController',
             'Application\Controller\Index' => 'Application\Controller\IndexController',
             'Application\Controller\Issue' => 'Application\Controller\IssueController',
             'Application\Controller\Broadsheet' => 'Application\Controller\BroadsheetController',
