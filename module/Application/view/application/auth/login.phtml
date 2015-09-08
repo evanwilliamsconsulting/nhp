@@ -1,8 +1,11 @@
 <div>
 	<h2>Content</h2>
 	<?php
-	    echo print_r($this->messages,true);
-	    echo print_r($this->service,true);
+	    foreach ($this->messages as $key => $value)
+            {
+		echo "<h4 style='color:red'>$value</h4>";
+		echo "<br/>";
+	    }
 	    echo $this->form()->openTag($form);
 	    echo $this->formHidden($form->get('id'));
         ?>
