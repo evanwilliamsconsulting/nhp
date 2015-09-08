@@ -155,7 +155,11 @@ class Module implements AutoloaderProviderInterface
                 'test_helper' => function($sm) {
                     $helper = new View\Helper\CustomHelper;
                     return $helper;
-                }
+                },
+		'toolbar' => function($sm) {
+		    $helper = new View\Helper\Toolbar;
+		    return $helper;
+		}
             )
         );   
     }
