@@ -1,9 +1,0 @@
-    private $id;
-    private $password;
-    private $email;
-    private $username;
-    private $handle;
-    private $wordage;
-    private $picture;
-    private $width;
-    private $height;
