@@ -19,10 +19,13 @@ use Application\Form\Entity\WordageForm;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterInterface;
 use Zend\InputFilter\InputFilterAwareInterface;
+use Zend\Session\Container;
 
 class WordageController extends AbstractActionController
 {
     protected $em;
+	protected $authservice;
+	protected $username;
  
     public function getEntityManager()
     {
@@ -32,14 +35,19 @@ class WordageController extends AbstractActionController
 	}
 	return $this->em;
     }
+	public function getAuthService()
+    {
+        if (! $this->authservice) {
+            $this->authservice = $this->getServiceLocator()
+                                      ->get('AuthService');
+        }
+        return $this->authservice;
+    }
     public function indexAction()
     {
-	$view = new ViewModel();
+    	$view = new ViewModel();
 
-	$articleView = new ViewModel(array('article' => $article));
-        $articleView->setTemplate('content/article');
-
-	$view->content = $this->content();
+	    $view->content = $this->content();
 
         return $view;
     }
@@ -55,8 +63,19 @@ class WordageController extends AbstractActionController
     }
     public function newAction()
     {
-	$view = new ViewModel();
+	    $view = new ViewModel();
         $form = new WordageForm();
+    	// 2015-09-10
+    	// 2Do: Check to see that user is logged in
+    	if (!$this->getAuthService()->hasIdentity())
+        {
+	       return $this->redirect()->toUrl('http://www.newhollandpress.com/wordage/index');
+        }
+    	// 2Do: Populate username with user's username
+    	$userSession = new Container('user');
+		$this->username = $userSession->username;
+        $form->get('username')->setValue($this->username);
+    	// 2Do: Implement Calendar Widget in Javascript for date and fix validation
         $form->get('submit')->setValue('Add');
         $wordage = new Wordage();
 
@@ -65,21 +84,10 @@ class WordageController extends AbstractActionController
         if ($request->isPost()) {
             $em = $this->getEntityManager();
 
-            $inputFilter = new InputFilter();
+            $inputFilter = $wordage->getInputFilter();
     
-
-            $inputFilter->add(array(
-                'name' => 'wordage',
-                'required' => false,
-	    ));
-            $inputFilter->add(array(
-                'name' => 'columnSize',
-                'required' => false,
-	    ));
-
 	    $form->setInputFilter($inputFilter);
 	    $form->setData($request->getPost());
-	    //print_r($request->getPost());
 	    if ($form->isValid())
 	    {
 	       $em->persist($wordage);

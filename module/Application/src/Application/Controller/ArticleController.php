@@ -12,7 +12,7 @@ namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Application\Entity\Headline;
+use Application\Entity\Article;
 use Hex\View\Helper\CustomHelper;
 use Doctrine\ORM\EntityManager;
 use Application\Form\Entity\ArticleForm;
@@ -47,7 +47,45 @@ class ArticleController extends AbstractActionController
     public function newAction()
     {
 	$view = new ViewModel();
-	$form = $this->getForm();
+        $form = new ArticleForm();
+        $form->get('submit')->setValue('Add');
+        $wordage = new Article();
+
+        $form->bind($wordage);
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $em = $this->getEntityManager();
+
+            $inputFilter = new InputFilter();
+    
+
+            $inputFilter->add(array(
+                'name' => 'wordage',
+                'required' => false,
+	    ));
+            $inputFilter->add(array(
+                'name' => 'columnSize',
+                'required' => false,
+	    ));
+			$inputFilter->add(array(
+				'name' => 'original_date',
+				'required' => false
+		));
+
+	    $form->setInputFilter($inputFilter);
+	    $form->setData($request->getPost());
+	    //print_r($request->getPost());
+	    if ($form->isValid())
+	    {
+	       $em->persist($wordage);
+	       $em->flush();
+	       return $this->redirect()->toUrl('http://www.newhollandpress.com/article/index');
+	    }
+
+/*
+*/
+
+        }
 	$view->form = $form;
 	return $view;
     }
