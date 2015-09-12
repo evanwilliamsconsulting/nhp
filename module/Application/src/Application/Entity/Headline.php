@@ -1,13 +1,20 @@
 <?php
 
-
+namespace Application\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Zend\InputFilter\InputFilter;
+use Zend\InputFilter\InputFilterAwareInterface;
+use Zend\InputFilter\InputFilterInterface;
+
+
+
 /**
- * Headline
+ * @ORM\Entity
+ * @ORM\Table(name="Headline")
  */
-class Headline
+class Headline 
 {
     /**
      * @var integer

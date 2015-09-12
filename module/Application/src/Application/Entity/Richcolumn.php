@@ -1,61 +1,79 @@
 <?php
 
-
+namespace Application\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Zend\InputFilter\InputFilter;
+use Zend\InputFilter\InputFilterAwareInterface;
+use Zend\InputFilter\InputFilterInterface;
+
+
+
+
 /**
- * Richcolumn
+ * @ORM\Entity
+ * @ORM\Table(name="Richcolumn")
  */
-class Richcolumn
+class Richcolumn 
 {
     /**
      * @var integer
+     * @ORM\Column(name="id", type="integer", nullable=false)
      */
     private $id;
 
     /**
      * @var integer
+     * @ORM\Column(name="width", type="integer", nullable=false)
      */
     private $width;
 
     /**
      * @var integer
+     * @ORM\Column(name="height", type="integer", nullable=false)
      */
     private $height;
 
     /**
      * @var boolean
+     * @ORM\Column(name="gluex", type="boolean", nullable=false)
      */
     private $gluex;
 
     /**
      * @var boolean
+     * @ORM\Column(name="gluey", type="boolean", nullable=false)
      */
     private $gluey;
 
     /**
      * @var boolean
+     * @ORM\Column(name="prevx", type="boolean", nullable=false)
      */
     private $prevx;
 
     /**
      * @var boolean
+     * @ORM\Column(name="prevy", type="boolean", nullable=false)
      */
     private $prevy;
 
     /**
      * @var boolean
+     * @ORM\Column(name="resetx", type="boolean", nullable=false)
      */
     private $resetx;
 
     /**
      * @var boolean
+     * @ORM\Column(name="resety", type="boolean", nullable=false)
      */
     private $resety;
 
     /**
      * @var boolean
+     * @ORM\Column(name="drift", type="boolean", nullable=false)
      */
     private $drift;
 

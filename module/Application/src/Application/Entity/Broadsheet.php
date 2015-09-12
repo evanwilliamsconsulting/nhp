@@ -1,13 +1,20 @@
 <?php
 
-
+namespace Application\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Zend\InputFilter\InputFilter;
+use Zend\InputFilter\InputFilterAwareInterface;
+use Zend\InputFilter\InputFilterInterface;
+
+
+
 /**
- * Broadsheet
+ * @ORM\Entity
+ * @ORM\Table(name="Broadsheet")
  */
-class Broadsheet
+class Broadsheet 
 {
     /**
      * @var integer

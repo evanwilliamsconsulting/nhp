@@ -1,4 +1,5 @@
 <?php
+
 namespace Application\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -12,7 +13,7 @@ use Zend\InputFilter\InputFilterInterface;
  * @ORM\Entity
  * @ORM\Table(name="Correspondant")
  */
-class Correspondant implements InputFilterAwareInterface
+class Correspondant 
 {
     /**
      * @var integer

@@ -1,65 +1,105 @@
 <?php
 
-
+namespace Application\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Zend\InputFilter\InputFilter;
+use Zend\InputFilter\InputFilterAwareInterface;
+use Zend\InputFilter\InputFilterInterface;
+
+
 /**
- * Textcolumn
+ * @ORM\Entity
+ * @ORM\Table(name="Textcolumn")
  */
-class Textcolumn
+class Textcolumn 
 {
     /**
      * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
+     *
+	 * 
+     * @ORM\Column(name="width", type="integer", nullable=false)
      * @var integer
      */
     private $width;
 
     /**
+     *
+	 * 
+     * @ORM\Column(name="height", type="integer", nullable=false)
      * @var integer
      */
     private $height;
 
     /**
+     *
+	 * 
+     * @ORM\Column(name="gluex", type="boolean", nullable=false)
      * @var boolean
      */
     private $gluex;
 
     /**
+     *
+	 * 
+     * @ORM\Column(name="gluey", type="boolean", nullable=false)
      * @var boolean
      */
     private $gluey;
 
     /**
+     *
+	 * 
+     * @ORM\Column(name="prevx", type="boolean", nullable=false)
      * @var boolean
      */
     private $prevx;
 
     /**
+     *
+	 * 
+     * @ORM\Column(name="prevy", type="boolean", nullable=false)
      * @var boolean
      */
     private $prevy;
 
     /**
+     *
+	 * 
+     * @ORM\Column(name="resetx", type="boolean", nullable=false)
      * @var boolean
      */
     private $resetx;
 
     /**
+     *
+	 * 
+     * @ORM\Column(name="resety", type="boolean", nullable=false)
      * @var boolean
      */
     private $resety;
 
     /**
+     *
+	 * 
+     * @ORM\Column(name="drift", type="boolean", nullable=false)
      * @var boolean
      */
     private $drift;
 
     /**
+     *
+	 * 
+     * @ORM\Column(name="gravity", type="boolean", nullable=false)
      * @var boolean
      */
     private $gravity;

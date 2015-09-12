@@ -1,13 +1,21 @@
 <?php
 
 
+namespace Application\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Zend\InputFilter\InputFilter;
+use Zend\InputFilter\InputFilterAwareInterface;
+use Zend\InputFilter\InputFilterInterface;
+
+
+
 /**
- * Pix
+ * @ORM\Entity
+ * @ORM\Table(name="Pix")
  */
-class Pix
+class Pix 
 {
     /**
      * @var integer
@@ -163,5 +171,89 @@ class Pix
     public function getHeight()
     {
         return $this->height;
+    }
+    /**
+     * @var string
+     */
+    private $username;
+
+    /**
+     * @var \DateTime
+     */
+    private $original_date;
+
+    /**
+     * @var string
+     */
+    private $title;
+
+
+    /**
+     * Set username
+     *
+     * @param string $username
+     * @return Pix
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * Get username
+     *
+     * @return string 
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * Set original_date
+     *
+     * @param \DateTime $originalDate
+     * @return Pix
+     */
+    public function setOriginalDate($originalDate)
+    {
+        $this->original_date = $originalDate;
+
+        return $this;
+    }
+
+    /**
+     * Get original_date
+     *
+     * @return \DateTime 
+     */
+    public function getOriginalDate()
+    {
+        return $this->original_date;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return Pix
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string 
+     */
+    public function getTitle()
+    {
+        return $this->title;
     }
 }
