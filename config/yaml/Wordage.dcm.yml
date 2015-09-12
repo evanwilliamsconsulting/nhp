@@ -11,8 +11,24 @@ Wordage:
             generator:
                 strategy: IDENTITY
     fields:
+        username:
+            type: text 
+            nullable: false
+            length: 255
+            fixed: false
+            comment: ''
+        original_date:
+            type: date
+            nullable: false
+            comment: ''
+        title:
+            type: text
+            nullable: false
+            length: 255
+            fixed: false
+            comment: ''
         wordage:
-            type: string
+            type: text 
             nullable: false
             length: 255
             fixed: false
