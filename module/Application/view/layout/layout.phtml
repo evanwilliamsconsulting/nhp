@@ -39,7 +39,9 @@
     <script src="/files/home//data.js"></script>
     <script src="/resources/scripts/axure/legacy.js"></script>
     <script src="/resources/scripts/axure/viewer.js"></script>
-    <script type="text/javascript" src="/tinymce/tinymce.min.js"></script>
+    <script src="/js/tinymce/tinymce.min.js"></script>
+    <script src="/js/prototype.js"></script>
+    <script src="/js/calendarview.js"></script>
     <script type="text/javascript">
       $axure.utils.getTransparentGifPath = function() { return '/resources//images/transparent.gif'; };
       $axure.utils.getOtherPath = function() { return '/resources/Other.html'; };
@@ -60,6 +62,25 @@
   ga('send', 'pageview');
 
 </script>
+    <script>
+      function setupCalendars() {
+        // Embedded Calendar
+        Calendar.setup(
+          {
+            dateField: 'embeddedDateField',
+            parentElement: 'embeddedCalendar'
+          }
+        )
+        // Popup Calendar
+        Calendar.setup(
+          {
+            dateField: 'popupDateField',
+            triggerElement: 'popupDateField'
+          }
+        )
+      }
+      Event.observe(window, 'load', function() { setupCalendars() })
+    </script>
   </head>
   <body>
     <div id="base" class="">
