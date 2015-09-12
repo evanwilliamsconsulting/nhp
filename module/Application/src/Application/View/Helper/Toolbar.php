@@ -8,6 +8,8 @@ class Toolbar extends AbstractHelper
     {
 	$retval = "<ul>";
 	$retval .= "<li><a href='http://newhollandpress.com/wordage/new'>Add Wordage</a></li>";
+	$retval .= "<li><a href='http://newhollandpress.com/article/new'>Add Free-form Article</a></li>";
+	$retval .= "<li><a href='http://newhollandpress.com/pix/new'>Add Pix</a></li>";
 	$retval .= "</ul>";
         return $retval;
     }
