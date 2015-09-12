@@ -15,6 +15,25 @@ class WordageForm extends Form
             'type' => 'hidden'
         ));
         $this->add(array(
+            'name' => 'username',
+            'type' => 'hidden'
+        ));
+        $this->add(array(
+	    'name'=>'original',
+            'type' => 'DateTime',
+            'options' => array(
+                'label' => 'Original Date',
+	            'format' => 'mm/dd/yyyy'
+            ),
+        ));
+        $this->add(array(
+	    'name'=>'title',
+            'type' => 'Text',
+            'options' => array(
+                'label' => 'Title',
+            ),
+        ));
+        $this->add(array(
 	    'name'=>'wordage',
             'type' => 'Textarea',
             'options' => array(
