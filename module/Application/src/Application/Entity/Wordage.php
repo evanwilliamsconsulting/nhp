@@ -4,6 +4,7 @@ namespace Application\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
@@ -32,18 +33,22 @@ class Wordage implements InputFilterAwareInterface
     {
         if (!$this->inputFilter) {
             $inputFilter = new InputFilter();
+			$factory = new InputFactory();
 
-            $inputFilter->add(array(
+            $inputFilter->add(
+            	$factory->createInput(array(
                 'name' => 'id',
                 'required' => false,
-            ));
+            )));
 
-            $inputFilter->add(array(
+            $inputFilter->add(
+            	$factory->createInput(array(
                 'name' => 'username',
                 'required' => false,
-            ));
+            )));
 
-            $inputFilter->add(array(
+            $inputFilter->add(
+            	$factory->createInput(array(
                 'name' => 'original',
                 'required' => false,
                 'validators' => array(
@@ -68,22 +73,25 @@ class Wordage implements InputFilterAwareInterface
                     ),
                 )
 				)
-            ));
+            )));
 
-            $inputFilter->add(array(
+            $inputFilter->add(
+            	$factory->createInput(array(
                 'name' => 'title',
                 'required' => false,
-            ));
+            )));
 
-            $inputFilter->add(array(
+            $inputFilter->add(
+            	$factory->createInput(array(
                 'name' => 'wordage',
                 'required' => false,
-            ));
+            )));
 
-            $inputFilter->add(array(
+            $inputFilter->add(
+            	$factory->createInput(array(
                 'name' => 'columnSize',
                 'required' => false,
-            ));
+            )));
  
             $this->inputFilter = $inputFilter;
         }
