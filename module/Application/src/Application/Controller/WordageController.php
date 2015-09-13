@@ -26,7 +26,11 @@ class WordageController extends AbstractActionController
     protected $em;
 	protected $authservice;
 	protected $username;
+	protected $log;
  
+    public function __construct()
+	{
+	}
     public function getEntityManager()
     {
         if (null == $this->em)
@@ -63,6 +67,9 @@ class WordageController extends AbstractActionController
     }
     public function newAction()
     {
+		$this->log = $this->getServiceLocator()->get('log');
+    	$log = $this->log;
+    	$log->info("new form");
 	    $view = new ViewModel();
         $form = new WordageForm();
     	// 2015-09-10
@@ -81,6 +88,7 @@ class WordageController extends AbstractActionController
 
         $form->bind($wordage);
         $request = $this->getRequest();
+		$log->info($request);
         if ($request->isPost()) {
             $em = $this->getEntityManager();
 
@@ -88,6 +96,7 @@ class WordageController extends AbstractActionController
     
 	    $form->setInputFilter($inputFilter);
 	    $form->setData($request->getPost());
+		$log->info($request->getPost());
 	    if ($form->isValid())
 	    {
 	       $em->persist($wordage);
