@@ -13,7 +13,8 @@
         "doctrine/doctrine-orm-module": "0.7.*",
         "doctrine/orm": "*",
         "zendframework/zend-developer-tools": "dev-master",
-        "phptal/phptal": "^1.3"
+        "phptal/phptal": "^1.3",
+        "firephp/firephp-core":"dev-master"
     },
     "autoload" : {
         "psr-0" : {"": "src/"},
