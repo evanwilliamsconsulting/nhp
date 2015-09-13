@@ -23,6 +23,11 @@ use Zend\Authentication\Adapter\DbTable as DbTableAuthAdapter;
 use Application\View\Helper\Welcome as Welcome;
 use Zend\Session\SessionManager;
 use Zend\Session\Container;
+use Zend\Log\Logger;
+use Zend\Log\Writer\FirePhp as FirePhpWriter;
+use Zend\Log\Writer\FirePhp\FirePhpBridge;
+
+require_once 'vendor/firephp/firephp-core/lib/FirePHPCore/FirePHP.class.php';
 
 class Module implements AutoloaderProviderInterface
 {
@@ -30,6 +35,12 @@ class Module implements AutoloaderProviderInterface
     {
         return array(
             'factories'=>array(
+                'log' => function($sm) {
+                    $log = new Logger();
+                    $writer = new FirePhpWriter(new FirePhpBridge(new \FirePHP()));
+                    $log->addWriter($writer);
+                    return $log;
+                },
                 'Application\Storage\Login' => function($sm) {
                     return new \Application\Storage\Login('nhpress');
                 },
@@ -90,9 +101,9 @@ class Module implements AutoloaderProviderInterface
 
 	$viewModel->welcome = $welcome;
 
-        $this->bootstrapSession($e);
+     //   $this->bootstrapSession($e);
     }
-    public function bootstrapSession($e)
+/*    public function bootstrapSession($e)
     {
         $session = $e->getApplication()
                      ->getServiceManager()
@@ -134,6 +145,8 @@ class Module implements AutoloaderProviderInterface
            }
         }
     }
+ * 
+ */
     public function getConfig()
     {
         return include __DIR__ . '/config/module.config.php';
