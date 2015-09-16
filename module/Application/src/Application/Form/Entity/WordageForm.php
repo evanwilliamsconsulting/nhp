@@ -16,16 +16,16 @@ class WordageForm extends Form
         ));
         $this->add(array(
             'name' => 'username',
-            'type' => 'hidden'
+            'type' => 'text'
         ));
         $this->add(array(
 	    'name'=>'original',
             'type' => 'DateTime',
             'options' => array(
                 'label' => 'Original Date',
-	            'format' => 'mm/dd/yyyy'
+                'format'=> 'Ymd',
             ),
-        ));
+         ));
         $this->add(array(
 	    'name'=>'title',
             'type' => 'Text',

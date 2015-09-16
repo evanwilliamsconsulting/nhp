@@ -14,19 +14,30 @@ class ArticleForm extends Form
             'name' => 'id',
             'type' => 'hidden'
         ));
-		$this->add(array(
-		    'name'=>'username',
-		    'type'=>'hidden'
-		));
-		$this->add(array(
-		    'name' => 'original_date',
-		    'type' => 'hidden'
-		));
+	$this->add(array(
+	    'name'=>'username',
+	    'type'=>'hidden'
+	));
+        $this->add(array(
+	    'name'=>'original',
+            'type' => 'DateTime',
+            'options' => array(
+                'label' => 'Original Date',
+                'format'=> 'Ymd',
+            ),
+         ));
+        $this->add(array(
+            'name' => 'title',
+            'type' => 'Text',
+            'options' => array(
+                'label' => 'title',
+            ),
+        ));
         $this->add(array(
             'name' => 'verbage',
             'type' => 'Text',
             'options' => array(
-                'label' => 'Wordage',
+                'label' => 'verbage',
             ),
         ));
         $this->add(array(
