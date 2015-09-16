@@ -4,9 +4,22 @@
 	    echo $this->form()->openTag($form);
 	    echo $this->formHidden($form->get('id'));
 	    echo $this->formHidden($form->get('username'));
-            echo $this->formRow($form->get('original_date'));
+            echo $this->formRow($form->get('original'));
+	?>
+	<br/>
+	<?php
             echo $this->formRow($form->get('verbage'));
+	?>
+	<br/>
+	<?php
             echo $this->formRow($form->get('columnSize'));
+	?>
+	<br/>
+	<?php
+            echo $this->formRow($form->get('title'));
+	?>
+	<br/>
+	<?php
             echo $this->formSubmit($form->get('submit'));
             echo $this->form()->closeTag();
 	?>
