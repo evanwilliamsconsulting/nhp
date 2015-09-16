@@ -1,5 +1,4 @@
 <?php
-
 namespace Application\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -8,6 +7,7 @@ use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
+use Zend\Validator\Date;
 
 /**
  * @ORM\Entity
@@ -46,34 +46,14 @@ class Wordage implements InputFilterAwareInterface
                 'name' => 'username',
                 'required' => false,
             )));
+			
 
             $inputFilter->add(
             	$factory->createInput(array(
                 'name' => 'original',
                 'required' => false,
-                'validators' => array(
-                array(
-                'name' => 'Date',
-                'options' => array(
-                    'format' => 'm/d/Y',
-                    'locale' => 'en',
-                    'messages' => array(
-                        \Zend\Validator\Date::INVALID => 'Invalid Entry',
-                        \Zend\Validator\Date::INVALID_DATE => ' (Invalid Date)',
-                        \Zend\Validator\Date::FALSEFORMAT => 'Invalid Format.',
-                        ),
-                    ),
-                ),
-                array(
-                    'name' => 'NotEmpty',
-                    'options' => array(
-                    'messages' => array(
-                        \Zend\Validator\NotEmpty::IS_EMPTY => 'Empty'
-                        ),
-                    ),
-                )
-				)
-            )));
+            ))
+			);
 
             $inputFilter->add(
             	$factory->createInput(array(
@@ -139,9 +119,9 @@ class Wordage implements InputFilterAwareInterface
     private $username;
 
     /**
-     * @var \Date
-	 * 
-	 * @ORM\Column(name="original", type="datetime", nullable=false)
+     * @var string
+     *
+     * @ORM\Column(name="original", type="string", length=255, nullable=false)
      */
     private $original;
 

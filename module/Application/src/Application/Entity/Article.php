@@ -4,6 +4,7 @@ namespace Application\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
@@ -22,31 +23,58 @@ class Article
         $this->id = (isset($data['id'])) ? $data['id'] : null;
         $this->verbage= (isset($data['verbage'])) ? $data['verbage'] : null;
         $this->columnSize = (isset($data['columnSize'])) ? $data['columnSize'] : null;
+	$this->username = (isset($data['username'])) ? $data['username'] : null;
+	$this->original = (isset($data['original'])) ? $data['original'] : null;
+	$this->title = (isset($data['title'])) ? $data['title'] : null;
     }
     public function getInputFilter()
     {
         if (!$this->inputFilter) {
             $inputFilter = new InputFilter();
+			$factory = new InputFactory();
 
-            $inputFilter->add(array(
+            $inputFilter->add(
+            	$factory->createInput(array(
                 'name' => 'id',
                 'required' => false,
-            ));
+            )));
 
-            $inputFilter->add(array(
+            $inputFilter->add(
+            	$factory->createInput(array(
+                'name' => 'username',
+                'required' => false,
+            )));
+			
+
+            $inputFilter->add(
+            	$factory->createInput(array(
+                'name' => 'original',
+                'required' => false,
+            )));
+
+            $inputFilter->add(
+            	$factory->createInput(array(
+                'name' => 'title',
+                'required' => false,
+            )));
+
+            $inputFilter->add(
+            	$factory->createInput(array(
                 'name' => 'verbage',
                 'required' => false,
-            ));
+            )));
 
-            $inputFilter->add(array(
+            $inputFilter->add(
+            	$factory->createInput(array(
                 'name' => 'columnSize',
                 'required' => false,
-            ));
+            )));
  
             $this->inputFilter = $inputFilter;
         }
         return $this->inputFilter;
     }
+
     public function setInputFilter(InputFilterInterface $inputFilter)
     {
         throw new \Exception("Not Used");
@@ -57,16 +85,24 @@ class Article
     }
     /**
      * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
-     * @var integer
+     * @var string
+     *
+     * @ORM\Column(name="columnSize", type="integer", nullable=false)
      */
-    private $columnsize;
+    private $columnSize;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="verbage", type="string", length=255, nullable=false)
      */
     private $verbage;
 
@@ -126,18 +162,24 @@ class Article
     {
         return $this->verbage;
     }
-    /**
+     /**
      * @var string
+     *
+     * @ORM\Column(name="username", type="string", length=255, nullable=false)
      */
-    private $username;
-
-    /**
-     * @var \DateTime
-     */
-    private $original_date;
+   private $username;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="original", type="string", length=255, nullable=false)
+     */
+    private $original;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=255, nullable=false)
      */
     private $title;
 
