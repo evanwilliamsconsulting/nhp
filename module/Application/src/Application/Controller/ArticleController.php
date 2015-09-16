@@ -13,12 +13,40 @@ namespace Application\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Application\Entity\Article;
-use Hex\View\Helper\CustomHelper;
-use Doctrine\ORM\EntityManager;
 use Application\Form\Entity\ArticleForm;
+use Doctrine\ORM\EntityManager;
+use Zend\InputFilter\InputFilter;
+use Zend\InputFilter\InputFilterInterface;
+use Zend\InputFilter\InputFilterAwareInterface;
+use Zend\Session\Container;
 
 class ArticleController extends AbstractActionController
 {
+
+    protected $em;
+    protected $authservice;
+    protected $username;
+    protected $log;
+ 
+    public function __construct()
+	{
+	}
+    public function getEntityManager()
+    {
+        if (null == $this->em)
+        {
+            $this->em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+	}
+	return $this->em;
+    }
+    public function getAuthService()
+    {
+        if (! $this->authservice) {
+            $this->authservice = $this->getServiceLocator()
+                                      ->get('AuthService');
+        }
+        return $this->authservice;
+    }
     public function indexAction()
     {
 	$view = new ViewModel();
@@ -46,45 +74,49 @@ class ArticleController extends AbstractActionController
     }
     public function newAction()
     {
+	$this->log = $this->getServiceLocator()->get('log');
+    	$log = $this->log;
+    	$log->info("new form");
 	$view = new ViewModel();
         $form = new ArticleForm();
+    	// 2015-09-10
+    	// 2Do: Check to see that user is logged in
+    	if (!$this->getAuthService()->hasIdentity())
+        {
+	       return $this->redirect()->toUrl('http://www.newhollandpress.com/article/index');
+        }
+    	// 2Do: Populate username with user's username
+    	$userSession = new Container('user');
+	$this->username = $userSession->username;
+	$log->info($this->username);
+    	// 2Do: Implement Calendar Widget in Javascript for date and fix validation
         $form->get('submit')->setValue('Add');
-        $wordage = new Article();
+        $article = new Article();
 
-        $form->bind($wordage);
+        $form->bind($article);
+        $form->get('username')->setValue($this->username);
         $request = $this->getRequest();
+		//$log->info($request);
         if ($request->isPost()) {
             $em = $this->getEntityManager();
 
-            $inputFilter = new InputFilter();
+            $inputFilter = $article->getInputFilter();
     
-
-            $inputFilter->add(array(
-                'name' => 'wordage',
-                'required' => false,
-	    ));
-            $inputFilter->add(array(
-                'name' => 'columnSize',
-                'required' => false,
-	    ));
-			$inputFilter->add(array(
-				'name' => 'original_date',
-				'required' => false
-		));
-
 	    $form->setInputFilter($inputFilter);
 	    $form->setData($request->getPost());
-	    //print_r($request->getPost());
+	    $log->info(print_r($request->getPost(),true));
 	    if ($form->isValid())
 	    {
-	       $em->persist($wordage);
+	       $log->info("is valid!");
+		$article->exchangeArray($request->getPost());
+		$log->info("data exchanged");
+		$log->info(print_r($form->getData(),true));
+	       $em->persist($form->getData());
+		$log->info("persisted");
 	       $em->flush();
+		$log->info("flushed");
 	       return $this->redirect()->toUrl('http://www.newhollandpress.com/article/index');
 	    }
-
-/*
-*/
-
         }
 	$view->form = $form;
 	return $view;
