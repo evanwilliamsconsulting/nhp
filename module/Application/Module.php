@@ -26,6 +26,7 @@ use Zend\Session\Container;
 use Zend\Log\Logger;
 use Zend\Log\Writer\FirePhp as FirePhpWriter;
 use Zend\Log\Writer\FirePhp\FirePhpBridge;
+use Application\View\Helper\TopicToolbar as TopicToolbar;
 
 require_once 'vendor/firephp/firephp-core/lib/FirePHPCore/FirePHP.class.php';
 
@@ -172,7 +173,12 @@ class Module implements AutoloaderProviderInterface
 		'toolbar' => function($sm) {
 		    $helper = new View\Helper\Toolbar;
 		    return $helper;
+		},
+				'topictoolbar' => function($sm) {
+		    $helper = new TopicToolbar($sm);
+		    return $helper;
 		}
+		
             )
         );   
     }
