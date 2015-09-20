@@ -60,6 +60,40 @@ class PixController extends AbstractActionController
         }
 	return $form;
     }
+	public function viewAction()
+    {
+    	// Load the logger
+    	$this->log = $this->getServiceLocator()->get('log');
+    	$log = $this->log;
+    	$log->info("PixController view action");
+		
+		// Initialize the View
+    	$view = new ViewModel();
+
+		// Retreive the parameters
+		$id = $this->params()->fromRoute('item');
+	    $log->info($id);
+		
+		// 2Do: Check to see that user is logged in
+    	if (!$this->getAuthService()->hasIdentity())
+        {
+	       return $this->redirect()->toUrl('http://www.newhollandpress.com/');
+        }
+    	// 2Do: Populate username with user's username
+    	$userSession = new Container('user');
+		$this->username = $userSession->username;
+		$log->info($this->username);
+		
+		$em = $this->getEntityManager();
+		
+		$pix = $em->getRepository('Application\Entity\Pix')->find($id);
+		
+		$topic = new \Application\View\Helper\TopicToolbar('pix');
+		$view->topic = $topic;
+		$view->content = print_r($pix,true);
+
+        return $view;
+    }
    public function newAction()
     {
 	$this->log = $this->getServiceLocator()->get('log');
