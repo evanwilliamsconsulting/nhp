@@ -11,6 +11,22 @@ Container:
             generator:
                 strategy: IDENTITY
     fields:
+        username:
+            type: text 
+            nullable: false
+            length: 255
+            fixed: false
+            comment: ''
+        original_date:
+            type: date
+            nullable: false
+            comment: ''
+        title:
+            type: text
+            nullable: false
+            length: 255
+            fixed: false
+            comment: ''
         background:
             type: blob
             nullable: false
