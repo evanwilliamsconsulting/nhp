@@ -7,14 +7,14 @@ use Doctrine\ORM\Mapping as ORM;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
-
+use Zend\Validator\Date;
 
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="Headline")
  */
-class Headline 
+class Headline implements InputFilterAwarerInterface
 {
     /**
      * @var integer
