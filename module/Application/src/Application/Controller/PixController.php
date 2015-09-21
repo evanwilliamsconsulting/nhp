@@ -19,9 +19,15 @@ use Zend\InputFilter\InputFilterInterface;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\Session\Container;
 use Zend\Validator\File\Size;
+use Zend\Validator\File\Extension;
 
 class PixController extends AbstractActionController
 {
+	protected $em;
+	protected $authservice;
+	protected $username;
+	protected $log;
+	
     public function indexAction()
     {
 	$view = new ViewModel();
@@ -127,34 +133,54 @@ class PixController extends AbstractActionController
 	    $form->setInputFilter($inputFilter);
 	    $form->setData($request->getPost());
 	    $log->info(print_r($request->getPost(),true));
+		
 	    if ($form->isValid())
 	    {
-			$pix->exchangeArray($request->getPost());
+	    	$post=$request->getPost();
+			$log->info($request);
+			$log->info(print_r($post,true));
+			$pix->exchangeArray($post);
 			$log->info("data exchanged");
-			$log->info(print_r($form->getData(),true));
+			$files =  $request->getFiles();
+			//$log->info($files);
+			//die();
+			//$log->info(print_r($form->getData(),true));
 	    	/* Untested code to upload pix 
 			 * https://samsonasik.wordpress.com/2012/08/31/zend-framework-2-creating-upload-form-file-validation/
-	    	$size = new Size(array('min'=>1000000));
+			 */
+			//$filename = $post['picture'];
+	    	$size = new Size(array('min'=>1000));
+			$extension = new Extension(array('extension' => array('jpg')));
 			$adapter = new \Zend\File\Transfer\Adapter\Http();
 			
 	       $log->info("is valid!");
-		   $post = $request->getPost();
-		   $filename = $post['filename'];
-		   $adapter->setValidators($size,$filename);
+		   $log->info($files['files']['name']);
+/*		   $adapter->setValidators(array($size,$extension),$filename);
 		   if ($adapter->isValid()) {
-		   	  $adapter->receive($File['name']) {
-			 *   $profile->exchangeArray($form->getData());
-			 * }
+ * 
+ */
+		   	  $adapter->setDestination('/var/www/html/uploads/');
+		   	  if ($adapter->receive($files['files']['name'])) {
+		   	  	$newfile = $adapter->getFileName();
+				  $log->info($newfile);
+			    //$form->setPicture($newfile);
+			  }
+			  
+			  /*
 		   }
-			 * *
-			 */
-	       $em->persist($form->getData());
-		$log->info("persisted");
+			   * 
+			   */
+		   $dataArray = $form->getData();
+		   $log->info(print_r($dataArray,true));
+		   $dataArray->setPicture($newfile);
+	       //$em->persist($form->getData());
+	       $em->persist($dataArray);
+		   $log->info("persisted");
 	       $em->flush();
-		$log->info("flushed");
+		   $log->info("flushed");
 	       return $this->redirect()->toUrl('http://www.newhollandpress.com/pix/index');
 	    }
-        }
+	    }
 	$view->form = $form;
 	return $view;
     }
