@@ -8,8 +8,11 @@ class PixForm extends Form
 {
     public function __construct($name = null)
     {
-        parent:: __construct('headline');
+        $this->setAttribute('method', 'post');
+        $this->setAttribute('enctype', 'multipart/form-data');
 
+        parent::__construct(__CLASS__);
+ 
         $this->add(array(
             'name' => 'id',
             'type' => 'hidden'
