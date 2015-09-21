@@ -17,8 +17,10 @@ use Zend\InputFilter\InputFilterInterface;
  * @ORM\Entity
  * @ORM\Table(name="Pix")
  */
-class Pix 
+class Pix implements InputFilterAwareInterface
 {
+	protected $inputFilter;
+	
 	    public function exchangeArray($data)
     {
         $this->id = (isset($data['id'])) ? $data['id'] : null;
