@@ -29,9 +29,9 @@ class Pix implements InputFilterAwareInterface
         $this->height= (isset($data['height'])) ? $data['height'] : null;
         $this->picture= (isset($data['picture'])) ? $data['picture'] : null;
         $this->columnSize = (isset($data['columnSize'])) ? $data['columnSize'] : null;
-	$this->username = (isset($data['username'])) ? $data['username'] : null;
-	$this->original = (isset($data['original'])) ? $data['original'] : null;
-	$this->title = (isset($data['title'])) ? $data['title'] : null;
+		$this->username = (isset($data['username'])) ? $data['username'] : null;
+		$this->original = (isset($data['original'])) ? $data['original'] : null;
+		$this->title = (isset($data['title'])) ? $data['title'] : null;
     }
     public function getInputFilter()
     {
@@ -76,11 +76,11 @@ class Pix implements InputFilterAwareInterface
                 'required' => false,
             )));
 
-            $inputFilter->add(
-            	$factory->createInput(array(
-                'name' => 'picture',
-                'required' => false,
-            )));
+$inputFilter->add(
+$factory->createInput(array(
+'name' => 'picture',
+'required' => false,
+)));
 
             $inputFilter->add(
             	$factory->createInput(array(
@@ -108,7 +108,7 @@ class Pix implements InputFilterAwareInterface
         return get_object_vars($this);
     }
    /**
-     * @var integer
+     * @var integer 
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
@@ -131,7 +131,7 @@ class Pix implements InputFilterAwareInterface
      private $credit;
 
      /**
-     * @var blob
+     * @var blob 
      *
      * @ORM\Column(name="picture", type="blob", nullable=false)
      */
@@ -209,7 +209,6 @@ class Pix implements InputFilterAwareInterface
     /**
      * Set picture
      *
-     * @param string $picture
      * @return Pix
      */
     public function setPicture($picture)
