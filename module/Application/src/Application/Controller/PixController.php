@@ -154,25 +154,29 @@ class PixController extends AbstractActionController
 			$adapter = new \Zend\File\Transfer\Adapter\Http();
 			
 	       $log->info("is valid!");
-		   $log->info($files['files']['name']);
-/*		   $adapter->setValidators(array($size,$extension),$filename);
-		   if ($adapter->isValid()) {
- * 
- */
-		   	  $adapter->setDestination('/var/www/html/uploads/');
-		   	  if ($adapter->receive($files['files']['name'])) {
-		   	  	$newfile = $adapter->getFileName();
-				  $log->info($newfile);
-			    //$form->setPicture($newfile);
-			  }
-			  
-			  /*
-		   }
-			   * 
-			   */
+		   $log->info(print_r($files,true));
+		   
+		   $fileDestinationRoot = "/var/www/html/uploads/";
+		   $fileDestination = $fileDestinationRoot . $this->username;
+		   
+		   $pixSubPath = "pix";
+		   $fileDestination .= "/";
+		   $fileDestination .= $pixSubPath;
+		   $fileDestination .= "/";
+		   
+	   	   $adapter->setDestination($fileDestination);
+		   if ($adapter->receive($files['files']['name'])) {
+     		   	  $newfile = $adapter->getFileName();
+			      $log->info($newfile);
+				  $expandFile = explode('/',$newfile);
+				  $expandFileCount = count($expandFile)-1;
+				  $log->info(print_r($expandFile[$expandFileCount],true));
+				  $pixFileName = $expandFile[$expandFileCount];
+				  
+			}
 		   $dataArray = $form->getData();
 		   $log->info(print_r($dataArray,true));
-		   $dataArray->setPicture($newfile);
+		   $dataArray->setPicture($pixFileName);
 	       //$em->persist($form->getData());
 	       $em->persist($dataArray);
 		   $log->info("persisted");
