@@ -245,3 +245,12 @@
   text-align:center;
   line-height:normal;
 }
+.itemHelper_Wide {
+	background-color:#0000EE;
+}
+.itemHelper_Wide > ul {
+	list-style:none;
+}
+.itemHelper_Wide > ul > li {
+	display:inline;
+}
