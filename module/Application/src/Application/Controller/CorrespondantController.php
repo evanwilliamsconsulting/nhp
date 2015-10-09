@@ -23,6 +23,8 @@ use Zend\Session\Container;
 use Application\Entity\Correspondant;
 use Application\Entity\Wordage;
 
+use Application\View\Helper\PixHelper;
+
 
 
 class CorrespondantController extends AbstractActionController
@@ -99,9 +101,21 @@ class CorrespondantController extends AbstractActionController
 		
 		$log->info("Retrieved Wordage");
 		
-		$output .= "<h1>Wordage</h1>";
+		$output = "<h1>Wordage</h1>";
 		$output.="<br/>";
 
+		$wordageHelpers = array();
+		$counter = 1;
+		foreach ($wordage as $wordageObject)
+		{
+			$idcode = "wordage" . $counter;
+			$aWordageHelper = new \Application\View\Helper\WordageHelper();
+			$aWordageHelper->setWordageObject($wordageObject);
+			$aWordageHelper->setUsername($this->username);
+			$aWordageHelper->setItemId($idcode);
+			$counter += 1;
+			$wordageHelpers[$idcode]=$aWordageHelper;
+		}
 		foreach ($wordage as $wordageObject)
 		{
 			$base = 'https://newhollandpress.com/wordage/view/';
@@ -144,18 +158,17 @@ class CorrespondantController extends AbstractActionController
 		$output .= "<h1>Pix</h1>";
 		$output.="<br/>";
 
+		$outputHelpers = array();
+		$counter = 1;
 		foreach ($pix as $pixObject)
 		{
-			$output .= "<p>";
-			$id = $pixObject->getId();
-			$title = $pixObject->getTitle();
-			$base = 'https://newhollandpress.com/pix/view/';
-			$base .= urlencode($id);
-			$output .= "<a href='" . $base . "'>" . $id . "</a>";
-			$output .= "<p>";
-			$output .= $pixObject->getPicture();
-			$output .= "</p>";
-			$output .= "<br/>";
+			$idcode = "pix" . $counter;
+			$aPixHelper = new \Application\View\Helper\PixHelper();
+			$aPixHelper->setPixObject($pixObject);
+			$aPixHelper->setUsername($this->username);
+			$aPixHelper->setItemId($idcode);
+			$counter += 1;
+			$outputHelpers[$idcode]=$aPixHelper;
 		}
 		$output .= "<br/>";
 
@@ -180,7 +193,8 @@ class CorrespondantController extends AbstractActionController
 		$output .= "<br/>";
 
 
-		$view->wordages = $output;
+		$view->wordageHelpers = $wordageHelpers;
+		$view->outputHelpers = $outputHelpers;
 		
         return $view;
     }
