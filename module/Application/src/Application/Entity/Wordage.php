@@ -52,6 +52,9 @@ class Wordage implements InputFilterAwareInterface
             	$factory->createInput(array(
                 'name' => 'original',
                 'required' => false,
+                'options' => array(
+                	'format' => 'Ymd'
+				)
             ))
 			);
 

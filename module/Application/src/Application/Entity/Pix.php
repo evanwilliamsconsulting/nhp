@@ -131,9 +131,9 @@ $factory->createInput(array(
      private $credit;
 
      /**
-     * @var blob 
+     * @var string 
      *
-     * @ORM\Column(name="picture", type="blob", nullable=false)
+     * @ORM\Column(name="picture", type="string", length=255, nullable=false)
      */
      private $picture;
 
