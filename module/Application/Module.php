@@ -174,6 +174,10 @@ class Module implements AutoloaderProviderInterface
 		    $helper = new View\Helper\Toolbar;
 		    return $helper;
 		},
+		'pixhelper' => function($sm) {
+		    $helper = new View\Helper\PixHelper;
+		    return $helper;
+		},
 				'topictoolbar' => function($sm) {
 		    $helper = new TopicToolbar($sm);
 		    return $helper;
