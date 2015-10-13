@@ -254,3 +254,6 @@
 .itemHelper_Wide > ul > li {
 	display:inline;
 }
+.sidebar {
+	background-image: url("/images/home/u28.png")
+}
