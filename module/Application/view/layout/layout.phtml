@@ -10,38 +10,8 @@
     <link href="/files/home/styles.css" type="text/css" rel="stylesheet"/>
     <script src="/resources/scripts/jquery-1.7.1.min.js"></script>
     <script src="/resources/scripts/jquery-ui-1.8.10.custom.min.js"></script>
-    <script src="/resources/scripts/axure/axQuery.js"></script>
-    <script src="/resources/scripts/axure/globals.js"></script>
-    <script src="/resources/scripts/axutils.js"></script>
-    <script src="/resources/scripts/axure/annotation.js"></script>
-    <script src="/resources/scripts/axure/axQuery.std.js"></script>
-    <script src="/resources/scripts/axure/doc.js"></script>
-    <script src="/data/document.js"></script>
-    <script src="/resources/scripts/messagecenter.js"></script>
-    <script src="/resources/scripts/axure/events.js"></script>
-    <script src="/resources/scripts/axure/action.js"></script>
-    <script src="/resources/scripts/axure/expr.js"></script>
-    <script src="/resources/scripts/axure/geometry.js"></script>
-    <script src="/resources/scripts/axure/flyout.js"></script>
-    <script src="/resources/scripts/axure/ie.js"></script>
-    <script src="/resources/scripts/axure/model.js"></script>
-    <script src="/resources/scripts/axure/repeater.js"></script>
-    <script src="/resources/scripts/axure/sto.js"></script>
-    <script src="/resources/scripts/axure/utils.temp.js"></script>
-    <script src="/resources/scripts/axure/variables.js"></script>
-    <script src="/resources/scripts/axure/drag.js"></script>
-    <script src="/resources/scripts/axure/move.js"></script>
-    <script src="/resources/scripts/axure/visibility.js"></script>
-    <script src="/resources/scripts/axure/style.js"></script>
-    <script src="/resources/scripts/axure/adaptive.js"></script>
-    <script src="/resources/scripts/axure/tree.js"></script>
-    <script src="/resources/scripts/axure/init.temp.js"></script>
-    <script src="/files/home//data.js"></script>
-    <script src="/resources/scripts/axure/legacy.js"></script>
-    <script src="/resources/scripts/axure/viewer.js"></script>
     <script src="/js/tinymce/tinymce.min.js"></script>
-    <script src="/js/prototype.js"></script>
-    <script src="/js/calendarview.js"></script>
+    <script src="/js/nhpress.js"></script>
     <script type="text/javascript">
       $axure.utils.getTransparentGifPath = function() { return '/resources//images/transparent.gif'; };
       $axure.utils.getOtherPath = function() { return '/resources/Other.html'; };
@@ -66,25 +36,6 @@
   ga('send', 'pageview');
 
 </script>
-    <script>
-      function setupCalendars() {
-        // Embedded Calendar
-        Calendar.setup(
-          {
-            dateField: 'embeddedDateField',
-            parentElement: 'embeddedCalendar'
-          }
-        )
-        // Popup Calendar
-        Calendar.setup(
-          {
-            dateField: 'popupDateField',
-            triggerElement: 'popupDateField'
-          }
-        )
-      }
-      Event.observe(window, 'load', function() { setupCalendars() })
-    </script>
   </head>
   <body>
     <div id="base" class="">
@@ -133,9 +84,7 @@
       <!-- Unnamed (Shape) -->
       <div id="u10" class="ax_paragraph">
         <!-- Unnamed () -->
-        <div id="u11" class="text">
-	  <p><?php echo $this->layout()->welcome; ?></p>
-        </div>
+        <div id="u11" class="text"><?php echo $this->layout()->user_toolbar; ?></div>        
       </div>
 
       <!-- Unnamed (Shape) -->
@@ -150,7 +99,7 @@
       <!-- Unnamed (Shape) -->
       <div id="u14" class="ax_h1">
         <div id="u15" class="text">
-          <p><span>Home</span></p>
+          <p><span onclick="clickLogin()">Login!</span></p>
         </div>
       </div>
 
@@ -203,37 +152,40 @@
       </div>
 
       <!-- Unnamed (Shape) -->
-      <!-- div id="u28" class="ax_shape">
-        <img id="u28_img" class="img " src="/images/home/u28.png"/>
-        <!-- Unnamed () - ->
+      <div id="u28" class="sidebar">
+        <!-- Unnamed () -->
+        <div id="sidebar">
+      	  	<div id="loginBox"></div>
+      	</div>
         <div id="u29" class="text">
           <p><span></span></p>
         </div>
-      </div -->
+      </div>
 
       <!-- Unnamed (Shape) -->
       <div id="u30" class="ax_shape">
-          <p><span><?php echo $this->content; ?></span></p>
+      	  <div id="content">
+          	<p><span><?php echo $this->content; ?></span></p>
+         </div>
       </div>
 
-      <!-- Unnamed (Shape) - ->
+      <!-- Unnamed (Shape) -->
       <div id="u32" class="ax_shape">
         <img id="u32_img" class="img " src="/images/home/u32.png"/>
-        <!-- Unnamed () - ->
+        <!-- Unnamed () -->
         <div id="u33" class="text">
           <p><span></span></p>
         </div>
-      </div-->
+      </div>
 
 
       <!-- Unnamed (Shape) -->
-      <!-- div id="u34" class="ax_h1">
+      <div id="u34" class="ax_h1">
         < Unnamed () ->
         <div id="u35" class="text">
           <p><span>Copyright 2015 New Holland Press</span></p>
         </div>
-      </div>
-        
-    </div -->
+      </div>        
+    </div>
   </body>
 </html>
