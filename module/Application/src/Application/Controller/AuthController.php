@@ -52,18 +52,21 @@ class AuthController extends AbstractActionController
     }
     public function loginAction()
     {
+    	$view = new ViewModel();
         if ($this->getAuthService()->hasIdentity())
         {
             return $this->redirect()->toRoute('correspondant');
         }
 
         $form = $this->getForm();
-	$form->setAttribute('action','/auth/authenticate');
+		$form->setAttribute('action','/auth/authenticate');
 
-        return array(
-            'form' => $form,
-            'messages' => $this->flashmessenger()->getMessages(),
-        );
+		$view->setTerminal(true);
+
+		$view->form = $form;
+		$view->messages = $this->flashmessenger()->getMessages();
+		
+		return $view;
     }
     public function authenticateAction()
     {
