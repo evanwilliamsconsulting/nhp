@@ -21,6 +21,7 @@ use Zend\Authentication\Storage;
 use Zend\Authentication\AuthenticationService;
 use Zend\Authentication\Adapter\DbTable as DbTableAuthAdapter;
 use Application\View\Helper\Welcome as Welcome;
+use Application\View\Helper\UserToolbar as UserToolbar;
 use Zend\Session\SessionManager;
 use Zend\Session\Container;
 use Zend\Log\Logger;
@@ -95,59 +96,13 @@ class Module implements AutoloaderProviderInterface
         $moduleRouteListener->attach($eventManager);
 
         $serviceManager = $e->getApplication()->getServiceManager();
-	$viewModel = $e->getApplication()->getMvcEvent()->getViewModel();
+	    $viewModel = $e->getApplication()->getMvcEvent()->getViewModel();
 
-	$welcome = new Welcome();
-	$welcome->clearState();
+	    $userToolbar = new UserToolbar();
+	    $userToolbar->clearState();
 
-	$viewModel->welcome = $welcome;
-
-     //   $this->bootstrapSession($e);
+	    $viewModel->user_toolbar = $userToolbar;
     }
-/*    public function bootstrapSession($e)
-    {
-        $session = $e->getApplication()
-                     ->getServiceManager()
-                     ->get('Zend\Session\SessionManager');
-        $session->start();
-	
-	$container = new Container('initialized');
-        if (!isset($container->init)) {
-            $serviceManager = $e->getApplication()->getServiceManager();
-            $request = $serviceManager->get('Request');
-   
-            $session->regenerateId(true);
-            $container->init = 1;
-            $container->remoteAddr = $request->getServer()->get("REMOTE_ADDR");
-            $container->httpUserAgent = $request->getServer()->get("HTTP_USER_AGENT");
- 
-            $config = $serviceManager->get('Config');
-            if (!isset($config['session'])) {
-                return;
-            } 
-  
-            $sessionConfig = $config['session'];
-            if (isset($sessionConfig['validators'])) {
-                $chain = $session->getValidatorChain();
-   
-                foreach ($sessionConfig['validators'] as $validator) {
-                    switch($validator) {
-                        case 'Zend\Session\Validator\HttpUserAgent':
-                            $validator = new $validator($container->httpUserAgent);
-                            break;
-                        case 'Zend\Session\Validator\RemoteAddr':
-                            $validator = new $validator($container->remoteAddr);
-                            break;
-                        default:
-                            $validator = new $validator();
-                   }
-                   $chain->attach('session.validate',array($validator,'isValid'));
-               }
-           }
-        }
-    }
- * 
- */
     public function getConfig()
     {
         return include __DIR__ . '/config/module.config.php';
@@ -178,7 +133,7 @@ class Module implements AutoloaderProviderInterface
 		    $helper = new View\Helper\PixHelper;
 		    return $helper;
 		},
-				'topictoolbar' => function($sm) {
+		'topictoolbar' => function($sm) {
 		    $helper = new TopicToolbar($sm);
 		    return $helper;
 		}
