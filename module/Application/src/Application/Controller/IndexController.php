@@ -36,6 +36,7 @@ class IndexController extends AbstractActionController
 		$view->style .= "px;height:100px;";
 		 * 
 		 */
+    	$this->getServiceLocator()->get('log')->info("Hi");
         return $view;
     }
 	public function loginAction()

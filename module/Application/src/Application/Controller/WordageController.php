@@ -52,6 +52,11 @@ class WordageController extends AbstractActionController
     	$view = new ViewModel();
 
 	    $view->content = $this->content();
+		
+		$layout = $this->layout();
+		// This second layout look really should happen if logged in.
+		$layout->setTemplate('layout/correspondant');
+		
 
         return $view;
     }
