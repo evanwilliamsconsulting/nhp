@@ -3,6 +3,9 @@ namespace Application\View\Helper;
 
 use Zend\View\Helper\AbstractHelper;
 use Zend\Session\Container;
+use Zend\View\Renderer\RendererInterface as Renderer;
+
+use Zend\View\Model\ViewModel as ViewModel;
  
 class PixHelper extends AbstractHelper
 {
@@ -10,7 +13,12 @@ class PixHelper extends AbstractHelper
 	protected $pixObject;
 	protected $username;
 	protected $itemId;
+	public $view;
 
+    public function setView(Renderer $view)
+	{
+		$this->view = $view;
+	}
 	public function setPixObject($pixObject)
 	{
 		$this->pixObject = $pixObject;
@@ -25,6 +33,7 @@ class PixHelper extends AbstractHelper
 	}
     public function __invoke()
     {
+    	$view = $this->view;
     	$pixObject = $this->pixObject;
 		$id = $pixObject->getId();
 		$title = $pixObject->getTitle();
@@ -79,6 +88,10 @@ class PixHelper extends AbstractHelper
 		}
 		$base = 'https://newhollandpress.com/pix/view/';
 		$base .= urlencode($id);
+		
+		return $view->partial("/items/pix.phtml");
+		
+		/*
     	$output = "<div id='" . $this->itemId . "' class='itemHelper_Wide'>";
 		$output .= "<ul>";
 		$output .= "<li>";
@@ -101,6 +114,8 @@ class PixHelper extends AbstractHelper
 		$output .= "</div>";
 		
 		return $output;
+		 * 
+		 */
     }
 }
 ?>
