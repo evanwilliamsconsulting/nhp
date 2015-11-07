@@ -15,7 +15,7 @@ $(document).ready(function()
 			type:"POST",
 			url:"auth/login",
 			success: function(data) {
-				$("#loginBox").html(data);
+				$("#hidden").html(data);
 			}
 		});
 	}
