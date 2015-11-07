@@ -17,21 +17,26 @@ use Zend\Mvc\MvcEvent;
 *
 */
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
+use Zend\ModuleManager\Feature\ViewHelperProviderInterface;
+use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\Authentication\Storage;
 use Zend\Authentication\AuthenticationService;
 use Zend\Authentication\Adapter\DbTable as DbTableAuthAdapter;
 use Application\View\Helper\Welcome as Welcome;
 use Application\View\Helper\UserToolbar as UserToolbar;
+use Application\View\Helper\SiteToolbar as SiteToolbar;
 use Zend\Session\SessionManager;
 use Zend\Session\Container;
 use Zend\Log\Logger;
 use Zend\Log\Writer\FirePhp as FirePhpWriter;
 use Zend\Log\Writer\FirePhp\FirePhpBridge;
 use Application\View\Helper\TopicToolbar as TopicToolbar;
+use Application\View\Helper\WordageHelper as WordageHelper;
+use Application\Service\WordageService as WordageService;
 
 require_once 'vendor/firephp/firephp-core/lib/FirePHPCore/FirePHP.class.php';
 
-class Module implements AutoloaderProviderInterface
+class Module implements AutoloaderProviderInterface, ViewHelperProviderInterface, ConfigProviderInterface
 {
     public function getServiceConfig()
     {
@@ -76,17 +81,17 @@ class Module implements AutoloaderProviderInterface
             },
             'AuthService' => function($sm) {
                 $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-		$dbTableAuthAdapter = new DbTableAuthAdapter($dbAdapter);
-		$dbTableAuthAdapter->setTableName('Correspondant');
-		$dbTableAuthAdapter->setIdentityColumn('username');
-		$dbTableAuthAdapter->setCredentialColumn('password');
+		        $dbTableAuthAdapter = new DbTableAuthAdapter($dbAdapter);
+		        $dbTableAuthAdapter->setTableName('Correspondant');
+		        $dbTableAuthAdapter->setIdentityColumn('username');
+		        $dbTableAuthAdapter->setCredentialColumn('password');
                 $authService = new AuthenticationService();
                 $authService->setAdapter($dbTableAuthAdapter);
                 $authService->setStorage($sm->get('Application\Storage\Login'));
     
                 return $authService;
-                },
-            ),
+            },
+            )
         );
     }
     public function onBootstrap(MvcEvent $e)
@@ -99,9 +104,11 @@ class Module implements AutoloaderProviderInterface
 	    $viewModel = $e->getApplication()->getMvcEvent()->getViewModel();
 
 	    $userToolbar = new UserToolbar();
+		$siteToolbar = new SiteToolbar();
 	    $userToolbar->clearState();
 
 	    $viewModel->user_toolbar = $userToolbar;
+		$viewModel->site_toolbar = $siteToolbar;
     }
     public function getConfig()
     {
@@ -125,20 +132,24 @@ class Module implements AutoloaderProviderInterface
                     $helper = new View\Helper\CustomHelper;
                     return $helper;
                 },
-		'toolbar' => function($sm) {
-		    $helper = new View\Helper\Toolbar;
-		    return $helper;
-		},
-		'pixhelper' => function($sm) {
-		    $helper = new View\Helper\PixHelper;
-		    return $helper;
-		},
-		'topictoolbar' => function($sm) {
-		    $helper = new TopicToolbar($sm);
-		    return $helper;
-		}
-		
-            )
+		        'toolbar' => function($sm) {
+		            $helper = new View\Helper\Toolbar;
+		            return $helper;
+		        },
+		        'pixhelper' => function($sm) {
+		            $helper = new View\Helper\PixHelper;
+		            return $helper;
+		        },
+		        'wordagehelper' => function($sm) {
+		        	$wordageService = new WordageService($sm);
+		            $helper = new WordageHelper($wordageService);
+		            return $helper;
+		        },
+		        'topictoolbar' => function($sm) {
+		            $helper = new TopicToolbar($sm);
+		            return $helper;
+		        }	
+            ),
         );   
     }
 }
