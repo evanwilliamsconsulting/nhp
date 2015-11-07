@@ -6,12 +6,14 @@ class Toolbar extends AbstractHelper
 {
     public function __invoke()
     {
-	$retval = "<ul>";
-	$retval .= "<li><a href='http://newhollandpress.com/wordage/new'>Add Wordage</a></li>";
-	$retval .= "<li><a href='http://newhollandpress.com/article/new'>Add Free-form Article</a></li>";
-	$retval .= "<li><a href='http://newhollandpress.com/pix/new'>Add Pix</a></li>";
-	$retval .= "<li><a href='http://newhollandpress.com/container/new'>Add Container</a></li>";
-	$retval .= "</ul>";
+    	//$retval = "<div id='item_tabs'>";
+		$retval = "<ul class='itemlist'>";
+		$retval .= "<li class='itemtab'><a href='http://newhollandpress.com/wordage/new'>Wordage</a></li>";
+		$retval .= "<li class='itemtab'><a href='http://newhollandpress.com/article/new'>Free-form Article</a></li>";
+		$retval .= "<li class='itemtab'><a href='http://newhollandpress.com/pix/new'>Pix</a></li>";
+		$retval .= "<li class='itemtab'><a href='http://newhollandpress.com/container/new'>Container</a></li>";
+		$retval .= "</ul>";
+		//$retval = "</div>";
         return $retval;
     }
 }
