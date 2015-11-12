@@ -19,6 +19,8 @@ use Zend\InputFilter\InputFilterInterface;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\Session\Container;
 
+use Application\Model\Item as Item;
+
 class CorrespondantController extends AbstractActionController
 {
     protected $em;
@@ -29,7 +31,6 @@ class CorrespondantController extends AbstractActionController
     public function __construct()
     {
     }
-/*
     public function getEntityManager()
     {
         if (null == $this->em)
@@ -38,20 +39,27 @@ class CorrespondantController extends AbstractActionController
 		}
 		return $this->em;
     }
-	public function getAuthService()
-    {
-        if (! $this->authservice) {
-            $this->authservice = $this->getServiceLocator()
-                                      ->get('AuthService');
-        }
-        return $this->authservice;
-    }
-*/
     public function indexAction()
     {
     	// Retrieve Log
-    	$this->log = $this->getServiceLocator()->get('log');
+       	$em = $this->getEntityManager();
+        // TODO: Implement findAllItems() method.
+        $item = new Item($em);
+        //$em = $this->getEntityManager();
+		
+		//$wordage= $em->getRepository('Application\Entity\Wordage')->findAll();
+		
+		//return $wordage;
+		$itemArray = $item->toArray();	
+		$this->log = $this->getServiceLocator()->get('log');
     	$log = $this->log;
     	$log->info("Correspondant Controller");
+		$view = new ViewModel();
+
+        $view->content = print_r($itemArray,true);
+		$view->items = $item;
+        
+        return $view;
+		
     }
 }
