@@ -33,6 +33,8 @@ use Zend\Log\Writer\FirePhp\FirePhpBridge;
 use Application\View\Helper\TopicToolbar as TopicToolbar;
 use Application\View\Helper\WordageHelper as WordageHelper;
 use Application\Service\WordageService as WordageService;
+use Application\View\Helper\ItemHelper as ItemHelper;
+use Application\Service\ItemService as ItemService;
 
 require_once 'vendor/firephp/firephp-core/lib/FirePHPCore/FirePHP.class.php';
 
@@ -144,6 +146,11 @@ class Module implements AutoloaderProviderInterface, ViewHelperProviderInterface
 		        	$wordageService = new WordageService($sm);
 		            $helper = new WordageHelper($wordageService);
 		            return $helper;
+		        },
+		        'itemhelper' => function($sm) {
+		        	$itemService = new ItemService($sm);
+				$helper = new ItemHelper($itemService);
+				return $helper;
 		        },
 		        'topictoolbar' => function($sm) {
 		            $helper = new TopicToolbar($sm);
