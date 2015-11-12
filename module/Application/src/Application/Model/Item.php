@@ -9,15 +9,10 @@ class Item extends AbstractResultSet{
 	 protected $em;
 	 protected $wordage;
 	 protected $obj;
-         protected $log;
+     protected $log;
 
-     public function __construct($log)
+     public function __construct($em)
      {
-          $this->log = $log;
-     }
-	 
-     public function initialize($em) 
-	 {
 	 	$this->em = $em;
 		//$this->log->info(print_r($em,true));
 		$this->wordage = $this->em->getRepository('Application\Entity\Wordage');
