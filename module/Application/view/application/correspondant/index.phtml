@@ -2,7 +2,15 @@
 	<div id="add_items_list" class="item_sidebar">
 		<?php echo $this->toolbar(); ?>
 	</div>
-	<!--div id="item_list">
-		<?php echo $this->partialLoop('items/_row.phtml', $this->items)->setObjectKey('item'); ?>
-	</div-->
+	<div>
+		<?php
+			foreach ($this->items as $key => $item)
+			{
+				echo print_r($item,true);
+				$id = $item->getId();
+				echo "id" . $id;
+		        echo $this->partial('items/row.phtml', array('id'=>$id)); 
+			}
+		?>
+	</div>
 </div>
