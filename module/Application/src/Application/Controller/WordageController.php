@@ -6,10 +6,7 @@
  * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
-
 namespace Application\Controller;
-
-
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Application\Entity\Wordage;
@@ -20,7 +17,6 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterInterface;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\Session\Container;
-
 class WordageController extends AbstractActionController
 {
     protected $em;
@@ -50,14 +46,12 @@ class WordageController extends AbstractActionController
     public function indexAction()
     {
     	$view = new ViewModel();
-
 	    $view->content = $this->content();
 		
 		$layout = $this->layout();
 		// This second layout look really should happen if logged in.
 		$layout->setTemplate('layout/correspondant');
 		
-
         return $view;
     }
     public function viewAction()
@@ -69,7 +63,6 @@ class WordageController extends AbstractActionController
 		
 		// Initialize the View
     	$view = new ViewModel();
-
 		// Retreive the parameters
 		$id = $this->params()->fromRoute('item');
 	    $log->info($id);
@@ -94,7 +87,6 @@ class WordageController extends AbstractActionController
 		
 		$view->content = $theWords;
 		$view->id =$id;
-
         return $view;
     }
     public function content()
@@ -112,7 +104,6 @@ class WordageController extends AbstractActionController
 		$this->log = $this->getServiceLocator()->get('log');
     	$log = $this->log;
     	$log->info("new form");
-
 	    $view = new ViewModel();
         $form = new WordageForm();
     	// 2015-09-10
@@ -127,7 +118,6 @@ class WordageController extends AbstractActionController
 		$log->info($this->username);
     	// 2Do: Implement Calendar Widget in Javascript for date and fix validation
         $form->get('submit')->setValue('Edit');
-
 		// Retreive the parameters
 		$id = $this->params()->fromRoute('item');
 	    $log->info($id);
@@ -135,14 +125,12 @@ class WordageController extends AbstractActionController
 		$em = $this->getEntityManager();
 		
 		$wordage = $em->getRepository('Application\Entity\Wordage')->find($id);
-
         $form->bind($wordage);
         //$form->get('username')->setValue($this->username);
         $request = $this->getRequest();
 		//$log->info($request);
         if ($request->isPost()) {
             $em = $this->getEntityManager();
-
             $inputFilter = $wordage->getInputFilter();
     
 	    $form->setInputFilter($inputFilter);
@@ -162,10 +150,8 @@ class WordageController extends AbstractActionController
 		   $log->info("flushed");
 	       return $this->redirect()->toUrl('http://www.newhollandpress.com/wordage/index');
 	    }
-
 /*
 */
-
         }
 	$view->form = $form;
 	$view->id =$id;
@@ -194,14 +180,12 @@ class WordageController extends AbstractActionController
     	// 2Do: Implement Calendar Widget in Javascript for date and fix validation
         $form->get('submit')->setValue('Add');
         $wordage = new Wordage();
-
         $form->bind($wordage);
         $form->get('username')->setValue($this->username);
         $request = $this->getRequest();
 		//$log->info($request);
         if ($request->isPost()) {
             $em = $this->getEntityManager();
-
             $inputFilter = $wordage->getInputFilter();
     
 	    $form->setInputFilter($inputFilter);
@@ -221,10 +205,8 @@ class WordageController extends AbstractActionController
 		   $log->info("flushed");
 	       return $this->redirect()->toUrl('http://www.newhollandpress.com/wordage/index');
 	    }
-
 /*
 */
-
         }
 	$view->form = $form;
 	return $view;
