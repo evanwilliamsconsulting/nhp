@@ -14,6 +14,8 @@ use Zend\View\Model\ViewModel;
 use Hex\View\Helper\CustomHelper;
 use Application\Form\Panel\LoginForm;
 use Zend\EventManager\EventManger;
+use Publish\BlockHelper as BlockHelper;
+use Publish\Block\Broadsheet;
 
 class IndexController extends AbstractActionController
 {
@@ -22,9 +24,19 @@ class IndexController extends AbstractActionController
 	
     public function indexAction()
     {
-    	$this->getServiceLocator()->get('log')->info('Will work equally well');
+    	$log = $this->getServiceLocator()->get('log');
+    	$log->info('Will work equally well');
 	    $view = new ViewModel();
-	    $view->content = $this->content();
+	    $log->info("Got View Model");
+	    //$view->content = $this->content();
+	    /*$broadsheet = new Broadsheet("http://nhpress.net/index_html/pageone/");
+	    $log->info("New Block Helper");
+	    $log->info("set Base URI");
+	    $snapshot = $broadsheet->toHTML();
+	    $log->info("snapshot");
+	    $view->content = print_r($snapshot,true);
+	    $log->info("content");
+	    */
 		/*
 		 * On window resize you are to call the resize event.
 		 * Do not PUSH window size out!
