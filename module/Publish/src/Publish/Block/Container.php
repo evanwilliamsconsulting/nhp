@@ -3,6 +3,11 @@ namespace Publish\Block;
 
 use Zend\View\Helper\AbstractHelper;
 use Publish\BlockHelper as BlockHelper;
+use Publish\Block\Element\RichColumn as RichColumn;
+use Publish\Block\Element\Headline as Headline;
+use Publish\Block\Element\Pix as Pix;
+use Publish\Block\Element\PixLink as PixLink;
+use Publish\Block\Element\TextColumn as TextColumn;
 
 class Container extends BlockHelper
 {
@@ -55,105 +60,38 @@ class Container extends BlockHelper
 		
 		$returnHTML = "<div>";
 		$items = $this->container;
-		$returnHTML .= print_r($items,true);
-		$returnHTML .= "</div>";
-		return $returnHTML;
-		foreach ($items as  $key =>$item)
+		foreach ($items as  $key => $item)
 		{
-			$returnHTML .= "<div>";			
-		    //$attributes = $item->attributes;
-		    $elements = $item->elements;
-		    $type = $item->type;
-		    $snapshot = "type:";
-		    $snapshot .= print_r($type,true);
-		    $snapshot .= "<br/>";
-		    $snapshot .= "elements";
-		    /*
-		     * 
-		     * 
-		     *  [glueX] =>
-		     *  [prevX] =>
-		     *  [offsetY] => 0
-		     *  [offsetX] => 0
-		     *  [glueY] =>
-		     *  [prevY] =>
-		     *  [gravity] => 1
-		     *  [drift] => 1
-		     *  [resetX] =>
-		     *  [height] => 250
-		     *  [resetY] =>
-		     *  [width] => 165
-		     */
-		    $glueX = $elements->glueX;
-		    $prevX = $elements->prevX;
-		    $offsetY = $elements->offsetY;
-		    $offsetX = $elements->offsetX;
-		    $glueY = $elements->glueY;
-		    $prevY = $elmenets->prevY;
-		    $gravity = $elements->gravity;
-		    $drift = $elements->drift;
-		    $resetX = $elements->resetX;
-		    $height = $elements->height;
-		    $resetY = $elements->resetY;
-		    $width = $elements->width;
-		    
-		    $elementsHTML = "<div style='background-color:white;width:";
-		    $elementsHTML .= $width;
-		    $elementsHTML .= "px;height:";
-		    $elementsHTML .= $height;
-		    $elementsHTML .= "px'>";
-		    if ( $type == "Pix" )
-		    {
-		    	$attributes = $item->attributes;
-		    	$pixpath = $attributes->pixpath;
-		    	$width = $attributes->width;
-		    	$height = $attributes->height;
-		    	$pixHTML = "<img src='";
-		    	$pixHTML .= $pixpath;
-		    	$pixHTML .= "' width=";
-		    	$pixHTML .= $width;
-		    	$pixHTML .= "px height=";
-		    	$pixHTML .= $height;
-		    	$pixHTML .= "px/>";
-		    	$elementsHTML .= $pixHTML;
-		    }
-		    
-		    $diagnosticHTML .= "<span>width:";
-		    $diagnosticHTML .= $width;
-		    $diagnosticHTML .= "</span><span>height:";
-		    $diagnosticHTML .= $height;
-		    $diagnosticHTML .= "</span>";
-		    $spanHTML = "</div>";
-		    
-		    $snapshot .= $elementsHTML;
-		    //$snapshot .= "<br/>";
-		    //$snapshot .= "attributes";
-		    //$snapshot .= print_r($attributes,true);
-		    //$returnHTML .= $snapshot;
-		    
-		    if ( $type == "RichColumn")
+			$returnHTML .= "<div>";
+			$name = $item->name;
+			$type = $item->type;
+			//$returnHTML .= $name;
+			$uri = parent::getBaseURI();
+			switch ( $type )
 			{
-				$richHTML = "<div>";
-				$lines = $item->lines;
-				foreach ($lines as $key => $line)
-				{
-					$richHTML .= "<div>";
-					$richHTML .= $line;
-					$richHTML .= "</div>";
-				/*     $totalLines = $item->totalLines;
-				     $lines = $item->lines;
-				     $numberOfLines = count($lines);
-				     $snapshot .= "<h1>Number of Lines</h1>";
-				     $snapshot .= $totalLines;
-				     $snapshot .= "<br/>";
-				     $snapshot .= "lines";
-				     $snapshot .= print_r($lines,true);
-				     */
-				}
-				$richHTML .= "</div>";
-				$snapshot .= $richHTML;
-		    }
-		    $returnHTML .= $snapshot;
+				case "RichColumn";
+					$element = new RichColumn();
+					break;
+				case "TextColumn":
+					$element = new TextColumn();
+					break;
+				case "Pix":
+					$element = new Pix();
+					break;
+				case "PixLink":
+					$element = new PixLink();
+					break;
+				case "Headline":
+					$element = new Headline();
+					break;
+				default:
+					$element = new Element();
+			}
+			$element->setName($name);
+			//$returnHTML .= "<br/>ELEMENT BEGINS";
+		    $returnHTML .= $element->toHTML();
+		    //$returnHTML .= "ELEMENT ENDS<br/>";
+		    //$returnHTML .= print_r($uri,true);
 		    $returnHTML .= "</div>";
 		}
 		$returnHTML .= "</div>";

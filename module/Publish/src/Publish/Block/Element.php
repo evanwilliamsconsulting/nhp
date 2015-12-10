@@ -1,8 +1,22 @@
 <?php
+namespace Publish\Block;
 
-class NHP_Helper_Element extends Zend_View_Helper_Abstract
+use Zend\View\Helper\AbstractHelper;
+use Publish\BlockHelper as BlockHelper;
+
+class Element extends BlockHelper
 {
 	public $view;
+	public $output;
+	public $results_top;
+	public $results_left;
+	public $emptyArray;
+	public $broadsheet;
+	public $name;
+	public $position;
+	public $items;
+	public $container;
+	public $frag;
 	public $testHeadline = false;
 	public $element;
 	public $top;
@@ -18,6 +32,10 @@ class NHP_Helper_Element extends Zend_View_Helper_Abstract
 	public $style;
 	public $content;
 
+	public function setName($name)
+	{
+		parent::pushFrag($name);
+	}
 	public function getStyle()
 	{
 		return $this->style;
@@ -33,6 +51,7 @@ class NHP_Helper_Element extends Zend_View_Helper_Abstract
 	public function isHeadline()
 	{
 		return $this->testHeadline;
+		
 	}
 	public function getResetY()
 	{
@@ -61,6 +80,37 @@ class NHP_Helper_Element extends Zend_View_Helper_Abstract
 	public function getGlueY()
 	{
 		return $this->glueY;
+	}
+	public function fetch()
+	{
+		parent::fetch();
+		$element = json_decode(parent::getSnapshot());
+		$this->element = $element;
+	}
+	public function getElement()
+	{
+		return $this->element;
+	}
+	public function getBaseURI()
+	{
+		return parent::getBaseURI();
+	}
+	public function popLastFragment()
+	{
+		parent::popLastFragment();
+	}
+	public function toHTML()
+	{
+		$this->fetch();
+	
+		$returnHTML = "<div>";
+		$element = $this->element;
+		$returnHTML .= print_r($element,true);
+		$uri = parent::getBaseURI();
+		$returnHTML .= print_r($uri,true);
+		$returnHTML .= "</div>";
+		
+		return $returnHTML;
 	}
 	public function setElement($element)
 	{
@@ -152,11 +202,6 @@ class NHP_Helper_Element extends Zend_View_Helper_Abstract
 	{
 		return $this->content;
 	}
-	public function setView(Zend_View_Interface $view)
-	{
-		$this->view = $view;
-	}
-
 }
 
 ?>

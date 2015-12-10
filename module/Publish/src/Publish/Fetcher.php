@@ -13,10 +13,13 @@ class Fetcher
     protected static $initialized;
     protected static $baseURI;
     protected static $frag;
+    protected static $urlPart;
 
-    private function __construct()
+   private function __construct()
    {
-	      self::$frag ="";
+   		  self::$frag = array();
+	      self::$frag[] ="";
+	      self::$urlPart = "";
    } 
     static function retrieveFetcher() 
     { 
@@ -42,9 +45,11 @@ class Fetcher
     {
         $base = $this->getBaseURI();
         $frag = $this->getFrag();
+        $urlPart = self::$urlPart;
 
-        $uri = $base . $frag . '/json';
-		
+        $uri = $base . $urlPart . '/json';
+		$this->uri =$uri;
+        
         $request = new Request();
         $request->setUri($uri);
 		
@@ -69,10 +74,34 @@ class Fetcher
     }
     public function addFrag($frag)
     {
-	        self::$frag = $frag;
+    	self::$frag = array();
+    	//
+    	//
+    	self::$urlPart = "";
+	    self::$frag[] = $frag;
+	    self::$urlPart = implode(self::$frag,'/');
+    }
+    public function pushFrag($frag)
+    {
+    	self::$frag[] = $frag;
+    	self::$urlPart = implode(self::$frag,'/');
+    	
+    }
+    public function popFrag()
+    {
+    	$fragArray = self::$frag;
+  		$lastElement = $fragArray[count($fragArray)-1];
+    	$fragArray = array_slice($fragArray,0,-1);
+    	self::$frag = $fragArray;
+    	return $lastElement;
     }
     public function getFrag()
     {
 	        return self::$frag;
+    }
+    public function clearFrags()
+    {
+    		self::$frag = array();
+    		self::$urlPart = "";
     }
 }

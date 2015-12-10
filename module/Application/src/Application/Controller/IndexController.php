@@ -29,14 +29,15 @@ class IndexController extends AbstractActionController
 	    $view = new ViewModel();
 	    $log->info("Got View Model");
 	    //$view->content = $this->content();
-	    /*$broadsheet = new Broadsheet("http://nhpress.net/index_html/pageone/");
+	    $broadsheet = new Broadsheet("http://nhpress.net/index_html/pageone/");
+	    $broadsheet->refresh();
 	    $log->info("New Block Helper");
 	    $log->info("set Base URI");
 	    $snapshot = $broadsheet->toHTML();
 	    $log->info("snapshot");
 	    $view->content = print_r($snapshot,true);
 	    $log->info("content");
-	    */
+	    
 		/*
 		 * On window resize you are to call the resize event.
 		 * Do not PUSH window size out!

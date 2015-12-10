@@ -26,6 +26,11 @@ class BlockHelper extends AbstractHelper
 	public $uri;
 	public $fetcher;
 	
+	public function refresh()
+	{
+		$this->fetcher = Fetcher::retrieveFetcher();
+		$this->fetcher->clearFrags();
+	}
 	public function setBaseURI($uri)
 	{
 		$this->fetcher = Fetcher::retrieveFetcher();
@@ -34,17 +39,30 @@ class BlockHelper extends AbstractHelper
 	}
 	public function getBaseURI()
 	{
+		$this->uri = Fetcher::getBaseURI();
 		return $this->uri;
 	}
 	public function setFrag($frag)
 	{
-		   $this->fetcher = Fetcher::retrieveFetcher();
+		$this->fetcher = Fetcher::retrieveFetcher();
 	    $this->fetcher->addFrag($frag);
+	    $this->uri = Fetcher::getBaseURI();
+	}
+	public function pushFrag($frag)
+	{
+		$this->fetcher = Fetcher::retrieveFetcher();
+		$this->fetcher->pushFrag($frag);
+		$this->uri = Fetcher::getBaseURI();		
+	}
+	public function popLastFragment()
+	{
+		$this->fetcher = Fetcher::retrieveFetcher();
+		$this->fetcher->popFrag();
 	}
 	public function fetch()
 	{
-		     $this->fetcher = Fetcher::retrieveFetcher();
-		     $this->fetcher->fetch();		
+		$this->fetcher = Fetcher::retrieveFetcher();
+        $this->fetcher->fetch();		
         $this->snapshot = $this->fetcher->getSnapshot();
 		
 		//$this->fetcher = Fetcher::retrieveFetcher();
@@ -71,5 +89,3 @@ class BlockHelper extends AbstractHelper
 		return $this->snapshot;
 	}
 }
-
-?>

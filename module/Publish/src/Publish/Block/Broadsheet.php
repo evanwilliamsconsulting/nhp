@@ -28,6 +28,10 @@ class Broadsheet extends BlockHelper
 		$items = $this->broadsheet->broadsheet;
 		$this->items = $items;
 	}
+	public function refresh()
+	{
+		//parent::refresh();
+	}
 	public function toHTML() {
 		$this->fetch();
 		$returnHTML = "<div>";
@@ -42,8 +46,8 @@ class Broadsheet extends BlockHelper
 		    $container = new Container();
 		    $container->setName($name);
 		    $snapshot = $container->toHTML();
-		    $returnHTML .= "<div ";
-		    $returnHTML .= "style='top:";
+		    $returnHTML .= "<div>";
+		    /* $returnHTML .= "style='top:";
 		    $returnHTML .= $top;
 		    $returnHTML .= "px;left:";
 		    $returnHTML .= $left;
@@ -52,9 +56,9 @@ class Broadsheet extends BlockHelper
 		    $returnHTML .= "px;height:";
 		    $returnHTML .= $height;
 		    $returnHTML .= "px'>";
-		    $returnHTML .= $name;
-		    $returnHTML .= "<br/>";
+		    $returnHTML .= $name; */
 		    $returnHTML .= $snapshot;
+		    $returnHTML .= "<br/>";
 		    $returnHTML .= "</div>";
 		}
 		$returnHTML .= "</div>";
