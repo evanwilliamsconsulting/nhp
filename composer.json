@@ -10,14 +10,17 @@
     "require": {
         "php": ">=5.5",
         "zendframework/zendframework": "~2.5",
-        "doctrine/doctrine-orm-module": "0.7.*",
-        "doctrine/orm": "*",
         "zendframework/zend-developer-tools": "dev-master",
         "phptal/phptal": "^1.3",
-        "firephp/firephp-core":"dev-master"
+        "firephp/firephp-core":"dev-master",
+        "doctrine/orm":"dev-master",
+        "doctrine/dbal":">=2.5.0",
+	"doctrine/doctrine-module":"0.8.*",
+	"doctrine/doctrine-orm-module": "dev-master"
     },
     "autoload" : {
-        "psr-0" : {"": "src/"},
+        "psr-0" : {"DoctrineORMModule": "src/"},
+        "psr-0" : {"DoctrineORMModuleTest": "tests/"},
 	"psr-0": {"": "config/yml/"},
         "psr-0": {"": "Entity/"} 
     }

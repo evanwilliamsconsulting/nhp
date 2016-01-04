@@ -17,8 +17,10 @@ class Broadsheet extends BlockHelper
 	public $items;
 	public $containers;
 	
-	public function __construct($baseURI)
+	public function __construct($year,$month,$day,$pageno)
 	{
+		   // Now how do I construct $baseURI without having it hardcoded?
+		   // How do I test to see if the Broadsheet is in the database already?
 	    parent::setBaseURI($baseURI);
 	}
 	public function fetch()
