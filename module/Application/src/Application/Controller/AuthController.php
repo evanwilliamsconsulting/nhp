@@ -8,9 +8,10 @@ namespace Application\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Application\Form\Panel\LoginForm;
-use Application\Entity\Correspondant;
+use Application\Entity\Correspondent;
 use Application\View\Helper\Welcome as Welcome;
 use Zend\Session\Container;
+use Zend\Db\Adapter;
 
 class AuthController extends AbstractActionController
 {
@@ -84,7 +85,6 @@ class AuthController extends AbstractActionController
                     $username = $request->getPost('username');
                     $userSession->username = $username;
 		    $welcome = new Welcome();
-		    $welcome->setState();
                     $redirect = 'correspondant';
                     // Check if it has rememberMe
                     $this->getSessionStorage()

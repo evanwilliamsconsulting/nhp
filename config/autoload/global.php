@@ -13,11 +13,8 @@
 
 return array(
     'db' => array(
-        'driver'         => 'Pdo',
+        'driver'         => 'PdoMysql',
         'dsn'            => 'mysql:dbname=nhpress;host=localhost',
-        'driver_options' => array(
-            PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
-        ),
         'username'       => 'root',
         'password'       => 'ptH3984z'
     ),
@@ -38,6 +35,32 @@ return array(
         'validators' => array(
             'Zend\Session\Validator\RemoteAddr',
             'Zend\Session\Validator\HttpUserAgent',
+        ),
+    ),
+    'doctrine' => array(
+        'connection' => array(
+            'orm_default' => array(
+	        'driverClass' => 'Doctrine\DBAL\Driver\PDOMySql\Driver',
+                'params' => array(
+		    'host' => 'localhost',
+		    'port' => '3306',
+		    'user' => 'root',
+		    'password' => 'ptH3984z', 
+		    'dbname' => 'nhpress',
+                    'charset'  => 'utf8',
+                    'driverOptions' => array(
+                        1002 => 'SET NAMES utf8'
+                    ),
+                ),
+            ),
+        ),
+        'driver' => array(
+            'orm_default' => array(
+                'drivers' => array(
+                    'Application\Entity' => 'Application_annotation_driver',
+                    'CRM\Entity' => 'CRM_annotation_driver',
+                ),
+            ),
         ),
     ),
 );    // ...

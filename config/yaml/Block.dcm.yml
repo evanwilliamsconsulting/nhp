@@ -1,12 +1,12 @@
 Block:
     type: entity
-    table: Block
+    table: block
     id:
         id:
             type: integer
             nullable: false
-            unsigned: false
-            comment: ''
+            options:
+                unsigned: false
             id: true
             generator:
                 strategy: IDENTITY
@@ -15,7 +15,7 @@ Block:
             type: object
             nullable: false
             length: null
-            fixed: false
-            comment: ''
+            options:
+                fixed: false
             column: containerReference
     lifecycleCallbacks: {  }

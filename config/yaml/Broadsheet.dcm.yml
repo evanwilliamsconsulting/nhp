@@ -1,12 +1,12 @@
 Broadsheet:
     type: entity
-    table: Broadsheet
+    table: broadsheet
     id:
         id:
             type: integer
             nullable: false
-            unsigned: false
-            comment: ''
+            options:
+                unsigned: false
             id: true
             generator:
                 strategy: IDENTITY
@@ -14,19 +14,19 @@ Broadsheet:
         pageno:
             type: integer
             nullable: false
-            unsigned: false
-            comment: ''
+            options:
+                unsigned: false
             column: pageNo
         pagewidth:
             type: integer
             nullable: false
-            unsigned: false
-            comment: ''
+            options:
+                unsigned: false
             column: pageWidth
         pageheight:
             type: integer
             nullable: false
-            unsigned: false
-            comment: ''
+            options:
+                unsigned: false
             column: pageHeight
     lifecycleCallbacks: {  }

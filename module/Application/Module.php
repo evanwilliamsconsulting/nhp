@@ -35,8 +35,10 @@ use Application\View\Helper\WordageHelper as WordageHelper;
 use Application\Service\WordageService as WordageService;
 use Application\View\Helper\ItemHelper as ItemHelper;
 use Application\Service\ItemService as ItemService;
+use Zend\Db\Adapter;
+use Application\Entity\Correspondant;
 
-require_once 'vendor/firephp/firephp-core/lib/FirePHPCore/FirePHP.class.php';
+//require_once 'vendor/firephp/firephp-core/lib/FirePHPCore/FirePHP.class.php';
 
 class Module implements AutoloaderProviderInterface, ViewHelperProviderInterface, ConfigProviderInterface
 {
@@ -83,10 +85,10 @@ class Module implements AutoloaderProviderInterface, ViewHelperProviderInterface
             },
             'AuthService' => function($sm) {
                 $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-		        $dbTableAuthAdapter = new DbTableAuthAdapter($dbAdapter);
-		        $dbTableAuthAdapter->setTableName('Correspondant');
-		        $dbTableAuthAdapter->setIdentityColumn('username');
-		        $dbTableAuthAdapter->setCredentialColumn('password');
+		$dbTableAuthAdapter = new DbTableAuthAdapter($dbAdapter);
+		$dbTableAuthAdapter->setTableName('correspondent');
+		$dbTableAuthAdapter->setIdentityColumn('username');
+		$dbTableAuthAdapter->setCredentialColumn('password');
                 $authService = new AuthenticationService();
                 $authService->setAdapter($dbTableAuthAdapter);
                 $authService->setStorage($sm->get('Application\Storage\Login'));
@@ -107,7 +109,6 @@ class Module implements AutoloaderProviderInterface, ViewHelperProviderInterface
 
 	    $userToolbar = new UserToolbar();
 		$siteToolbar = new SiteToolbar();
-	    $userToolbar->clearState();
 
 	    $viewModel->user_toolbar = $userToolbar;
 		$viewModel->site_toolbar = $siteToolbar;

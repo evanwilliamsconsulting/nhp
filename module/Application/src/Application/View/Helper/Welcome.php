@@ -22,13 +22,5 @@ class Welcome extends AbstractHelper
 	    return $retval;
         }
     }
-    public function setState()
-    {
-        $this->state = true;
-    }
-    public function clearState()
-    {
-        $this->state = false;
-    } 
 }
 ?>

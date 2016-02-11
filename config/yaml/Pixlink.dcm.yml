@@ -1,12 +1,12 @@
 Pixlink:
     type: entity
-    table: PixLink
+    table: pixlink
     id:
         id:
             type: integer
             nullable: false
-            unsigned: false
-            comment: ''
+            options:
+                unsigned: false
             id: true
             generator:
                 strategy: IDENTITY
@@ -14,66 +14,58 @@ Pixlink:
         width:
             type: integer
             nullable: false
-            unsigned: false
-            comment: ''
+            options:
+                unsigned: false
         height:
             type: integer
             nullable: false
-            unsigned: false
-            comment: ''
+            options:
+                unsigned: false
         gluex:
             type: boolean
             nullable: false
-            comment: ''
         gluey:
             type: boolean
             nullable: false
-            comment: ''
         prevx:
             type: boolean
             nullable: false
-            comment: ''
         prevy:
             type: boolean
             nullable: false
-            comment: ''
         resetx:
             type: boolean
             nullable: false
-            comment: ''
         resety:
             type: boolean
             nullable: false
-            comment: ''
         drift:
             type: boolean
             nullable: false
-            comment: ''
         gravity:
             type: boolean
             nullable: false
-            comment: ''
         offsetx:
             type: integer
             nullable: false
-            unsigned: false
-            comment: ''
+            options:
+                unsigned: false
         offsety:
             type: integer
             nullable: false
-            unsigned: false
-            comment: ''
+            options:
+                unsigned: false
         pixclass:
             type: string
             nullable: false
             length: 255
-            fixed: false
-            comment: ''
+            options:
+                fixed: false
         pixreference:
             type: object
             nullable: false
             length: null
-            fixed: false
-            comment: ''
+            options:
+                fixed: false
             column: pixReference
     lifecycleCallbacks: {  }

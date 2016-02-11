@@ -35,13 +35,5 @@ class UserToolbar extends AbstractHelper
 		$userToolbarEMPTY .= "</div>";
 		return $userToolbarEMPTY;
     }
-    public function setState()
-    {
-        $this->state = true;
-    }
-    public function clearState()
-    {
-        $this->state = false;
-    } 
 }
 ?>

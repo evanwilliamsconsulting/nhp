@@ -70,13 +70,14 @@ class IndexController extends AbstractActionController
 		$view->box = $form;
 		return $view;
 	}
+/*
 	public function setsizeAction()
 	{
-		/*
+		/
 		 * This is correct code for receiving parameters from an ajax call
 		 * But not the way to go about setting the window sizes.
 		 * Need to use window.resize and percentages in layout.
-		 */
+		 *
 		$view = new ViewModel();
 		$view->setTerminal(true);
 		$result = $_POST;
@@ -85,6 +86,7 @@ class IndexController extends AbstractActionController
 		$view->data = "success";
 		return $view;
 	}
+*/
     public function welcomeAction()
     {
         $view = new ViewModel();

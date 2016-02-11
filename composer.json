@@ -14,9 +14,7 @@
         "phptal/phptal": "^1.3",
         "firephp/firephp-core":"dev-master",
         "doctrine/orm":"dev-master",
-        "doctrine/dbal":">=2.5.0",
-	"doctrine/doctrine-module":"0.8.*",
-	"doctrine/doctrine-orm-module": "dev-master"
+        "doctrine/doctrine-orm-module": "dev-master"
     },
     "autoload" : {
         "psr-0" : {"DoctrineORMModule": "src/"},

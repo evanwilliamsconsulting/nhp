@@ -1,12 +1,12 @@
 Issue:
     type: entity
-    table: Issue
+    table: issue
     id:
         id:
             type: integer
             nullable: false
-            unsigned: false
-            comment: ''
+            options:
+                unsigned: false
             id: true
             generator:
                 strategy: IDENTITY
@@ -14,52 +14,49 @@ Issue:
         dateofpublication:
             type: datetime
             nullable: false
-            comment: ''
             column: dateOfPublication
         toggledivtagson:
             type: boolean
             nullable: false
-            comment: ''
             column: toggleDivTagsOn
         priceofcopy:
             type: decimal
             nullable: false
             precision: 10
             scale: 0
-            comment: ''
             column: priceOfCopy
         tagline:
             type: string
             nullable: false
             length: 255
-            fixed: false
-            comment: ''
+            options:
+                fixed: false
             column: tagLine
         qrimage:
             type: blob
             nullable: false
             length: null
-            fixed: false
-            comment: ''
+            options:
+                fixed: false
             column: QRImage
         headingtheme:
             type: string
             nullable: false
             length: 255
-            fixed: false
-            comment: ''
+            options:
+                fixed: false
             column: headingTheme
         secondtheme:
             type: string
             nullable: false
             length: 255
-            fixed: false
-            comment: ''
+            options:
+                fixed: false
             column: secondTheme
         brace:
             type: string
             nullable: false
             length: 255
-            fixed: false
-            comment: ''
+            options:
+                fixed: false
     lifecycleCallbacks: {  }

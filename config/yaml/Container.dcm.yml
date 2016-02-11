@@ -1,50 +1,33 @@
 Container:
     type: entity
-    table: Container
+    table: container
     id:
         id:
             type: integer
             nullable: false
-            unsigned: false
-            comment: ''
+            options:
+                unsigned: false
             id: true
             generator:
                 strategy: IDENTITY
     fields:
-        username:
-            type: text 
-            nullable: false
-            length: 255
-            fixed: false
-            comment: ''
-        original_date:
-            type: date
-            nullable: false
-            comment: ''
-        title:
-            type: text
-            nullable: false
-            length: 255
-            fixed: false
-            comment: ''
         background:
             type: blob
             nullable: false
             length: null
-            fixed: false
-            comment: ''
+            options:
+                fixed: false
         frame:
             type: boolean
             nullable: false
-            comment: ''
         backgroundwidth:
             type: integer
             nullable: false
-            unsigned: false
-            comment: ''
+            options:
+                unsigned: false
         backgroundheight:
             type: integer
             nullable: false
-            unsigned: false
-            comment: ''
+            options:
+                unsigned: false
     lifecycleCallbacks: {  }

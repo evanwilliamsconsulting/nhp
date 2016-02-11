@@ -1,6 +1,7 @@
 $(document).ready(function()
 {
 	window_info = ({ "width" : $(window).width(), "height" : $(window).height()});
+/*
 	$.ajax({
 		type:"POST",
 		data:window_info,
@@ -9,6 +10,7 @@ $(document).ready(function()
 			//alert(data);
 		}
 	});
+*/
 	clickLogin = function()
 	{
 		$.ajax({

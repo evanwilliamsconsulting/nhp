@@ -38,29 +38,39 @@ class CorrespondantController extends AbstractActionController
     {
         if (null == $this->em)
         {
-            $this->em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+            //$this->em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+	    try {
+                $this->em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+            } catch (Exception $e) {
+		print_r($e);
+		print_r($e-getPrevious());
+	    }
 	}
 	return $this->em;
     }
     public function indexAction()
     {
-	    $this->log = $this->getServiceLocator()->get('log');
+	$this->log = $this->getServiceLocator()->get('log');
         $log = $this->log;
         $log->info("Correspondant Controller");
 
         $em = $this->getEntityManager();
-	
-		$items = new Items();
-		$items->setEntityManager($em);
-		$items->loadDataSource();
-		
-//		$wordage = $em->getRepository('Application\Entity\Wordage')->findAll();
-	
-	    $view = new ViewModel();
-		
-//		$items = $wordage;
 
-	    $view->items = $items->toArray();
+	$layout = $this->layout();
+	// This second layout look really should happen if logged in.
+	$layout->setTemplate('layout/correspondant');
+
+	$items = new Items();
+	$items->setEntityManager($em);
+	$items->loadDataSource();
+		
+//	$wordage = $em->getRepository('Application\Entity\Wordage')->findAll();
+	
+	$view = new ViewModel();
+		
+//	$items = $wordage;
+
+	$view->items = $items->toArray();
 
         return $view;
     }
