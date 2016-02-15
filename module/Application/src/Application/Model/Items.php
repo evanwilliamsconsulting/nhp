@@ -30,7 +30,10 @@ class Items extends AbstractResultSet
 		$wordages = $em->getRepository('Application\Entity\Wordage')->findAll();
 		foreach	($wordages as $wordage)
 		{
-			$this->obj->append($wordage);
+			$newArray = Array();
+			$newArray["type"] = "Wordage";	
+			$newArray["object"] = $wordage;
+			$this->obj->append($newArray);
 		}
 	}
     public function getDataSource()

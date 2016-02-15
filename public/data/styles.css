@@ -79,6 +79,52 @@
 #topbar > span {
 	font-size:20pt;
 }
+.wordage-item {
+	width: 80%;
+	background-color:#da2f61;
+	color:white;
+	margin-left:20%;
+	margin-right:auto;
+	margin-top:5px;
+	margin-bottom:0px;
+	position:relative;
+	flush:right;
+	text-align:left;
+	float:top;
+	height:100px;
+}
+.wordage-item > span {
+	font-size:11pt;
+}
+.wordage-item-title {
+	position:relative;
+	width:30%;
+	left:0%;
+	float:right;
+}
+.wordage-item-text {
+	width:70%;
+	left:0%;
+	top:10px;
+	height:auto;
+	flush:right;
+	position:relative;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+.wordage-edit-text {
+	position:relative;
+	top:0px;
+	left:0px;
+	height:auto;
+	width:auto;
+	background-color:white;
+	color:black;
+	margin:10px;
+}
+.wordage-edit-text > textarea {
+	width:99%;
+}
 #slogan {
 	text-align:left;
 	position:relative;
@@ -124,6 +170,7 @@
 }
 .itemlist {
     list-style:none;
+    width:18%;
 }
 .itemtab {
     font-size:18pt;

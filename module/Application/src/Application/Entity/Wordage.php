@@ -12,7 +12,7 @@ use Zend\Validator\Date;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="Wordage")
+ * @ORM\Table(name="wordage")
  */
 class Wordage implements InputFilterAwareInterface
 {
@@ -175,7 +175,7 @@ class Wordage implements InputFilterAwareInterface
      * @param \DateTime $original
      * @return Wordage
      */
-    public function setOriginalDate($originalDate)
+    public function setOriginal($originalDate)
     {
         $this->original = $originalDate;
 
@@ -187,7 +187,7 @@ class Wordage implements InputFilterAwareInterface
      *
      * @return \DateTime 
      */
-    public function getOriginalDate()
+    public function getOriginal()
     {
         return $this->original;
     }

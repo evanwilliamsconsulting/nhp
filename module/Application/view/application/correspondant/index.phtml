@@ -1,4 +1,4 @@
-<div id="correspondant_content" class="content_div"
+<div id="correspondant_content" class="content_div">
 	<div id="add_items_list" class="item_sidebar">
 		<?php echo $this->toolbar(); ?>
 	</div>
@@ -6,10 +6,7 @@
 		<?php
 			foreach ($this->items as $key => $item)
 			{
-				echo print_r($item,true);
-				$id = $item->getId();
-				echo "id" . $id;
-		        echo $this->partial('items/row.phtml', array('id'=>$id)); 
+				echo $item();
 			}
 		?>
 	</div>

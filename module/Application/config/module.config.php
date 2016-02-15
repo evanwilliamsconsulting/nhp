@@ -72,7 +72,7 @@ return array(
         // Metadata Mapping driver configuration
         'driver' => array(
             // Configuration for service `doctrine.driver.orm_default` service
-	    'application_entities' => array(
+	    'orm_default' => array(
                 'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
 		'cache' => 'array',
 		'paths' => array(__DIR__ . '/../src/' . __NAMESPACE__ . '/Application/Entity')
@@ -90,7 +90,8 @@ return array(
                 'paths' => array(
                     __DIR__ . '/../src/Application/Entity',
                 ),
-            ),
+            )  //,
+/*
             'orm_default' => array(
                 // By default, the ORM module uses a driver chain. This allows multiple
                 // modules to define their own entities
@@ -100,6 +101,7 @@ return array(
 		    'Application\Entity' => 'application_entities'
 		)
             )
+*/
         ),
         // Entity Manager instantiation settings
         'entitymanager' => array(
@@ -403,6 +405,7 @@ return array(
     'view_helpers' => array(  
         'invokables' => array(  
             'customHelper' => 'Application\View\Helper\CustomHelper',  
+	    'wordageHelper' => 'Application\View\Helper\WordageHelper',
                 // more helpers here ...  
         )  
     ),  

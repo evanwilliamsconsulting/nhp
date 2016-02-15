@@ -13,11 +13,11 @@ class WordageHelper extends AbstractHelper implements ServiceLocatorAwareInterfa
 {
     protected static $state;
 	protected $wordageObject;
+	protected $wordage;
 	protected $username;
 	protected $itemId;
 	protected $viewmodel;
 	protected $renderer;
-	protected $wordageService;
 
     /** 
      * Set the service locator. 
@@ -25,9 +25,8 @@ class WordageHelper extends AbstractHelper implements ServiceLocatorAwareInterfa
      * @ param ServiceLocatorInterface $serviceLocator 
      * @ return CustomHelper 
      */ 
-    public function __construct(WordageService $wordageService)
+    public function __construct()
 	{
-		$this->wordageService = $wordageService;
 	}
     public function setServiceLocator(ServiceLocatorInterface $serviceLocator)  
     {  
@@ -54,6 +53,7 @@ class WordageHelper extends AbstractHelper implements ServiceLocatorAwareInterfa
 	public function setWordageObject($wordageObject)
 	{
 		$this->wordageObject = $wordageObject;
+		$this->wordage = $wordageObject->getWordage();
 	}
 	public function setUsername($username)
 	{
@@ -73,23 +73,23 @@ class WordageHelper extends AbstractHelper implements ServiceLocatorAwareInterfa
 	}
     public function __invoke()
     {
+        $viewRender = $this->getServiceLocator()->get('ViewRenderer');
     	//$sm = $this->getServiceLocator()->getServiceLocator();  
         //$config = $sm->get('application')->getConfig(); 
  
-        $retval = "<div>";
-		$retval .= "Wordage Helper";
-		$retval .= print_r($this->wordageService->findAllWordage(),true);
-		$retval .= "</div>";
+        //$retval = "<div>";
+	//	$retval .= $this->wordageObject->getWordage();
+	//	$retval .= "</div>";
     	
-    	//$view = $this->getViewModel();
+    	$view = $this->getViewModel();
 		
-		//$view->setTemplate('items/wordage.phtml');
+		$view->setTemplate('items/wordage.phtml');
 		
 		//return $view;
 		
-		return $retval;
+		//return $retval;
 		
-		//return print_r($view,true);
+//		return print_r($view,true);
+	return $viewRender->render($view);
     }
 }
-?>

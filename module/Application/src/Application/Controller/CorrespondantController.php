@@ -23,6 +23,9 @@ use Zend\Stdlib\ArrayObject as ArrayObject;
 use Application\Model\Items as Items;
 use Application\Entity\Wordage;
 
+use Application\View\Helper\WordageHelper as WordageHelper;
+use Application\Service\WordageService as WordageService;
+
 class CorrespondantController extends AbstractActionController
 {
     protected $em;
@@ -38,9 +41,9 @@ class CorrespondantController extends AbstractActionController
     {
         if (null == $this->em)
         {
-            //$this->em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
 	    try {
-                $this->em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+            	$this->em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+                //$this->em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
             } catch (Exception $e) {
 		print_r($e);
 		print_r($e-getPrevious());
@@ -63,14 +66,38 @@ class CorrespondantController extends AbstractActionController
 	$items = new Items();
 	$items->setEntityManager($em);
 	$items->loadDataSource();
-		
-//	$wordage = $em->getRepository('Application\Entity\Wordage')->findAll();
+
 	
+		
 	$view = new ViewModel();
 		
-//	$items = $wordage;
-
-	$view->items = $items->toArray();
+	$itemArray = Array();
+	foreach ($items->toArray() as $num => $item)
+	{
+		if ($item["type"] == "Wordage")
+		{
+			$wordageObject = $item["object"];
+			$wordage = $wordageObject->getWordage();
+			$id = $wordageObject->getId();
+			$original = $wordageObject->getOriginal();
+			$title = $wordageObject->getTitle();
+			$username = $wordageObject->getUsername();
+			$bcolor = '#ff22bb';
+			$view = new ViewModel(array('wordage' => $wordage,
+				'id' => $id,
+				'original' => $original,
+				'title' => $title,
+				'username' => $username,
+				'bcolor' => $bcolor
+			));
+			$wordageItem = new WordageHelper();
+			$wordageItem->setServiceLocator($this->getServiceLocator());
+			$wordageItem->setViewModel($view);
+			$wordageItem->setWordageObject($item["object"]);
+			$itemArray[] = $wordageItem;
+		}
+	}
+	$view->items = $itemArray;
 
         return $view;
     }

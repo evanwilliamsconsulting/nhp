@@ -9,6 +9,7 @@
 namespace Application\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\View\Model\JsonModel;
 use Application\Entity\Wordage;
 use Hex\View\Helper\CustomHelper;
 use Doctrine\ORM\EntityManager;
@@ -17,6 +18,9 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterInterface;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\Session\Container;
+use Zend\View\Renderer\PhpRenderer;
+use Zend\View\Resolver;
+
 class WordageController extends AbstractActionController
 {
     protected $em;
@@ -99,116 +103,43 @@ class WordageController extends AbstractActionController
         $view->content = $this->content();
         return $view;
     }
-	public function editAction()
-	{
-		$this->log = $this->getServiceLocator()->get('log');
-    	$log = $this->log;
-    	$log->info("new form");
-	    $view = new ViewModel();
-        $form = new WordageForm();
-    	// 2015-09-10
-    	// 2Do: Check to see that user is logged in
-    	if (!$this->getAuthService()->hasIdentity())
-        {
-	       return $this->redirect()->toUrl('http://www.newhollandpress.com/wordage/index');
-        }
-    	// 2Do: Populate username with user's username
-    	$userSession = new Container('user');
-		$this->username = $userSession->username;
-		$log->info($this->username);
-    	// 2Do: Implement Calendar Widget in Javascript for date and fix validation
-        $form->get('submit')->setValue('Edit');
-		// Retreive the parameters
-		$id = $this->params()->fromRoute('item');
-	    $log->info($id);
-		
-		$em = $this->getEntityManager();
-		
-		$wordage = $em->getRepository('Application\Entity\Wordage')->find($id);
-        $form->bind($wordage);
-        //$form->get('username')->setValue($this->username);
-        $request = $this->getRequest();
-		//$log->info($request);
-        if ($request->isPost()) {
-            $em = $this->getEntityManager();
-            $inputFilter = $wordage->getInputFilter();
-    
-	    $form->setInputFilter($inputFilter);
-	    $form->setData($request->getPost());
-		$log->info(print_r($request->getPost(),true));
-		//$theData = $form->getData();
-		//$log->info(print_r($theData,true));
-	    if ($form->isValid())
-	    {
-	       $log->info("is valid!");
-		   $wordage->exchangeArray($request->getPost());
-		   $log->info("data exchanged");
-		   $log->info(print_r($form->getData(),true));
-	       $em->persist($form->getData());
-		   $log->info("persisted");
-	       $em->flush();
-		   $log->info("flushed");
-	       return $this->redirect()->toUrl('http://www.newhollandpress.com/wordage/index');
-	    }
-/*
-*/
-        }
-	$view->form = $form;
-	$view->id =$id;
-	return $view;
-    
-		
-	}
-    public function newAction()
+    public function editAction()
     {
-		$this->log = $this->getServiceLocator()->get('log');
-    	$log = $this->log;
-    	$log->info("new form");
-		
-	    $view = new ViewModel();
-        $form = new WordageForm();
-    	// 2015-09-10
-    	// 2Do: Check to see that user is logged in
-    	if (!$this->getAuthService()->hasIdentity())
-        {
-	       return $this->redirect()->toUrl('http://www.newhollandpress.com/wordage/index');
-        }
-    	// 2Do: Populate username with user's username
-    	$userSession = new Container('user');
-		$this->username = $userSession->username;
-		$log->info($this->username);
-    	// 2Do: Implement Calendar Widget in Javascript for date and fix validation
-        $form->get('submit')->setValue('Add');
-        $wordage = new Wordage();
-        $form->bind($wordage);
-        $form->get('username')->setValue($this->username);
-        $request = $this->getRequest();
-		//$log->info($request);
-        if ($request->isPost()) {
-            $em = $this->getEntityManager();
-            $inputFilter = $wordage->getInputFilter();
-    
-	    $form->setInputFilter($inputFilter);
-	    $form->setData($request->getPost());
-		$log->info(print_r($request->getPost(),true));
-		//$theData = $form->getData();
-		//$log->info(print_r($theData,true));
-	    if ($form->isValid())
-	    {
-	       $log->info("is valid!");
-		   $wordage->exchangeArray($request->getPost());
-		   $log->info("data exchanged");
-		   $log->info(print_r($form->getData(),true));
-	       $em->persist($form->getData());
-		   $log->info("persisted");
-	       $em->flush();
-		   $log->info("flushed");
-	       return $this->redirect()->toUrl('http://www.newhollandpress.com/wordage/index');
-	    }
-/*
-*/
-        }
-	$view->form = $form;
-	return $view;
+	$viewModel = new ViewModel();
+	$viewModel->setTemplate("edit");
+	$renderer = new PhpRenderer();
+	$resolver = new Resolver\AggregateResolver();
+	$renderer->setResolver($resolver);
+
+	$map = new Resolver\TemplateMapResolver(array(
+    		'edit'      => __DIR__ . '/../../../view/application/wordage/edit.phtml',
+	));
+	$stack = new Resolver\TemplatePathStack(array(
+    		'script_paths' => array(
+        	__DIR__ . '/view',
+    		)
+	));
+
+	$resolver->attach($map);
+	$resolver->attach($stack);
+
+	$wordageid = $this->params()->fromQuery('id');
+	// Looking for: wordage- or 8 chars
+	$theId = substr($wordageid,strpos('-',$wordageid)+8,strlen($wordageid));
+	$viewModel->setVariable('theid',$theId);
+
+	$theArray = array('id' => $theId);
+
+	$em = $this->getEntityManager();
+	$wordage = $em->getRepository('Application\Entity\Wordage')->findOneBy($theArray);
+	$actualWords = $wordage->getWordage();
+	$viewModel->setVariable('actualWords',$actualWords);
+
+	$variables = array("id" => $wordageid,"view" => $renderer->render($viewModel),"thewordage" => print_r($wordage,true));
+	$jsonModel = new JsonModel($variables);
+        $response = $this->getResponse();
+        $response->setStatusCode(200);
+        $response->setContent(json_encode($variables));
+	return $response;
     }
 }

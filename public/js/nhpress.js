@@ -21,4 +21,17 @@ $(document).ready(function()
 			}
 		});
 	}
+	clickWordageItemText = function(wordagetextid)
+	{
+		$.ajax({
+			type:"POST",
+			url:"/wordage/edit?id=" + wordagetextid,
+			success: function(data) {
+				var objJSON = JSON.parse(data);
+				var theId = "#" + objJSON.id;
+				var theWordageText = objJSON.view;
+				$(theId).children(".wordage-item-text").html(theWordageText);
+			}
+		});
+	}
 });
