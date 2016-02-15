@@ -4,46 +4,137 @@ namespace Application\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Wordage
+use Zend\InputFilter\Factory as InputFactory;
+use Zend\InputFilter\InputFilter;
+use Zend\InputFilter\InputFilterAwareInterface;
+use Zend\InputFilter\InputFilterInterface;
+use Zend\Validator\Date;
 
+/**
  * @ORM\Entity
- * @ORM\Table(name="wordage")
+ * @ORM\Table(name="Wordage")
  */
-class Wordage
+class Wordage implements InputFilterAwareInterface
 {
+    private $columnsize;
+
+
+    protected $inputFilter;
+
+    public function exchangeArray($data)
+    {
+        $this->id = (isset($data['id'])) ? $data['id'] : null;
+        $this->username = (isset($data['username'])) ? $data['username'] : null;
+        $this->original = (isset($data['original'])) ? $data['original'] : null;
+        $this->title= (isset($data['title'])) ? $data['title'] : null;
+        $this->wordage = (isset($data['wordage'])) ? $data['wordage'] : null;
+        $this->columnSize = (isset($data['columnSize'])) ? $data['columnSize'] : null;
+    }
+    public function getInputFilter()
+    {
+        if (!$this->inputFilter) {
+            $inputFilter = new InputFilter();
+			$factory = new InputFactory();
+
+            $inputFilter->add(
+            	$factory->createInput(array(
+                'name' => 'id',
+                'required' => false,
+            )));
+
+            $inputFilter->add(
+            	$factory->createInput(array(
+                'name' => 'username',
+                'required' => false,
+            )));
+			
+
+            $inputFilter->add(
+            	$factory->createInput(array(
+                'name' => 'original',
+                'required' => false,
+                'options' => array(
+                	'format' => 'Ymd'
+				)
+            ))
+			);
+
+            $inputFilter->add(
+            	$factory->createInput(array(
+                'name' => 'title',
+                'required' => false,
+            )));
+
+            $inputFilter->add(
+            	$factory->createInput(array(
+                'name' => 'wordage',
+                'required' => false,
+            )));
+
+            $inputFilter->add(
+            	$factory->createInput(array(
+                'name' => 'columnSize',
+                'required' => false,
+            )));
+ 
+            $this->inputFilter = $inputFilter;
+        }
+        return $this->inputFilter;
+    }
+    public function setInputFilter(InputFilterInterface $inputFilter)
+    {
+        throw new \Exception("Not Used");
+    }
+    public function getArrayCopy()
+    {
+        return get_object_vars($this);
+    }
     /**
      * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
-    /**
-     * @var string
-     */
-    private $username;
-
-    /**
-     * @var \DateTime
-     */
-    private $original_date;
 
     /**
      * @var string
-     */
-    private $title;
-
-    /**
-     * @var string
+     *
+     * @ORM\Column(name="wordage", type="string", length=255, nullable=false)
      */
     private $wordage;
 
     /**
+     *
+	 * 
+     * @ORM\Column(name="columnSize", type="integer", length=255, nullable=false)
      * @var integer
      */
-    private $columnsize;
+    private $columnSize;
+	
+    /**
+     * @var string
+	 * 
+	 * @ORM\Column(name="username", type="string", length=255, nullable=false)
+     *
+	 **/
+    private $username;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="original", type="string", length=255, nullable=false)
+     */
+    private $original;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="text", length=2255, nullable=false)
+     */
+    private $title;
 
     /**
      * Get id
@@ -81,12 +172,12 @@ class Wordage
     /**
      * Set original_date
      *
-     * @param \DateTime $originalDate
+     * @param \DateTime $original
      * @return Wordage
      */
     public function setOriginalDate($originalDate)
     {
-        $this->original_date = $originalDate;
+        $this->original = $originalDate;
 
         return $this;
     }
@@ -98,7 +189,7 @@ class Wordage
      */
     public function getOriginalDate()
     {
-        return $this->original_date;
+        return $this->original;
     }
 
     /**
