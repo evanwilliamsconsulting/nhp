@@ -30,7 +30,13 @@ return array(
         // modules are loaded. These effectively override configuration
         // provided by modules themselves. Paths may use GLOB_BRACE notation.
         'config_glob_paths' => array(
-            '/usr/local/apache2/nhp/config/autoload/global.php',
+	#2DO SHOULD NOT BE RELATIVE TO SYSTEM ROOT: USE ENVIROMENT VARIABLE
+	# Note for Evan Jan Williams:
+	# The above phrasing works best for me but what I really mean is:
+	# "Do not use system dependent paths."
+	    # 2DO EJW Do not use site relative Paths
+            #'/usr/local/apache2/nhp/config/autoload/global.php',
+            '/var/www/html/config/autoload/global.php',
         ),
 
         // Whether or not to enable a configuration cache.
