@@ -1,5 +1,7 @@
 $(document).ready(function()
 {
+	var theTextAreaId;
+	var theWordageId;
 	window_info = ({ "width" : $(window).width(), "height" : $(window).height()});
 /*
 	$.ajax({
@@ -21,8 +23,24 @@ $(document).ready(function()
 			}
 		});
 	}
+	wordageChangeFunc = function()
+	{
+		$.ajax({
+			type:"POST",
+			data: 
+				{
+				'id':theWordageId,
+				'thetext': $("#wordage-edit-textarea").val()
+			}, 
+			url:"/wordage/change",
+			success: function(data) {
+				//alert(data);
+			}
+		});
+	}
 	clickWordageItemText = function(wordagetextid)
 	{
+		theWordageId = wordagetextid;
 		$.ajax({
 			type:"POST",
 			url:"/wordage/edit?id=" + wordagetextid,
@@ -30,7 +48,10 @@ $(document).ready(function()
 				var objJSON = JSON.parse(data);
 				var theId = "#" + objJSON.id;
 				var theWordageText = objJSON.view;
+				theTextAreaId = theId
 				$(theId).children(".wordage-item-text").html(theWordageText);
+				$(theId).children(".wordage-item-text").jqte({change: wordageChangeFunc});
+
 			}
 		});
 	}

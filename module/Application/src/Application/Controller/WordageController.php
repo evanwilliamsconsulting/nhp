@@ -103,6 +103,27 @@ class WordageController extends AbstractActionController
         $view->content = $this->content();
         return $view;
     }
+    public function changeAction()
+    {
+	$changedtext = $this->params()->fromPost('thetext');
+
+	$wordageid = $this->params()->fromPost('id');
+	$theId = substr($wordageid,strpos('wordage-',$wordageid)+8,strlen($wordageid));
+	$theArray = array('id' => $theId);
+
+	$em = $this->getEntityManager();
+	$wordage = $em->getRepository('Application\Entity\Wordage')->findOneBy($theArray);
+
+	$wordage->setWordage($changedtext);
+	$em->persist($wordage);
+	$em->flush();
+
+	$variables = array("status" => "200",'id'=>$theId,'wordage'=>print_r($wordage,true));
+        $response = $this->getResponse();
+        $response->setStatusCode(200);
+        $response->setContent(json_encode($variables));
+	return $response;
+    }
     public function editAction()
     {
 	$viewModel = new ViewModel();
@@ -134,6 +155,7 @@ class WordageController extends AbstractActionController
 	$wordage = $em->getRepository('Application\Entity\Wordage')->findOneBy($theArray);
 	$actualWords = $wordage->getWordage();
 	$viewModel->setVariable('actualWords',$actualWords);
+	$viewModel->setVariable('id',$theId);
 
 	$variables = array("id" => $wordageid,"view" => $renderer->render($viewModel),"thewordage" => print_r($wordage,true));
 	$jsonModel = new JsonModel($variables);

@@ -30,6 +30,7 @@ return array(
         // modules are loaded. These effectively override configuration
         // provided by modules themselves. Paths may use GLOB_BRACE notation.
         'config_glob_paths' => array(
+	    // 2DO: EJW Site Relative Paths should be used
             '/usr/local/apache2/nhp/config/autoload/global.php',
         ),
 
