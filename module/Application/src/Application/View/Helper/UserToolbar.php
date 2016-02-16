@@ -5,7 +5,6 @@ use Zend\Session\Container;
  
 class UserToolbar extends AbstractHelper
 {
-    protected static $state;
 
     public function __invoke()
     {
