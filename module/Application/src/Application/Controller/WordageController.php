@@ -103,6 +103,11 @@ class WordageController extends AbstractActionController
         $view->content = $this->content();
         return $view;
     }
+    public function newAction()
+    {
+	$view = new ViewModel();
+        return $view;
+    }
     public function changeAction()
     {
 	$changedtext = $this->params()->fromPost('thetext');

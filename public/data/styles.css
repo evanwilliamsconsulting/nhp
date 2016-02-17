@@ -34,9 +34,18 @@
 	position:relative;
 	top:-10px;
 }
-#correspondant_toolbar {
+#correspondent-toolbar {
+	width: 80%;
+	background-color:#dd2266;
+	color:white;
+	margin-left:20%;
+	margin-right:auto;
+	margin-top:5px;
+	margin-bottom:0px;
+	position:relative;
+	flush:right;
+	text-align:left;
 	background-color:black;
-	width:79%;
 	margin-left:20%;
 	margin-right:auto;
 	position:relative;
@@ -168,10 +177,11 @@
 	width:98%;
 	position:absolute;
 }
+
 .itemlist {
     list-style:none;
-    width:18%;
 }
 .itemtab {
     font-size:18pt;
+    display:inline;
 }

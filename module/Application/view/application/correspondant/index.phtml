@@ -1,13 +1,12 @@
-<div id="correspondant_content" class="content_div">
+<div class="content_div">
 	<div id="add_items_list" class="item_sidebar">
-		<?php echo $this->toolbar(); ?>
+		<span>Sidebar</span>
 	</div>
-	<div>
-		<?php
-			foreach ($this->items as $key => $item)
-			{
-				echo $item();
-			}
-		?>
-	</div>
+	<?php echo $this->toolbar(); ?>
+	<?php
+	    foreach ($this->items as $key => $item)
+	    {
+	        echo $item();
+	    }
+	?>
 </div>

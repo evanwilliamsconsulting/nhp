@@ -21,7 +21,7 @@ use Zend\Session\Container;
 use Zend\Stdlib\ArrayObject as ArrayObject;
 
 use Application\Model\Items as Items;
-use Application\Entity\Wordage;
+use Application\Entity\Wordage as Wordage;
 
 use Application\View\Helper\WordageHelper as WordageHelper;
 use Application\Service\WordageService as WordageService;
@@ -58,6 +58,25 @@ class CorrespondantController extends AbstractActionController
         $log->info("Correspondant Controller");
 
         $em = $this->getEntityManager();
+
+	$new = $this->params()->fromQuery('new');
+
+	if (!is_null($new))
+	{
+		if ($new == "wordage")
+		{
+			$log->info("wordage");
+			$newWordage = new Wordage();
+			$newWordage->setTitle("new");
+			$newWordage->setUsername("evanwill");
+			$newWordage->setWordage("new");
+			$newWordage->setColumnsize("65");
+		        $log->info(print_r($newWordage,true));	
+			$em->persist($newWordage);
+			$em->flush();
+		}
+	}
+
 
 	$layout = $this->layout();
 	// This second layout look really should happen if logged in.

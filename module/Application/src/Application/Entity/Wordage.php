@@ -246,7 +246,7 @@ class Wordage implements InputFilterAwareInterface
      */
     public function setColumnsize($columnsize)
     {
-        $this->columnsize = $columnsize;
+        $this->columnSize = $columnsize;
 
         return $this;
     }
