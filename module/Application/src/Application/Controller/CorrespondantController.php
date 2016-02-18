@@ -26,6 +26,8 @@ use Application\Entity\Wordage as Wordage;
 use Application\View\Helper\WordageHelper as WordageHelper;
 use Application\Service\WordageService as WordageService;
 
+use Application\View\Helper\PictureHelper as PictureHelper;
+
 class CorrespondantController extends AbstractActionController
 {
     protected $em;
@@ -74,9 +76,10 @@ class CorrespondantController extends AbstractActionController
 		        $log->info(print_r($newWordage,true));	
 			$em->persist($newWordage);
 			$em->flush();
+
+			return $this->redirect()->toRoute('correspondant');
 		}
 	}
-
 
 	$layout = $this->layout();
 	// This second layout look really should happen if logged in.
@@ -85,8 +88,6 @@ class CorrespondantController extends AbstractActionController
 	$items = new Items();
 	$items->setEntityManager($em);
 	$items->loadDataSource();
-
-	
 		
 	$view = new ViewModel();
 		
@@ -115,6 +116,28 @@ class CorrespondantController extends AbstractActionController
 			$wordageItem->setWordageObject($item["object"]);
 			$itemArray[] = $wordageItem;
 		}
+		else 
+		{
+			$pictureObject = $item["object"];
+			$picture = $pictureObject->getPicture();
+			$id = $pictureObject->getId();
+			$original = $pictureObject->getOriginal();
+			$caption = $pictureObject->getCaption();
+			$username = $pictureObject->getUsername();
+			$bcolor = '#00bbbb';
+			$view = new ViewModel(array('picture' => $picture,
+				'id' => $id,
+				'original' => $original,
+				'caption' => $caption,
+				'username' => $username,
+				'bcolor' => $bcolor
+			));
+			$pictureItem = new PictureHelper();
+			$pictureItem->setServiceLocator($this->getServiceLocator());
+			$pictureItem->setViewModel($view);
+			$pictureItem->setPictureObject($item["object"]);
+			$itemArray[] = $pictureItem;
+		}		
 	}
 	$view->items = $itemArray;
 

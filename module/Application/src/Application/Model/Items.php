@@ -35,6 +35,14 @@ class Items extends AbstractResultSet
 			$newArray["object"] = $wordage;
 			$this->obj->append($newArray);
 		}
+		$pictures = $em->getRepository('Application\Entity\Picture')->findAll();
+		foreach	($pictures as $picture)
+		{
+			$newArray = Array();
+			$newArray["type"] = "Picture";	
+			$newArray["object"] = $picture;
+			$this->obj->append($newArray);
+		}
 	}
     public function getDataSource()
     {

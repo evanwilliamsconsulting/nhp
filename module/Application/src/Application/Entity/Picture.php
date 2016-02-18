@@ -1,47 +1,159 @@
 <?php
 
+namespace Application\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
+use Zend\InputFilter\Factory as InputFactory;
+use Zend\InputFilter\InputFilter;
+use Zend\InputFilter\InputFilterAwareInterface;
+use Zend\InputFilter\InputFilterInterface;
+use Zend\Validator\Date;
 
 /**
- * Picture
+ * @ORM\Entity
+ * @ORM\Table(name="picture")
  */
-class Picture
+class Picture implements InputFilterAwareInterface
 {
+    private $columnsize;
+
+
+    protected $inputFilter;
+
+    public function exchangeArray($data)
+    {
+        $this->id = (isset($data['id'])) ? $data['id'] : null;
+        $this->username = (isset($data['username'])) ? $data['username'] : null;
+        $this->original = (isset($data['original'])) ? $data['original'] : null;
+        $this->title= (isset($data['title'])) ? $data['title'] : null;
+        $this->picture = (isset($data['picture'])) ? $data['picture'] : null;
+        $this->columnSize = (isset($data['columnSize'])) ? $data['columnSize'] : null;
+    }
+    public function getInputFilter()
+    {
+        if (!$this->inputFilter) {
+            $inputFilter = new InputFilter();
+			$factory = new InputFactory();
+
+            $inputFilter->add(
+            	$factory->createInput(array(
+                'name' => 'id',
+                'required' => false,
+            )));
+
+            $inputFilter->add(
+            	$factory->createInput(array(
+                'name' => 'username',
+                'required' => false,
+            )));
+			
+
+            $inputFilter->add(
+            	$factory->createInput(array(
+                'name' => 'original',
+                'required' => false,
+                'options' => array(
+                	'format' => 'Ymd'
+				)
+            ))
+			);
+
+            $inputFilter->add(
+            	$factory->createInput(array(
+                'name' => 'title',
+                'required' => false,
+            )));
+
+            $inputFilter->add(
+            	$factory->createInput(array(
+                'name' => 'wordage',
+                'required' => false,
+            )));
+
+            $inputFilter->add(
+            	$factory->createInput(array(
+                'name' => 'columnSize',
+                'required' => false,
+            )));
+ 
+            $this->inputFilter = $inputFilter;
+        }
+        return $this->inputFilter;
+    }
+    public function setInputFilter(InputFilterInterface $inputFilter)
+    {
+        throw new \Exception("Not Used");
+    }
+    public function getArrayCopy()
+    {
+        return get_object_vars($this);
+    }
+
+
     /**
-     * @var int
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="caption", type="string", length=255, nullable=false)
      */
     private $caption;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="credit", type="string", length=255, nullable=false)
      */
     private $credit;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="picture", type="string", length=255, nullable=false)
      */
     private $picture;
 
     /**
-     * @var int
+     * @var integer
+     *
+     * @ORM\Column(name="width", type="integer", nullable=false)
      */
     private $width;
 
     /**
-     * @var int
+     * @var integer
+     *
+     * @ORM\Column(name="height", type="integer", nullable=false)
      */
     private $height;
 
+    /**
+     * @var string
+	 * 
+	 * @ORM\Column(name="username", type="string", length=255, nullable=false)
+     *
+	 **/
+    private $username;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="original", type="string", length=255, nullable=false)
+     */
+    private $original;
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer 
      */
     public function getId()
     {
@@ -49,11 +161,56 @@ class Picture
     }
 
     /**
-     * Set caption
+     * Set username
      *
-     * @param string $caption
+     * @param string $username
+     * @return Picture 
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * Get username
      *
-     * @return Picture
+     * @return string 
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * Set original_date
+     *
+     * @param \DateTime $original
+     * @return Picture 
+     */
+    public function setOriginal($originalDate)
+    {
+        $this->original = $originalDate;
+
+        return $this;
+    }
+
+    /**
+     * Get original_date
+     *
+     * @return DateTime 
+     */
+    public function getOriginal()
+    {
+        return $this->original;
+    }
+
+    /**
+     * Set caption 
+     *
+     * @param string $title
+     * @return Picture 
      */
     public function setCaption($caption)
     {
@@ -63,9 +220,9 @@ class Picture
     }
 
     /**
-     * Get caption
+     * Get caption 
      *
-     * @return string
+     * @return string 
      */
     public function getCaption()
     {
@@ -73,35 +230,10 @@ class Picture
     }
 
     /**
-     * Set credit
-     *
-     * @param string $credit
-     *
-     * @return Picture
-     */
-    public function setCredit($credit)
-    {
-        $this->credit = $credit;
-
-        return $this;
-    }
-
-    /**
-     * Get credit
-     *
-     * @return string
-     */
-    public function getCredit()
-    {
-        return $this->credit;
-    }
-
-    /**
-     * Set picture
+     * Set picture 
      *
      * @param string $picture
-     *
-     * @return Picture
+     * @return Picture 
      */
     public function setPicture($picture)
     {
@@ -111,9 +243,9 @@ class Picture
     }
 
     /**
-     * Get picture
+     * Get picture 
      *
-     * @return string
+     * @return string 
      */
     public function getPicture()
     {
@@ -121,11 +253,33 @@ class Picture
     }
 
     /**
-     * Set width
+     * Set credit 
      *
-     * @param int $width
+     * @param string $credit
+     * @return Picture 
+     */
+    public function setCredit($credit)
+    {
+        $this->credit = $credit;
+
+        return $this;
+    }
+
+    /**
+     * Get credit 
      *
-     * @return Picture
+     * @return string 
+     */
+    public function getCredit()
+    {
+        return $this->credit;
+    }
+
+    /**
+     * Set width 
+     *
+     * @param integer $width
+     * @return Picture 
      */
     public function setWidth($width)
     {
@@ -135,21 +289,19 @@ class Picture
     }
 
     /**
-     * Get width
+     * Get width 
      *
-     * @return int
+     * @return integer 
      */
     public function getWidth()
     {
         return $this->width;
     }
-
     /**
-     * Set height
+     * Set height 
      *
-     * @param int $height
-     *
-     * @return Picture
+     * @param integer $height
+     * @return Picture 
      */
     public function setHeight($height)
     {
@@ -159,13 +311,12 @@ class Picture
     }
 
     /**
-     * Get height
+     * Get height 
      *
-     * @return int
+     * @return integer 
      */
     public function getHeight()
     {
         return $this->height;
     }
 }
-

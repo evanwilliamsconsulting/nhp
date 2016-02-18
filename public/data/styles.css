@@ -185,3 +185,17 @@
     font-size:18pt;
     display:inline;
 }
+#footer {
+	width: auto;
+	background-color:#da2f61;
+	color:white;
+	margin-left:5px;
+	margin-right:auto;
+	margin-top:5px;
+	margin-bottom:0px;
+	position:relative;
+	flush:right;
+	text-align:left;
+	float:top;
+	height:20px;
+}
