@@ -38,6 +38,20 @@ $(document).ready(function()
 			}
 		});
 	}
+	clickPictureItem = function(pictureitemid)
+        {
+	   thePictureId = pictureitemid;
+	   $.ajax({
+		type:"POST",
+		url:"/picture/edit?id=" + pictureitemid,
+		success: function(data) {
+		var objJSON = JSON.parse(data);
+		var thePictureText = objJSON.view	
+		var theId = "#hidden";
+		$(theId).html(thePictureText);
+		}
+	    });
+	}
 	clickWordageItemText = function(wordagetextid)
 	{
 		theWordageId = wordagetextid;

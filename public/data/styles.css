@@ -134,6 +134,52 @@
 .wordage-edit-text > textarea {
 	width:99%;
 }
+.picture-item {
+	width: 80%;
+	background-color:#da2f61;
+	color:white;
+	margin-left:20%;
+	margin-right:auto;
+	margin-top:5px;
+	margin-bottom:0px;
+	position:relative;
+	flush:right;
+	text-align:left;
+	float:top;
+	height:200px;
+}
+.picture-item > span {
+	font-size:11pt;
+}
+.picture-item-caption {
+	position:relative;
+	width:30%;
+	left:0%;
+	float:right;
+}
+.picture-item-image {
+	width:70%;
+	left:0%;
+	top:10px;
+	height:auto;
+	flush:right;
+	position:relative;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+.picture-edit-image {
+	position:relative;
+	top:0px;
+	left:0px;
+	height:auto;
+	width:auto;
+	background-color:white;
+	color:black;
+	margin:10px;
+}
+.picture-edit-text > textarea {
+	width:99%;
+}
 #slogan {
 	text-align:left;
 	position:relative;
@@ -198,4 +244,9 @@
 	text-align:left;
 	float:top;
 	height:20px;
+}
+#hidden {
+        position:absolute;
+	top:100px;
+	margin:auto;
 }

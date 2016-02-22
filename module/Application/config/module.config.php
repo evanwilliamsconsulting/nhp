@@ -374,6 +374,7 @@ return array(
             'Application\Controller\Pix' => 'Application\Controller\PixController',
             'Application\Controller\PixLink' => 'Application\Controller\PixlinkController',
             'Application\Controller\Wordage' => 'Application\Controller\WordageController',
+            'Application\Controller\Picture' => 'Application\Controller\PictureController',
             'Application\Controller\Correspondant' => 'Application\Controller\CorrespondantController',
             'Application\Controller\Article' => 'Application\Controller\ArticleController',
         ),
