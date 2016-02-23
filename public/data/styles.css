@@ -246,7 +246,17 @@
 	height:20px;
 }
 #hidden {
-        position:absolute;
+        position:fixed;
 	top:100px;
+	left:100px;
 	margin:auto;
+}
+#wordage {
+        position:fixed;
+        top:100px;
+	left:100px;
+        margin:auto;
+}
+#floats {
+        position:relative;
 }
