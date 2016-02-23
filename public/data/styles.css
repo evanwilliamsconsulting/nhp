@@ -246,17 +246,27 @@
 	height:20px;
 }
 #hidden {
-        position:fixed;
-	top:100px;
-	left:100px;
-	margin:auto;
+}
+#picture {
+        position:absolute;
+	top:10px;
+	left:10px;
+	width:80%;
+	height:70%;
 }
 #wordage {
-        position:fixed;
-        top:100px;
-	left:100px;
-        margin:auto;
+        position:absolute;
+	top:10%;
+	left:10%;
+	width:80%;
+	height:70%;
 }
 #floats {
-        position:relative;
+	position:fixed;
+	background-color:#dd2266;
+	margin:auto;
+	top:5%;
+	left:5%;
+	width:90%;
+	height:90%;
 }

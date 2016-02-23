@@ -3,6 +3,7 @@ $(document).ready(function()
 	var theTextAreaId;
 	var theWordageId;
 	window_info = ({ "width" : $(window).width(), "height" : $(window).height()});
+	$("#floats").hide();
 /*
 	$.ajax({
 		type:"POST",
@@ -47,7 +48,8 @@ $(document).ready(function()
 		success: function(data) {
 		var objJSON = JSON.parse(data);
 		var thePictureText = objJSON.view	
-		var theId = "#wordage";
+		$("#floats").show();
+		var theId = "#picture";
 		$(theId).html(thePictureText);
 		}
 	    });
@@ -60,9 +62,10 @@ $(document).ready(function()
 			url:"/wordage/edit?id=" + wordagetextid,
 			success: function(data) {
 				var objJSON = JSON.parse(data);
-				var theId = "#hidden";
+				var theId = "#wordage";
 				var theWordageText = objJSON.view;
 				theTextAreaId = theId
+				$("#floats").show();
 				$(theId).html(theWordageText);
 			}
 		});
