@@ -47,7 +47,7 @@ $(document).ready(function()
 		success: function(data) {
 		var objJSON = JSON.parse(data);
 		var thePictureText = objJSON.view	
-		var theId = "#hidden";
+		var theId = "#wordage";
 		$(theId).html(thePictureText);
 		}
 	    });
@@ -60,12 +60,10 @@ $(document).ready(function()
 			url:"/wordage/edit?id=" + wordagetextid,
 			success: function(data) {
 				var objJSON = JSON.parse(data);
-				var theId = "#" + objJSON.id;
+				var theId = "#hidden";
 				var theWordageText = objJSON.view;
 				theTextAreaId = theId
-				$(theId).children(".wordage-item-text").html(theWordageText);
-				$(theId).children(".wordage-item-text").jqte({change: wordageChangeFunc});
-
+				$(theId).html(theWordageText);
 			}
 		});
 	}

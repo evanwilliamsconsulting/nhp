@@ -1,3 +1,8 @@
 <div id="<?php echo $this->wordageid; ?>" class="wordage-edit-text"> 
     <textarea id="wordage-edit-textarea" rows="4" cols="100"><?php echo $this->actualWords; ?></textarea>
+    <script>
+        tinymce.init({
+            selector: '#wordage-edit-textarea'
+	});
+    </script>
 </div>
