@@ -70,4 +70,8 @@ $(document).ready(function()
 			}
 		});
 	}
+	closeEditWordage = function()
+        {
+	    $("#wordage-edit-textarea").remove();
+        }
 });

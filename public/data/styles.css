@@ -123,10 +123,10 @@
 }
 .wordage-edit-text {
 	position:relative;
-	top:0px;
-	left:0px;
-	height:auto;
-	width:auto;
+	top:10px;
+	left:10px;
+	height:60%;
+	width:60%;
 	background-color:white;
 	color:black;
 	margin:10px;
@@ -251,15 +251,20 @@
         position:absolute;
 	top:10px;
 	left:10px;
-	width:80%;
-	height:70%;
+	width:90%;
+	height:90%;
+	background-color:white;
+	opacity:1.0;
 }
 #wordage {
         position:absolute;
-	top:10%;
-	left:10%;
+	margin:auto;
+	top:30px;
+	left:30px;
 	width:80%;
-	height:70%;
+	height:80%;
+	background-color:white;
+	opacity:1.0;
 }
 #floats {
 	position:fixed;
@@ -269,4 +274,5 @@
 	left:5%;
 	width:90%;
 	height:90%;
+	opacity: 0.9;
 }
