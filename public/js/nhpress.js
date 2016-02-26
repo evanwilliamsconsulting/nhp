@@ -67,11 +67,20 @@ $(document).ready(function()
 				theTextAreaId = theId
 				$("#floats").show();
 				$(theId).html(theWordageText);
+ 				tinymce.init({
+            				'selector': '#wordage-edit-textarea',
+            				'plugins' : 'insertdatetime,link,image',
+            				'theme' : 'modern',
+            				'theme__layout_manager' : 'SimpleLayout',
+            				'theme__buttons1' : 'backcolor, forecolor, |, bold, underline, strikethrough, |, numlist, bullist, charmap, |, undo, redo, |, anchor, link, tvlink, unlink',
+            				'theme__buttons2' : '',
+            				'theme__buttons3' : ''
+        			});
 			}
 		});
 	}
 	closeEditWordage = function()
         {
-	    $("#wordage-edit-textarea").remove();
+	    $("#wordage-edit-textarea").html("<div></div>");
         }
 });
