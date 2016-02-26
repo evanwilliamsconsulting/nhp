@@ -276,3 +276,6 @@
 	height:90%;
 	opacity: 0.9;
 }
+#dialog {
+	display:none;
+}

@@ -4,6 +4,7 @@ $(document).ready(function()
 	var theWordageId;
 	window_info = ({ "width" : $(window).width(), "height" : $(window).height()});
 	$("#floats").hide();
+	$("#dialog").hide();
 /*
 	$.ajax({
 		type:"POST",
@@ -81,6 +82,32 @@ $(document).ready(function()
 	}
 	closeEditWordage = function()
         {
-	    $("#wordage-edit-textarea").html("<div></div>");
+	    $("#dialog").show();
+	    var dlg = $('#dialog').dialog({
+           	modal: false,
+            	draggable: false,
+            	position: 'center',
+            	zIndex: 99999,  // Above the overlay
+            	width: 370,
+            	title: 'Content Block Editor',
+            	closeText: '',
+            	open: function () {
+               		$('body').css('overflow', 'hidden');
+                	if ($.browser.msie) { $('html').css('overflow', 'hidden'); } $('<div>').attr('id', 'loader').appendTo('body').show();
+            	},
+            	close: function () { $('body').css('overflow', 'auto'); if ($.browser.msie) { $('html').css('overflow', 'auto'); } $('#loader').remove(); },
+            	buttons: {
+               		'Save': function () {
+                    		tinyMCE.getInstanceById(theWordageText).remove();
+                    		$('.EditLink').show();
+                    		$(this).dialog('close');
+                	},
+                	'Cancel': function () {
+                    		tinyMCE.getInstanceById(theWordageText).remove();
+                    		$('.EditLink').show();
+                    		$(this).dialog('close');
+                	}
+		}
+            	}).parent();
         }
 });
