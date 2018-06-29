@@ -27,9 +27,10 @@ class IndexController extends AbstractActionController
     	$log = $this->getServiceLocator()->get('log');
     	$log->info('Will work equally well');
 	    $view = new ViewModel();
+	    
 	    $log->info("Got View Model");
 	    $view->content = $this->content();
-	/*
+	
 				$year = '2015';
 				$month = '12';
 				$day = '15';
@@ -43,7 +44,7 @@ class IndexController extends AbstractActionController
 	    $log->info("snapshot");
 
 	    $view->content = print_r($snapshot,true); 
-	*/
+	
 	
 	    $log->info("content");
 	    

@@ -232,30 +232,14 @@ return array(
     'router' => array(
         'routes' => array(
             'login' => array(
-                'type' => 'Literal',
-                'options' => array(
-                    'route' => '/auth/login',
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+            	'options' => array(
+                    'route' => '/index/login',
                     'defaults' => array(
-                       '__NAMESPACE__' => 'Application\Controller',
-                       'controller' => 'Auth',
-                       'action' => 'login',
+                        'controller' => 'Application\Controller\Index',
+                        'action'     => 'index',
                     ),
                 ), 
-                'may_terminate' => true,
-                'child_routes' => array(
-                    'process' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => '/[:action]',
-                            'constraints' => array(
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                            ),
-                            'defaults' => array(
-                            ),
-                        ),
-                    ),
-                ),
             ), 
             'correspondant' => array(
                 'type' => 'Literal',

@@ -21,7 +21,7 @@ class Broadsheet extends BlockHelper
 	{
 		   // Now how do I construct $baseURI without having it hardcoded?
 		   // How do I test to see if the Broadsheet is in the database already?
-	    parent::setBaseURI($baseURI);
+	    //parent::setBaseURI($baseURI);
 	}
 	public function fetch()
 	{

@@ -6,7 +6,7 @@ use Application\Renderer\ActiveRendererInterface as Renderer;
 use Zend\Session\Container;
 use Application\Active;
  
-class UserToolbar extends AbstractHelper
+class MainMenu extends AbstractHelper
 {
     /**
      */
@@ -27,6 +27,20 @@ class UserToolbar extends AbstractHelper
      * @var Renderer
      */
     protected $renderer;
+
+    /**
+     * Class Name
+     *
+     * @var name
+     */
+    protected $name;
+
+    /**
+     * Source Controller
+     *
+     * @var source
+     *
+     */
 
     /**
      */
@@ -60,40 +74,36 @@ class UserToolbar extends AbstractHelper
     {
         $this->username = $username;
     }
+    public function setName($name)
+    {
+	$this->name = $name;
+    }
+    public function getName()
+    {
+	return $this->name;
+    }
+    public function setSource($source)
+    {
+	$this->source = $source;
+    }
+    public function getSource()
+    {
+        return $this->source;
+    }
     public function showOutput($attempt)
     {
+	$name = $this->getName();
         $renderer = $this->getRenderer();
-    	$retval = "<div id='user-toolbar'>";
-	    $retval .= "<ul class='itemlist'>";
-        if (0==strcmp($attempt,"notloggedin"))
-        {
-	       $retval .= "<li class='itemtab_light'><a href='#' onClick='clickLogin();'>Login!</a></li>";
-	       $retval .= "<li class='itemtab_light'>&nbsp;&nbsp;&nbsp;</li>";
-	       $retval .= "<li class='itemtab_light'>&nbsp;&nbsp;&nbsp;</li>";
-	    }
-        else
-        {
-            $retval .= "<li class='itemtab_light'><a>";
-            $retval .= $this->username;
-            $retval .= "</a></li>";
-            $retval .= "<li class='itemtab_light'>&nbsp;&nbsp;&nbsp;</li>";
-            $retval .= "<li class='itemtab_light'>&nbsp;&nbsp;&nbsp;</li>";
-            $retval .= "<li class='itemtab_light'><a href='#' onClick='clickLogout();'>Logout!</a></li>";
-            $retval .= "<li class='itemtab_light'>&nbsp;&nbsp;&nbsp;</li>";
-            $retval .= "<li class='itemtab_light'>&nbsp;&nbsp;&nbsp;</li>";
-	    }
-        // If logged in, here is where the different use options are displayed.
-        if (0 != strcmp($attempt,"notloggedin"))
-        {
-            $retval .= "<li class='itemtab_light'>";
-            $retval .= "<a href='#'>Correspondant</a>";
-            $retval .= "</li>";
-            $retval .= "<li class='itemtab_light'>&nbsp;&nbsp;&nbsp;</li>";
-            $retval .= "<li class='itemtab_light'>";
-            $retval .= "<a href='#'>Editor</a>";
-            $retval .= "</li>";
-        }
-	    $retval .= "</div>";
+
+        $retval = "<ul id='menubar'>";
+	$retval .= "<li><span class='home_link'><a class='toplink' href='http;//dev.newhollandpress.com/index/index'>Home!</a></span></li>";
+	$retval .= "<li>&nbsp;&nbsp;</li>";
+	$retval .= "<li><span class='advertise_link'><a class='toplink' href='http;//dev.newhollandpress.com/advertise/index'>Advertise!</a></span></li>";
+	$retval .= "<li>&nbsp;&nbsp;</li>";
+	$retval .= "<li><span class='subscribe_link'><a class='toplink' href='http;//dev.newhollandpress.com/subscribe/index'>Subscribe!</a></span></li>";
+        $retval .= "<li>&nbsp;&nbsp;</li>";
+	$retval .= "<li><span class='contact_link'><a class='toplink' href='http;//dev.newhollandpress.com/contact/index'>Contact!</a></span></li>";
+        $retval .= "</ul>";
 
         return $retval;
     }

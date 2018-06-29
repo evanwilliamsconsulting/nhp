@@ -10,7 +10,7 @@ class TopicToolbar extends AbstractHelper
 
     public function __invoke($topic,$id)
     {
-    	$this->base = "https://newhollandpress.com/";
+    	$this->base = "https://dev.newhollandpress.com/";
 		$this->base .= $topic;	
 		$retval = "<ul>";
 		$retval .= "<li><a href='" . $this->base . "/view/" . $id . "'>View</a></li>";

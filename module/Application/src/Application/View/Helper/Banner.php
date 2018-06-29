@@ -6,7 +6,7 @@ use Application\Renderer\ActiveRendererInterface as Renderer;
 use Zend\Session\Container;
 use Application\Active;
  
-class UserToolbar extends AbstractHelper
+class Banner extends AbstractHelper
 {
     /**
      */
@@ -27,6 +27,13 @@ class UserToolbar extends AbstractHelper
      * @var Renderer
      */
     protected $renderer;
+
+    /**
+     * Class Name
+     *
+     * @var name
+     */
+    protected $name;
 
     /**
      */
@@ -60,40 +67,22 @@ class UserToolbar extends AbstractHelper
     {
         $this->username = $username;
     }
+    public function setName($name)
+    {
+	$this->name = $name;
+    }
+    public function getName()
+    {
+	return $this->name;
+    }
     public function showOutput($attempt)
     {
+	$name = $this->getName();
         $renderer = $this->getRenderer();
-    	$retval = "<div id='user-toolbar'>";
-	    $retval .= "<ul class='itemlist'>";
-        if (0==strcmp($attempt,"notloggedin"))
-        {
-	       $retval .= "<li class='itemtab_light'><a href='#' onClick='clickLogin();'>Login!</a></li>";
-	       $retval .= "<li class='itemtab_light'>&nbsp;&nbsp;&nbsp;</li>";
-	       $retval .= "<li class='itemtab_light'>&nbsp;&nbsp;&nbsp;</li>";
-	    }
-        else
-        {
-            $retval .= "<li class='itemtab_light'><a>";
-            $retval .= $this->username;
-            $retval .= "</a></li>";
-            $retval .= "<li class='itemtab_light'>&nbsp;&nbsp;&nbsp;</li>";
-            $retval .= "<li class='itemtab_light'>&nbsp;&nbsp;&nbsp;</li>";
-            $retval .= "<li class='itemtab_light'><a href='#' onClick='clickLogout();'>Logout!</a></li>";
-            $retval .= "<li class='itemtab_light'>&nbsp;&nbsp;&nbsp;</li>";
-            $retval .= "<li class='itemtab_light'>&nbsp;&nbsp;&nbsp;</li>";
-	    }
-        // If logged in, here is where the different use options are displayed.
-        if (0 != strcmp($attempt,"notloggedin"))
-        {
-            $retval .= "<li class='itemtab_light'>";
-            $retval .= "<a href='#'>Correspondant</a>";
-            $retval .= "</li>";
-            $retval .= "<li class='itemtab_light'>&nbsp;&nbsp;&nbsp;</li>";
-            $retval .= "<li class='itemtab_light'>";
-            $retval .= "<a href='#'>Editor</a>";
-            $retval .= "</li>";
-        }
-	    $retval .= "</div>";
+
+    	$retval = "<div id='banner_text'>";
+	    $retval .= $this->name;
+	$retval .= "</div>";
 
         return $retval;
     }

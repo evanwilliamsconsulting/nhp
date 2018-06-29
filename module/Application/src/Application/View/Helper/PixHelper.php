@@ -86,7 +86,7 @@ class PixHelper extends AbstractHelper
 			imagejpeg($newimg,$thumbPix); //$output file is the path/filename where you wish to save the file.
 			
 		}
-		$base = 'https://newhollandpress.com/pix/view/';
+		$base = 'https://dev.newhollandpress.com/pix/view/';
 		$base .= urlencode($id);
 		
 		return $view->partial("/items/pix.phtml");
@@ -104,7 +104,7 @@ class PixHelper extends AbstractHelper
 		$output .= $pixObject->getPicture();
 		$output .= "</li>";
 		$output .= "<li>";
-		$output .= "<img src='https://www.newhollandpress.com/uploads/";
+		$output .= "<img src='https://dev.newhollandpress.com/uploads/";
 		$output .= $this->username;
 		$output .= "/pix/";
 		$output .= $thumbPixName;

@@ -34,13 +34,13 @@ class SiteToolbar extends AbstractHelper
 			$userToolbarHTML .= "Login";
 			$userToolbarHTML .= "</li>";
 			// Old Action
-            // return "<a href='http://www.newhollandpress.com/auth/login'>Login</a>";
+            // return "<a href='http://dev.newhollandpress.com/auth/login'>Login</a>";
 		}
 		else 
 		{
 	        $username = $userSession->username;
 	        //$retval = "Welcome&nbsp;" . $username;
-	        //$retval .= "&nbsp;<a href='http://www.newhollandpress.com/auth/login/logout'>Logout</a>";
+	        //$retval .= "&nbsp;<a href='http://dev.newhollandpress.com/auth/login/logout'>Logout</a>";
 	        //return $retval;
         }
 		 * 

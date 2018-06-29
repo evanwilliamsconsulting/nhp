@@ -6,6 +6,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <link href="/data/styles.css" type="text/css" rel="stylesheet"/>
+    <link href="/data/nhp.css" type="text/css" rel="stylesheet"/>
     <script src="/resources/scripts/jquery-1.7.1.min.js"></script>
     <script src="/resources/scripts/jquery-ui-1.8.10.custom.min.js"></script>
     <script src="/js/tinymce/tinymce.min.js"></script>
@@ -34,50 +35,23 @@
   ga('send', 'pageview');
 
 </script>
-  </head>
-  <body style="background-image:url('/backgnd/home.jpg');">
-    <div id="base">
+ </head>
+ <body>
       <!-- Unnamed (Shape) -->
-      <div id="masthead">
-          <span>New Holland Press</span>
-          <div id="user_toolbar">
-          	<?php echo $this->layout()->user_toolbar; ?>
-          </div>
+      <div id="login-bar" class="horiz centerd-bar bright-info">
+	<a href="#" onclick="javascript:clickLogin()">Login Bar</a>
+      </div>
+      <div id="top-bar" class="horiz centerd-bar white-black">
+          <span>Covering the Internet and Internet Technology</span>
+          <!--div id="user_toolbar">
+          	<!-- ?php echo $this->layout()->user_toolbar; ? -->
+          </div-->
           <div id="slogan">
               <div id="issue_date">
-                  <span>November 26, 2015&nbsp;&nbsp;</span>
+                  <span>June 25, 2018&nbsp;&nbsp;</span>
               </div>
-              <span>&nbsp;&nbsp;A Paper of Discussion</span>
+              <span>&nbsp;&nbsp;Evan's TechNote</span>
           </div>
       </div>
-      <div id="site_toolbar" class="toolbar">
-          <?php echo $this->layout()->site_toolbar; ?>
-      </div>
-      <!-- Unnamed (Shape) -->
-      <div id="u28" class="sidebar">
-        <!-- Unnamed () -->
-        <div id="sidebar">
-      	  	<div id="loginBox"></div>
-      	</div>
-        <div id="u29" class="text">
-          <p><span></span></p>
-        </div>
-      </div>
-
-      <!-- Unnamed (Shape) -->
-      <div id="u30" class="ax_shape">
-      	  <div id="content">
-          	<p><span><?php echo $this->content; ?></span></p>
-         </div>
-      </div>
-
-      <!-- Unnamed (Shape) -->
-      <div id="u34" class="ax_h1">
-        <div id="u35" class="text">
-          <p><span>Copyright 2015 New Holland Press</span></p>
-        </div>
-      </div>        
-    </div>
-    <div id="hidden"></div>
-  </body>
+</body>
 </html>

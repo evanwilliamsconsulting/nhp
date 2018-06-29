@@ -7,21 +7,17 @@ use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\View\Renderer\PhpRenderer;
 use Zend\View\Model\ViewModel;
-use Application\Service\WordageService as WordageService;  
+//use Application\Service\ContainerService as ContainerService;  
  
-class WordageHelper extends AbstractHelper implements ServiceLocatorAwareInterface
+class ContainerHelper extends AbstractHelper implements ServiceLocatorAwareInterface
 {
     protected static $state;
-	protected $wordageObject;
-	protected $wordage;
+	protected $containerObject;
+	protected $container;
 	protected $username;
 	protected $itemId;
 	protected $viewmodel;
 	protected $renderer;
-	protected $log;
-	// Array of Containers that this Wordage participates in.
-	protected $containerItems;
-	protected $em;
 
     /** 
      * Set the service locator. 
@@ -31,14 +27,6 @@ class WordageHelper extends AbstractHelper implements ServiceLocatorAwareInterfa
      */ 
     public function __construct()
 	{
-	}
-	public function setLog($log)
-	{
-		$this->log = $log;
-	}
-	public function getLog()
-	{
-		return $this->log;
 	}
     public function setServiceLocator(ServiceLocatorInterface $serviceLocator)  
     {  
@@ -53,15 +41,7 @@ class WordageHelper extends AbstractHelper implements ServiceLocatorAwareInterfa
     public function getServiceLocator()  
     {  
         return $this->serviceLocator;  
-    }
-    public function setEntityManager($em)
-    {
-    	$this->em = $em;
-    }
-    public function getEntityManager()
-    {
-    	return $this->em;
-    }
+    }  
     public function setViewModel(ViewModel $viewmodel)
 	{
 		$this->viewmodel = $viewmodel;
@@ -70,21 +50,14 @@ class WordageHelper extends AbstractHelper implements ServiceLocatorAwareInterfa
 	{
 		return $this->viewmodel;
 	}
-	public function setWordageObject($wordageObject)
+	public function setContainerObject($containerObject)
 	{
-		$this->wordageObject = $wordageObject;
-		$this->wordage = $wordageObject->getWordage();
-		$em = $this->getEntityManager();
-		$wordageObject->setEntityManager($em);
-		$this->containerItems = $wordageObject->getContainerItems();
+		$this->containerObject = $containerObject;
+		$this->container = $containerObject->getId();
 	}
-	public function setContainerItems($containerItems)
+	public function toHTML()
 	{
-		$this->containerItems = $containerItems;
-	}
-	public function getContainerItems()
-	{
-		return $this->containerItems;
+		return $this->containerObject->toHTML();
 	}
 	public function setUsername($username)
 	{
@@ -109,22 +82,20 @@ class WordageHelper extends AbstractHelper implements ServiceLocatorAwareInterfa
         //$config = $sm->get('application')->getConfig(); 
  
         //$retval = "<div>";
-	//	$retval .= $this->wordageObject->getWordage();
+	//	$retval .= $this->containerObject->getWordage();
 	//	$retval .= "</div>";
     	
     	$view = $this->getViewModel();
 
-    	$containerItems = $this->getContainerItems();
-
-    	$view->containerItems = $containerItems;
+    	$view->html = $this->toHTML();
 		
-		$view->setTemplate('items/wordage.phtml');
+		$view->setTemplate('items/container.phtml');
 		
 		//return $view;
 		
 		//return $retval;
 		
 //		return print_r($view,true);
-		return $viewRender->render($view);
+	    return $viewRender->render($view);
     }
 }
