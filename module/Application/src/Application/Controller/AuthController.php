@@ -95,6 +95,10 @@ class AuthController extends AbstractActionController
                     // set storage again
                     $this->getAuthService()->getStorage()->write($request->getPost('username'));
                 }
+		else {
+			// Clear the Identity and Start over!
+		    $this->getAuthService()->clearIdentity();
+		}
             }
         }
         return $this->redirect()->toRoute($redirect);

@@ -31,21 +31,22 @@ class IndexController extends AbstractActionController
 	    $log->info("Got View Model");
 	    $view->content = $this->content();
 	
+/*
 				$year = '2015';
 				$month = '12';
 				$day = '15';
 				$pageno = 1;
 				$broadsheet = new Broadsheet($year,$month,$day,$pageno);
+*/
 	    //$broadsheet = new Broadsheet("http://nhpress.net/index_html/pageone/");
+/*
 	    $broadsheet->refresh();
 	    $log->info("New Block Helper");
 	    $log->info("set Base URI");
 	    $snapshot = $broadsheet->toHTML();
 	    $log->info("snapshot");
+*/
 
-	    $view->content = print_r($snapshot,true); 
-	
-	
 	    $log->info("content");
 	    
 		/*
@@ -59,6 +60,8 @@ class IndexController extends AbstractActionController
 		$view->style .= "px;height:100px;";
 		 * 
 		 */
+    	$logger = $this->getServiceLocator()->get('log');
+	$view->message = "OK";
     	$this->getServiceLocator()->get('log')->info("Hi");
         return $view;
     }

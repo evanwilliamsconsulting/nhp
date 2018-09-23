@@ -12,7 +12,7 @@ use Zend\Validator\Date;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="wordage")
+ * @ORM\Table(name="Wordage")
  */
 class Wordage implements InputFilterAwareInterface
 {
@@ -20,6 +20,7 @@ class Wordage implements InputFilterAwareInterface
 
 
     protected $inputFilter;
+    protected $em;
 
     public function exchangeArray($data)
     {
@@ -29,6 +30,10 @@ class Wordage implements InputFilterAwareInterface
         $this->title= (isset($data['title'])) ? $data['title'] : null;
         $this->wordage = (isset($data['wordage'])) ? $data['wordage'] : null;
         $this->columnSize = (isset($data['columnSize'])) ? $data['columnSize'] : null;
+    }
+    public function setEntityManager($em)
+    {
+	$this->em = $em;
     }
     public function getInputFilter()
     {

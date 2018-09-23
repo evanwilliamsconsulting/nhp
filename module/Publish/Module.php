@@ -28,15 +28,14 @@ use Application\View\Helper\SiteToolbar as SiteToolbar;
 use Zend\Session\SessionManager;
 use Zend\Session\Container;
 use Zend\Log\Logger;
-use Zend\Log\Writer\FirePhp as FirePhpWriter;
-use Zend\Log\Writer\FirePhp\FirePhpBridge;
 use Application\View\Helper\TopicToolbar as TopicToolbar;
 use Application\View\Helper\WordageHelper as WordageHelper;
 use Application\Service\WordageService as WordageService;
 use Application\View\Helper\ItemHelper as ItemHelper;
 use Application\Service\ItemService as ItemService;
+use Zend\Db\Adapter\Adapter;
+use Zend\Log\Writer\Db;
 
-require_once 'vendor/firephp/firephp-core/lib/FirePHPCore/FirePHP.class.php';
 
 class Module implements AutoloaderProviderInterface, ViewHelperProviderInterface, ConfigProviderInterface
 {
@@ -46,7 +45,19 @@ class Module implements AutoloaderProviderInterface, ViewHelperProviderInterface
             'factories'=>array(
                 'log' => function($sm) {
                     $log = new Logger();
-                    $writer = new FirePhpWriter(new FirePhpBridge(new \FirePHP()));
+		    $dbconfig = array(
+        		'driver'         => 'PdoMysql',
+        		'dsn'            => 'mysql:dbname=nhpress;host=localhost',
+        		'username'       => 'root',
+        		'password'       => 'ptH3984z'
+			);
+		    $db = new Adapter($dbconfig);
+		    $mapping = [
+			'timestamp' => 'date',
+			'priority' => 'type',
+			'message' => 'event',
+			];
+		    $writer = new Db($db,'log_table_name');
                     $log->addWriter($writer);
                     return $log;
                 },

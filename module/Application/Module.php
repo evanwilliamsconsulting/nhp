@@ -28,8 +28,7 @@ use Application\View\Helper\SiteToolbar as SiteToolbar;
 use Zend\Session\SessionManager;
 use Zend\Session\Container;
 use Zend\Log\Logger;
-use Zend\Log\Writer\FirePhp as FirePhpWriter;
-use Zend\Log\Writer\FirePhp\FirePhpBridge;
+use Zend\Log\Writer\Db;
 use Application\View\Helper\TopicToolbar as TopicToolbar;
 use Application\View\Helper\WordageHelper as WordageHelper;
 use Application\Service\WordageService as WordageService;
@@ -38,7 +37,6 @@ use Application\Service\ItemService as ItemService;
 use Zend\Db\Adapter;
 use Application\Entity\Correspondant;
 
-//require_once 'vendor/firephp/firephp-core/lib/FirePHPCore/FirePHP.class.php';
 
 class Module implements AutoloaderProviderInterface, ViewHelperProviderInterface, ConfigProviderInterface
 {
@@ -48,7 +46,19 @@ class Module implements AutoloaderProviderInterface, ViewHelperProviderInterface
             'factories'=>array(
                 'log' => function($sm) {
                     $log = new Logger();
-                    $writer = new FirePhpWriter(new FirePhpBridge(new \FirePHP()));
+		    $dbconfig = array(
+        		'driver'         => 'PdoMysql',
+        		'dsn'            => 'mysql:dbname=nhpress;host=localhost',
+        		'username'       => 'root',
+        		'password'       => 'ptH3984z'
+			);
+		    $db = new Zend_Db_Adapter_Adapter($dbconfig);
+		    $mapping = [
+			'timestamp' => 'date',
+			'priority' => 'type',
+			'message' => 'event',
+			];
+		    $writer = new Zend_Log_Writer_Db($db,'log_table_name');
                     $log->addWriter($writer);
                     return $log;
                 },
@@ -86,7 +96,7 @@ class Module implements AutoloaderProviderInterface, ViewHelperProviderInterface
             'AuthService' => function($sm) {
                 $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
 		$dbTableAuthAdapter = new DbTableAuthAdapter($dbAdapter);
-		$dbTableAuthAdapter->setTableName('correspondent');
+		$dbTableAuthAdapter->setTableName('Correspondant');
 		$dbTableAuthAdapter->setIdentityColumn('username');
 		$dbTableAuthAdapter->setCredentialColumn('password');
                 $authService = new AuthenticationService();

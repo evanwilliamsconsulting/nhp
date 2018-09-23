@@ -76,7 +76,7 @@ class WordageHelper extends AbstractHelper implements ServiceLocatorAwareInterfa
 		$this->wordage = $wordageObject->getWordage();
 		$em = $this->getEntityManager();
 		$wordageObject->setEntityManager($em);
-		$this->containerItems = $wordageObject->getContainerItems();
+		//$this->containerItems = $wordageObject->getContainerItems();
 	}
 	public function setContainerItems($containerItems)
 	{

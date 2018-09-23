@@ -15,7 +15,26 @@ class SiteToolbar extends AbstractHelper
 		$siteToolbarHTML = "<ul class='sitelist'>";
 		$siteToolbarHTML .= "<li class='sitetab'>Home</li>";
 		$siteToolbarHTML .= "<li class='sitetab'>&nbsp;&nbsp;</li>";
-		$siteToolbarHTML .= "<li class='sitetab' onclick='clickLogin()'>Login</li>";
+		$userSession = new Container('user');
+        	if (!isset($userSession->loggedin))
+        	{
+			$userToolbarHTML .= '<li onclick=\"';
+			$userToolbarHTML .= "clickLogin();";
+			$userToolbarHTML .= "\">";
+			$userToolbarHTML .= "Login";
+			$userToolbarHTML .= "</li>";
+		}
+		else 
+		{
+	        	$username = $userSession->username;
+	        	$userToolbarHTML = "Welcome&nbsp;" . $username;
+			$userToolbarHTML .= "<li onclick=\"";
+			$userToolbarHTML .= "clickLogout();";
+			$userToolbarHTML .= "\">";
+			$userToolbarHTML .= "Logout";
+			$userToolbarHTML .= "</li>";
+        	}
+		$siteToolbarHTML .= $userToolbarHTML;
 		$siteToolbarHTML .= "<li class='sitetab'>&nbsp;&nbsp;</li>";
 		$siteToolbarHTML .= "<li class='sitetab'>Issues</li>";
 		$siteToolbarHTML .= "<li class='sitetab'>&nbsp;&nbsp;</li>";
@@ -24,29 +43,8 @@ class SiteToolbar extends AbstractHelper
 		$siteToolbarHTML .= "<li class='sitetab'>Advertise!</li>";
 		$siteToolbarHTML .= "<li class='sitetab'>&nbsp;&nbsp;</li>";
 		$siteToolbarHTML .= "<li class='sitetab'>Contact</li>";
-		/*
-		$userSession = new Container('user');
-        if (!isset($userSession->loggedin));
-        {
-			$userToolbarHTML .= "<li onclick=\"";
-			$userToolbarHTML .= "clickLogin();";
-			$userToolbarHTML .= "\">";
-			$userToolbarHTML .= "Login";
-			$userToolbarHTML .= "</li>";
-			// Old Action
-            // return "<a href='http://dev.newhollandpress.com/auth/login'>Login</a>";
-		}
-		else 
-		{
-	        $username = $userSession->username;
-	        //$retval = "Welcome&nbsp;" . $username;
-	        //$retval .= "&nbsp;<a href='http://dev.newhollandpress.com/auth/login/logout'>Logout</a>";
-	        //return $retval;
-        }
-		 * 
-		 */
 		$siteToolbarHTML .= "</ul>";
-		//		$siteToolbarHTML .= "</div>";
+		$siteToolbarHTML .= "</div>";
 		return $siteToolbarHTML;
     }
     public function setState()

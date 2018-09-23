@@ -58,16 +58,17 @@ class CorrespondantController extends AbstractActionController
 	$this->log = $this->getServiceLocator()->get('log');
         $log = $this->log;
         $log->info("Correspondant Controller");
-
+    
         $em = $this->getEntityManager();
 
 	$new = $this->params()->fromQuery('new');
 
 	if (!is_null($new))
 	{
+		$log->info("There Was Something New");
 		if ($new == "wordage")
 		{
-			$log->info("wordage");
+			$log->info("New Wwordage");
 			$newWordage = new Wordage();
 			$newWordage->setTitle("new");
 			$newWordage->setUsername("evanwill");
@@ -81,10 +82,12 @@ class CorrespondantController extends AbstractActionController
 		}
 	}
 
-	$layout = $this->layout();
+	$log->info("Correspondant / index moving on");
+	//$layout = $this->layout();
 	// This second layout look really should happen if logged in.
-	$layout->setTemplate('layout/correspondant');
-
+	//$layout->setTemplate('layout/correspondant');
+	
+	
 	$items = new Items();
 	$items->setEntityManager($em);
 	$items->loadDataSource();
@@ -92,10 +95,13 @@ class CorrespondantController extends AbstractActionController
 	$view = new ViewModel();
 		
 	$itemArray = Array();
+	$log->info("Ready to Process Items");
 	foreach ($items->toArray() as $num => $item)
 	{
+		$log->info("Retrieved Items");
 		if ($item["type"] == "Wordage")
 		{
+			$log->info("Process Wordage Item");
 			$wordageObject = $item["object"];
 			$wordage = $wordageObject->getWordage();
 			$id = $wordageObject->getId();
@@ -118,6 +124,7 @@ class CorrespondantController extends AbstractActionController
 		}
 		else 
 		{
+			$log->info("Process Picture Object");
 			$pictureObject = $item["object"];
 			$picture = $pictureObject->getPicture();
 			$id = $pictureObject->getId();
@@ -140,7 +147,10 @@ class CorrespondantController extends AbstractActionController
 		}		
 	}
 	$view->items = $itemArray;
+	
+	$log->info("Ready to return view");
 
         return $view;
+    	$log->info("Return from correspondant index");
     }
 }

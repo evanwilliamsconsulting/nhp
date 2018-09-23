@@ -12,7 +12,7 @@ use Zend\Validator\Date;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="picture")
+ * @ORM\Table(name="Picture")
  */
 class Picture implements InputFilterAwareInterface
 {
