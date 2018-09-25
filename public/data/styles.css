@@ -1,3 +1,20 @@
+body {
+	margin-left:100px;
+	margin-right:100px;
+	background-color:black;
+}
+#main-header
+{
+	background-color:#da2f61;
+}
+#content
+{
+	background-color:white;
+}
+#footer
+{
+	background-color:#da2f61;
+}
 .itemHelper_Wide {
 	background-color:#0000EE;
 }
@@ -7,29 +24,50 @@
 .itemHelper_Wide > ul > li {
 	display:inline;
 }
+.userlist {
+    list-style:none;
+    float:left;
+}
 .sitelist {
     list-style:none;
+    float:left;
 }
 .sitetab {
-    color:white;
+    color:black;
+    font-size:18pt;
+    display:inline;
+}
+.usertab {
+    color:black;
     font-size:18pt;
     display:inline;
 }
 .sidebar {
 	background-image: url("/images/home/u28.png")
 }
+#login-bar
+{
+	display:inline;
+}
 #site_toolbar {
-	background-color:black;
-	width:99%;
+	float:left;
+	width:400px;
 	margin-left:auto;
 	margin-right:auto;
 	position:relative;
-	top:-10px;
+	display:inline;
+}
+#user_toolbar {
+	float:right;
+	width:400px;
+	margin-left:auto;
+	margin-right:auto;
+	position:relative;
+	display:inline;
 }
 #correspondent-toolbar {
 	width: 80%;
 	background-color:#dd2266;
-	color:white;
 	margin-left:20%;
 	margin-right:auto;
 	margin-top:5px;
@@ -46,7 +84,6 @@
 #masthead {
 	width: 99%;
 	background-color:#da2f61;
-	color:white;
 	margin-left:auto;
 	margin-right:auto;
 	margin-top:5px;
@@ -70,7 +107,6 @@
 #topbar {
 	width: 60%;
 	background-color:#da2f61;
-	color:white;
 	margin-left:10%;
 	margin-right:auto;
 	margin-top:5px;
@@ -83,7 +119,6 @@
 .wordage-item {
 	width: 80%;
 	background-color:#da2f61;
-	color:white;
 	margin-left:20%;
 	margin-right:auto;
 	margin-top:5px;
@@ -119,7 +154,6 @@
 	left:10px;
 	height:60%;
 	width:60%;
-	background-color:white;
 	color:black;
 	margin:10px;
 }
@@ -129,7 +163,6 @@
 .picture-item {
 	width: 80%;
 	background-color:#da2f61;
-	color:white;
 	margin-left:20%;
 	margin-right:auto;
 	margin-top:5px;
@@ -165,7 +198,6 @@
 	left:0px;
 	height:auto;
 	width:auto;
-	background-color:white;
 	color:black;
 	margin:10px;
 }
@@ -175,7 +207,7 @@
 #slogan {
 	text-align:left;
 	position:relative;
-	top:-40px;
+	top:10px;
 }
 #slogan > span {
 	font-size:18pt;
@@ -183,14 +215,13 @@
 #issue_date {
 	text-align:right;
 	position:relative;
-	top:32px;	
+	top:-18px;	
 }
 #issue_date > span {
 	font-size:18pt;
 }
 #login_box {
 	background-color:#da2f61;
-	color:white;
 	width:250px;
 	height:195px;
 	position:absolute;
@@ -226,7 +257,6 @@
 #footer {
 	width: auto;
 	background-color:#da2f61;
-	color:white;
 	margin-left:5px;
 	margin-right:auto;
 	margin-top:5px;
@@ -238,6 +268,7 @@
 	height:20px;
 }
 #hidden {
+	background-color:#da2f61;
 }
 #picture {
         position:absolute;
@@ -245,7 +276,6 @@
 	left:10px;
 	width:90%;
 	height:90%;
-	background-color:white;
 	opacity:1.0;
 }
 #wordage {
@@ -255,7 +285,6 @@
 	left:30px;
 	width:80%;
 	height:80%;
-	background-color:white;
 	opacity:1.0;
 }
 #floats {

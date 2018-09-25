@@ -37,26 +37,35 @@
 </script>
  </head>
  <body>
+    <div id="main-header">
       <!-- Unnamed (Shape) -->
-      <div id="login-bar" class="horiz centerd-bar bright-info">
-          <div id="site_toolbar">
+      <ul id="login-bar">
+          <li id="site_toolbar">
 		<?php echo print_r($this->layout()->site_toolbar,true) ?>
-          </div>
-      </div>
-      <div id="top-bar" class="horiz centerd-bar white-black">
-          <span>Covering the Internet and Internet Technology</span>
-          <div id="slogan">
+          </li>
+	  <li id="user_toolbar">
+		<?php echo print_r($this->layout()->user_toolbar,true) ?>
+	  </li>
+      </ul>
+      <div id="top-bar"> 
+          <div id="masthead">
+	  	<div id="slogan">
+                  <span>Covering the Internet and Internet Technology</span>
+	      </div>
               <div id="issue_date">
                   <span>June 25, 2018&nbsp;&nbsp;</span>
               </div>
               <span>&nbsp;&nbsp;Evan's TechNote</span>
           </div>
       </div>
-      <div id="content">
+    </div>
+    <div id="content">
 	<?php echo $this->content; ?>
-      </div>
-      <div id="hidden">
-	<span>Login Goes Here</span>
-      </div>
+    </div>
+    <div id="main_footer">
+    	<div id="hidden">
+		<span>Login Goes Here</span>
+    	</div>
+    </div>
 </body>
 </html>

@@ -6,6 +6,8 @@ use Zend\Session\Container;
 class SiteToolbar extends AbstractHelper
 {
     protected static $state;
+    protected $loggedIn;
+    protected $username;
 
     public function __invoke()
     {
@@ -15,27 +17,6 @@ class SiteToolbar extends AbstractHelper
 		$siteToolbarHTML = "<ul class='sitelist'>";
 		$siteToolbarHTML .= "<li class='sitetab'>Home</li>";
 		$siteToolbarHTML .= "<li class='sitetab'>&nbsp;&nbsp;</li>";
-		$userSession = new Container('user');
-        	if (!isset($userSession->loggedin))
-        	{
-			$userToolbarHTML .= '<li onclick=\"';
-			$userToolbarHTML .= "clickLogin();";
-			$userToolbarHTML .= "\">";
-			$userToolbarHTML .= "Login";
-			$userToolbarHTML .= "</li>";
-		}
-		else 
-		{
-	        	$username = $userSession->username;
-	        	$userToolbarHTML = "Welcome&nbsp;" . $username;
-			$userToolbarHTML .= "<li onclick=\"";
-			$userToolbarHTML .= "clickLogout();";
-			$userToolbarHTML .= "\">";
-			$userToolbarHTML .= "Logout";
-			$userToolbarHTML .= "</li>";
-        	}
-		$siteToolbarHTML .= $userToolbarHTML;
-		$siteToolbarHTML .= "<li class='sitetab'>&nbsp;&nbsp;</li>";
 		$siteToolbarHTML .= "<li class='sitetab'>Issues</li>";
 		$siteToolbarHTML .= "<li class='sitetab'>&nbsp;&nbsp;</li>";
 		$siteToolbarHTML .= "<li class='sitetab'>Write!</li>";
@@ -44,7 +25,6 @@ class SiteToolbar extends AbstractHelper
 		$siteToolbarHTML .= "<li class='sitetab'>&nbsp;&nbsp;</li>";
 		$siteToolbarHTML .= "<li class='sitetab'>Contact</li>";
 		$siteToolbarHTML .= "</ul>";
-		$siteToolbarHTML .= "</div>";
 		return $siteToolbarHTML;
     }
     public function setState()
@@ -55,5 +35,13 @@ class SiteToolbar extends AbstractHelper
     {
         $this->state = false;
     } 
+    public function setLoggedIn($loggedIn)
+    {
+	$this->loggedIn = $loggedIn;
+    }
+    public function setUserName($username)
+    {
+	$this->username=$username;
+    }
 }
 ?>

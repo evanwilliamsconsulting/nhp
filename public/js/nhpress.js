@@ -43,7 +43,7 @@ $(document).ready(function()
 			url:"auth/logout",
 			success: function(data) {
 			     $("#logout").html(data);
-			     window.setTimeout(function() {window.location = "http://dev.newhollandpress.com/auth/home"}, 300)
+			     window.setTimeout(function() {window.location = "http://evtechnote.us/"}, 300)
 			}
 		});
 	}

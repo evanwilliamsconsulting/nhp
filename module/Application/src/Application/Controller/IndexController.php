@@ -21,12 +21,45 @@ class IndexController extends AbstractActionController
 {
 	private $windowWidth;
 	private $windowHeight;
-	
+    protected $storage;
+    protected $authservice;
+    protected $log;
+ 
+    public function getAuthService()
+    {
+        if (! $this->authservice) {
+            $this->authservice = $this->getServiceLocator()
+                                      ->get('AuthService');
+        }
+        return $this->authservice;
+    }
+    public function getSessionStorage()
+    {
+        if (! $this->storage) {
+            $this->storage = $this->getServiceLocator()
+                                  ->get('Application\Storage\Login');
+        }
+        return $this->storage;
+    }
     public function indexAction()
     {
     	$log = $this->getServiceLocator()->get('log');
     	$log->info('Will work equally well');
 	    $view = new ViewModel();
+
+
+	if ($this->getAuthService()->getIdentity() != NULL)
+	{
+	  	    $log->info("Set Logged In and Username attributes in Helpers");
+		    $layout = $this->layout();
+		    foreach($layout->getVariables() as $child)
+		    {
+			$log->info(print_r($child,true));
+			$child->setLoggedIn(true);
+			$child->setUserName($username);
+		    }
+	}
+	
 	    
 	    $log->info("Got View Model");
 	    $view->content = $this->content();

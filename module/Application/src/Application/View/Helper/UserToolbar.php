@@ -1,125 +1,54 @@
 <?php
 namespace Application\View\Helper;
-
 use Zend\View\Helper\AbstractHelper;
-use Application\Renderer\ActiveRendererInterface as Renderer;
 use Zend\Session\Container;
-use Application\Active;
  
 class UserToolbar extends AbstractHelper
 {
-    /**
-     */
-    protected $active;
+    protected static $state;
+    protected $loggedin = false;
+    protected $username = "";
 
-    /**
-     * The name of the template used to render the calendar.
-     *
-     * @var null|string
-     */
-    protected $partial;
-
-    protected $username;
-
-    /**
-     * Class to generate HTML version of the calendar.
-     *
-     * @var Renderer
-     */
-    protected $renderer;
-
-    /**
-     */
-    public function getActive()
+    public function __invoke()
     {
-        return $this->active;
+	$userToolbarHTML = "<ul>";
+    	// This top id is rendered separately
+    	// we can rename it and keep it going!
+    	//$siteToolbarHTML = "<div id='site_toolbar' class='toolbar'>";
+        	if (!($this->loggedin))
+        	{
+			$userToolbarHTML .= '<li class="usertab"><a href="#" onclick="';
+			$userToolbarHTML .= 'clickLogin();">';
+			$userToolbarHTML .= "Login";
+			$userToolbarHTML .= "</a></li>";
+		}
+		else 
+		{
+	        	$username = $userSession->username;
+	        	$userToolbarHTML = "<li class='usertab'>Welcome&nbsp;" . $username . "</li>";
+			$userToolbarHTML .= '<li class="usertab"><a href="/auth/logout">';
+			//$userToolbarHTML .= 'clickLogout();">';
+			$userToolbarHTML .= "Logout";
+			$userToolbarHTML .= "</a></li>";
+        	}
+		$userToolbarHTML .= "</ul>";
+		return $userToolbarHTML;
     }
-
-    /**
-     * Sets the value of partial
-     *
-     * @param  string $partial
-     * @return self
-     */
-    public function setPartial($partial)
+    public function setState()
     {
-        $this->partial = (string) $partial;
-        return $this;
+        $this->state = true;
     }
-
-    /**
-     * Gets the value of partial
-     *
-     * @return string
-     */
-    public function getPartial()
+    public function clearState()
     {
-        return $this->partial;
+        $this->state = false;
+    } 
+    public function setLoggedIn($loggedin)
+    {
+	$this->loggedin=$loggedin;
     }
-    public function setUsername($username)
+    public function setUserName($username)
     {
-        $this->username = $username;
-    }
-    public function showOutput($attempt)
-    {
-        $renderer = $this->getRenderer();
-    	$retval = "<div id='user-toolbar'>";
-	    $retval .= "<ul class='itemlist'>";
-        if (0==strcmp($attempt,"notloggedin"))
-        {
-	       $retval .= "<li class='itemtab_light'><a href='#' onClick='clickLogin();'>Login!</a></li>";
-	       $retval .= "<li class='itemtab_light'>&nbsp;&nbsp;&nbsp;</li>";
-	       $retval .= "<li class='itemtab_light'>&nbsp;&nbsp;&nbsp;</li>";
-	    }
-        else
-        {
-            $retval .= "<li class='itemtab_light'><a>";
-            $retval .= $this->username;
-            $retval .= "</a></li>";
-            $retval .= "<li class='itemtab_light'>&nbsp;&nbsp;&nbsp;</li>";
-            $retval .= "<li class='itemtab_light'>&nbsp;&nbsp;&nbsp;</li>";
-            $retval .= "<li class='itemtab_light'><a href='#' onClick='clickLogout();'>Logout!</a></li>";
-            $retval .= "<li class='itemtab_light'>&nbsp;&nbsp;&nbsp;</li>";
-            $retval .= "<li class='itemtab_light'>&nbsp;&nbsp;&nbsp;</li>";
-	    }
-        // If logged in, here is where the different use options are displayed.
-        if (0 != strcmp($attempt,"notloggedin"))
-        {
-            $retval .= "<li class='itemtab_light'>";
-            $retval .= "<a href='#'>Correspondant</a>";
-            $retval .= "</li>";
-            $retval .= "<li class='itemtab_light'>&nbsp;&nbsp;&nbsp;</li>";
-            $retval .= "<li class='itemtab_light'>";
-            $retval .= "<a href='#'>Editor</a>";
-            $retval .= "</li>";
-        }
-	    $retval .= "</div>";
-
-        return $retval;
-    }
-
-    /**
-     * Set the renderer to be used.
-     *
-     * @param Renderer $renderer
-     *
-     * @return self
-     * @todo Accept closure to generate renderer.
-     */
-    public function setRenderer(Renderer $renderer)
-    {
-        $this->renderer = $renderer;
-        return $this;
-    }
-
-    /**
-     * Gets the value of renderer
-     *
-     * @return Renderer
-     */
-    public function getRenderer()
-    {
-        return $this->renderer;
+	$this->username=$username;
     }
 }
 ?>
