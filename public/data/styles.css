@@ -6,6 +6,9 @@ body {
 #main-header
 {
 	background-color:#da2f61;
+	background-image: url("/images/circuitboard.jpg");
+	background-repeat: no-repeat;
+	background-size: 100%;
 }
 #content
 {
@@ -83,7 +86,6 @@ body {
 }
 #masthead {
 	width: 99%;
-	background-color:#da2f61;
 	margin-left:auto;
 	margin-right:auto;
 	margin-top:5px;
@@ -299,4 +301,26 @@ body {
 }
 #dialog {
 	display:none;
+}
+.bright {
+	color:yellow;
+}
+.bright a:link
+{
+	color:yellow;
+}
+.bright a:visited
+{
+	color:yellow;
+}
+.bright a:hover
+{
+	color:white;
+}
+.bright a:active:
+{
+	color:white;
+}
+.white {
+	color:white;
 }

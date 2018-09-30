@@ -15,15 +15,15 @@ class SiteToolbar extends AbstractHelper
     	// we can rename it and keep it going!
     	//$siteToolbarHTML = "<div id='site_toolbar' class='toolbar'>";
 		$siteToolbarHTML = "<ul class='sitelist'>";
-		$siteToolbarHTML .= "<li class='sitetab'>Home</li>";
+		$siteToolbarHTML .= "<li class='sitetab bright'>Home</li>";
 		$siteToolbarHTML .= "<li class='sitetab'>&nbsp;&nbsp;</li>";
-		$siteToolbarHTML .= "<li class='sitetab'>Issues</li>";
+		$siteToolbarHTML .= "<li class='sitetab bright'>Issues</li>";
 		$siteToolbarHTML .= "<li class='sitetab'>&nbsp;&nbsp;</li>";
-		$siteToolbarHTML .= "<li class='sitetab'>Write!</li>";
+		$siteToolbarHTML .= "<li class='sitetab bright'>Write!</li>";
 		$siteToolbarHTML .= "<li class='sitetab'>&nbsp;&nbsp;</li>";
-		$siteToolbarHTML .= "<li class='sitetab'>Advertise!</li>";
+		$siteToolbarHTML .= "<li class='sitetab bright'>Advertise!</li>";
 		$siteToolbarHTML .= "<li class='sitetab'>&nbsp;&nbsp;</li>";
-		$siteToolbarHTML .= "<li class='sitetab'>Contact</li>";
+		$siteToolbarHTML .= "<li class='sitetab bright'>Contact</li>";
 		$siteToolbarHTML .= "</ul>";
 		return $siteToolbarHTML;
     }
