@@ -1,6 +1,8 @@
 <div style="background-color:<?php echo $this->bcolor;?>" class="wordage-item" id="wordage-<?php echo $this->id;?>">
     <div class="wordage-item-title">
-        <span><?php echo $this->title;?></span>
+        <span><a href="/wordage/view/<?php echo $this->id; ?>"><?php echo $this->title;?></a></span>
+	<br />
+	<span>ID:&nbsp;<?php echo $this->id; ?></span>
 	<br />
         <span><?php echo $this->original;?></span>
     </div>

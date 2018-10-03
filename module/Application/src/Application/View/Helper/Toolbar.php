@@ -72,16 +72,16 @@ class Toolbar extends AbstractHelper
 	if ($context == "Issue")
 	{
     		$retval = "<div id='toolbar'>";
-		$retval .= "<ul class='itemlist'>";
-		$retval .= "<li class='itemtab'><a href='/issue/index?new=issue'>New Issue</a></li>";
+		$retval .= "<ul class='toolbar_list'>";
+		$retval .= "<li class='toolbar_tab'><a href='/issue/index?new=issue'>New Issue</a></li>";
 		$retval .= "</ul>";
 		$retval .= "</div>";
 	}
 	else
 	{
     		$retval = "<div id='toolbar'>";
-		$retval .= "<ul class='itemlist'>";
-		$retval .= "<li class='itemtab'><a href='/issue/correspondant?new=Wordage'>New Wordage</a></li>";
+		$retval .= "<ul class='toolbar_list'>";
+		$retval .= "<li class='toolbar_tab'><a href='/issue/correspondant?new=Wordage'>New Wordage</a></li>";
 		$retval .= "</ul>";
 		$retval .= "</div>";
 	}
@@ -116,14 +116,10 @@ class Toolbar extends AbstractHelper
     public function __invoke()
     {
     	$retval = "<div id='toolbar'>";
-	$retval .= "<ul class='itemlist'>";
-	$retval .= "<li class='itemtab_light'><a href='/correspondant/index?new=wordage'>Wordage</a></li>";
-	$retval .= "<li class='itemtab_light'>&nbsp;&nbsp;&nbsp;</li>";
-	$retval .= "<li class='itemtab_light'><a href='http://dev.newhollandpress.com/article/new'>Free-form Article</a></li>";
-	$retval .= "<li class='itemtab_light'>&nbsp;&nbsp;&nbsp;</li>";
-	$retval .= "<li class='itemtab_light'><a href='http://dev.newhollandpress.com/pix/new'>Pix</a></li>";
-	$retval .= "<li class='itemtab_light'>&nbsp;&nbsp;&nbsp;</li>";
-	$retval .= "<li class='itemtab_light'><a href='http://dev.newhollandpress.com/container/new'>Container</a></li>";
+	$retval .= "<ul class='toolbar_list'>";
+	$retval .= "<li class='toolbar_tab'><a href='/correspondant/index?new=wordage'>Wordage</a></li>";
+	$retval .= "<li class='toolbar_tab'>&nbsp;&nbsp;&nbsp;</li>";
+	$retval .= "<li class='toolbar_tab'><a href='/correspondant/index?new=picture'>Pix</a></li>";
 	$retval .= "</ul>";
 	$retval .= "</div>";
         return $retval;

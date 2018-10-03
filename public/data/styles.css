@@ -5,7 +5,7 @@ body {
 }
 #main-header
 {
-	background-color:#da2f61;
+	background-color:#0082B6;
 	background-image: url("/images/circuitboard.jpg");
 	background-repeat: no-repeat;
 	background-size: 100%;
@@ -16,7 +16,7 @@ body {
 }
 #footer
 {
-	background-color:#da2f61;
+	background-color:#0082B6;
 }
 .itemHelper_Wide {
 	background-color:#0000EE;
@@ -30,6 +30,18 @@ body {
 .userlist {
     list-style:none;
     float:left;
+}
+.toolbar_list
+{
+	display:inline;
+	list-style:none;
+	float:left;
+}
+.toolbar_tab
+{
+	color:black;
+	font-size:18pt;
+	display:inline;
 }
 .sitelist {
     list-style:none;
@@ -108,7 +120,7 @@ body {
 }
 #topbar {
 	width: 60%;
-	background-color:#da2f61;
+	background-color:#0082B6;
 	margin-left:10%;
 	margin-right:auto;
 	margin-top:5px;
@@ -120,7 +132,7 @@ body {
 }
 .wordage-item {
 	width: 80%;
-	background-color:#da2f61;
+	background-color:#0082B6;
 	margin-left:20%;
 	margin-right:auto;
 	margin-top:5px;
@@ -164,7 +176,7 @@ body {
 }
 .picture-item {
 	width: 80%;
-	background-color:#da2f61;
+	background-color:#0082B6;
 	margin-left:20%;
 	margin-right:auto;
 	margin-top:5px;
@@ -223,7 +235,7 @@ body {
 	font-size:18pt;
 }
 #login_box {
-	background-color:#da2f61;
+	background-color:#0082B6;
 	width:250px;
 	height:195px;
 	position:absolute;
@@ -258,7 +270,7 @@ body {
 }
 #footer {
 	width: auto;
-	background-color:#da2f61;
+	background-color:#0082B6;
 	margin-left:5px;
 	margin-right:auto;
 	margin-top:5px;
@@ -270,7 +282,7 @@ body {
 	height:20px;
 }
 #hidden {
-	background-color:#da2f61;
+	background-color:#0082B6;
 }
 #picture {
         position:absolute;

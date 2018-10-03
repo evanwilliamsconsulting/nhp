@@ -267,6 +267,32 @@ return array(
                     ),
                 ),
             ), 
+            'wordage' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/wordage/',
+                    'defaults' => array(
+                       '__NAMESPACE__' => 'Application\Controller',
+                       'controller' => 'correspondant',
+                       'action' => 'index',
+                    ),
+                ), 
+                'may_terminate' => true,
+                'child_routes' => array(
+                    'process' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                  	    'route'    => '/:item[/]',
+                            'constraints' => array(
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                            ),
+                        ),
+                    ),
+                ),
+            ), 
             'home' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(

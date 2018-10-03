@@ -10,7 +10,8 @@ class TopicToolbar extends AbstractHelper
 
     public function __invoke($topic,$id)
     {
-    	$this->base = "https://dev.newhollandpress.com/";
+	#2do Move embedded links
+    	$this->base = "https://www.evtechnote.us/";
 		$this->base .= $topic;	
 		$retval = "<ul>";
 		$retval .= "<li><a href='" . $this->base . "/view/" . $id . "'>View</a></li>";
