@@ -58,6 +58,27 @@ class CorrespondantController extends AbstractActionController
 	$this->log = $this->getServiceLocator()->get('log');
         $log = $this->log;
         $log->info("Correspondant Controller");
+
+    	$userSession = new Container('user');
+	$this->username = $userSession->username;
+	$log->info($this->username);
+	$loggedIn = $userSession->loggedin;
+	if ($loggedIn)
+	{
+		$log->info("Logged In");
+		// Set the Helpers
+		$layout = $this->layout();
+		foreach($layout->getVariables() as $child)
+		{
+			$child->setLoggedIn(true);
+			$child->setUserName($this->username);
+			}
+	}
+	else
+	{
+		$log->info("Not Logged In");
+	       return $this->redirect()->toUrl('https://www.evtechnote.us/');
+	}
     
         $em = $this->getEntityManager();
 
@@ -86,17 +107,6 @@ class CorrespondantController extends AbstractActionController
 	// This second layout look really should happen if logged in.
 	//$layout->setTemplate('layout/correspondant');
 
-		// Set Logged In and Username attributes in helpers
-	  	    $log->info("Set Logged In and Username attributes in Helpers");
-		    $layout = $this->layout();
-		    foreach($layout->getVariables() as $child)
-		    {
-			$log->info(print_r($child,true));
-			$child->setLoggedIn(true);
-			$child->setUserName($username);
-		    }
-	
-	
 	$items = new Items();
 	$items->setEntityManager($em);
 	$items->loadDataSource();

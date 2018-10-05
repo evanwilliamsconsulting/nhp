@@ -24,8 +24,7 @@ class UserToolbar extends AbstractHelper
 		}
 		else 
 		{
-	        	$username = $userSession->username;
-	        	$userToolbarHTML = "<li class='usertab bright'>Welcome&nbsp;" . $username . "</li>";
+	        	$userToolbarHTML = "<li class='usertab bright'>Welcome&nbsp;" . $this->username . "</li>";
 			$userToolbarHTML .= '<li class="usertab bright"><a href="/auth/logout">';
 			//$userToolbarHTML .= 'clickLogout();">';
 			$userToolbarHTML .= "Logout";

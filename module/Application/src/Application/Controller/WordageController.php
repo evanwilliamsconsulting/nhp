@@ -72,11 +72,15 @@ class WordageController extends AbstractActionController
 	    $log->info($id);
 		
 		// 2Do: Check to see that user is logged in
-/*
+
  	$persistent = $this->getAuthService()->getStorage();
+	$namespace = $persistent->getNamespace();
+	$log->info($namespace);
+/*
 	$username = $persistent->getUsername();
 	$log->info($username);
 */
+
 /*
     	if (!$this->getAuthService()->hasIdentity())
         {
@@ -87,8 +91,25 @@ class WordageController extends AbstractActionController
     	$userSession = new Container('user');
 		$this->username = $userSession->username;
 		$log->info($this->username);
+		$loggedIn = $userSession->loggedin;
+		if ($loggedIn)
+		{
+			$log->info("Logged In");
+			// Set the Helpers
+			$layout = $this->layout();
+			foreach($layout->getVariables() as $child)
+			{
+				$child->setLoggedIn(true);
+				$child->setUserName($username);
+			}
+		}
+		else
+		{
+			$log->info("Not Logged In");
+	       		return $this->redirect()->toUrl('https://www.evtechnote.us/');
+		}
 		
-		$em = $this->getEntityManager();
+		$em = $this->getEntityManager()	;
 		
 		$wordage = $em->getRepository('Application\Entity\Wordage')->find($id);
 		
