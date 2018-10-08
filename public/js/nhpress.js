@@ -2,6 +2,8 @@ $(document).ready(function()
 {
 	var theTextAreaId;
 	var theWordageId;
+	var wordageEditMode = false;
+	var wordageReload = false;
 /*
 	window_info = ({ "width" : $(window).width(), "height" : $(window).height()});
 	var width = $(document).width();
@@ -35,6 +37,54 @@ $(document).ready(function()
 			}
 		});
 		$("#hidden").show();
+	}
+	loadEditForm = function(id)
+	{
+
+		$("#wordage-view").hide();
+		$("#topic-toolbar-edit").hide();
+		$("#wordage-edit").show();
+		$("#topic-toolbar-view").show();
+		$("#topic-toolbar-save").show();		
+		$wordageEditMode = true;
+	}
+	loadViewForm = function(id)
+	{
+			$("#topic-toolbar-save").show();		
+			saveEditForm(id);
+			//alert("load");
+			var ed = tinyMCE.get('wordage-edit-textarea');
+			//$ed.setProgressState(1); // Show progress
+			var url = "/wordage/content/" + id;
+			$.ajax({
+			type:"POST",
+			url:url,
+			success: function(data) {
+				ed.setContent(data.content);
+				$("#wordage-view").innerHTML = data.content;
+				}
+			});			
+			$wordageReload = false;
+	}
+	saveEditForm = function(id)
+	{
+		$("#topic-toolbar-save").show();		
+		var ed = tinyMCE.get('wordage-edit-textarea');
+		//$ed.setProgressState(1); // Show progress
+		var content = ed.getContent();
+		var url = "/wordage/change/" + id;
+		$.ajax({
+			type:"POST",
+			url:url,
+			data: 
+			{
+				thetext:content
+			}, 
+			success: function(data) {
+				ed.setContent(data.content);
+				$("#wordage-view").innerHTML = data.content;
+			}
+		});
 	}
 	clickLogout = function()
         {

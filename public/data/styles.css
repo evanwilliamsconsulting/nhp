@@ -12,7 +12,6 @@ body {
 }
 #content
 {
-	background-color:white;
 }
 #footer
 {
@@ -31,13 +30,13 @@ body {
     list-style:none;
     float:left;
 }
-.toolbar_list
+.toolbar-list
 {
 	display:inline;
 	list-style:none;
 	float:left;
 }
-.toolbar_tab
+.toolbar-tab
 {
 	color:black;
 	font-size:18pt;
@@ -75,6 +74,14 @@ body {
 #user_toolbar {
 	float:right;
 	width:400px;
+	margin-left:auto;
+	margin-right:auto;
+	position:relative;
+	display:inline;
+}
+#topic-toolbar {
+	float:right;
+	width:100px;
 	margin-left:auto;
 	margin-right:auto;
 	position:relative;
@@ -335,4 +342,22 @@ body {
 }
 .white {
 	color:white;
+}
+.width800 {
+	width:800px;
+	margin: 0 auto;
+}
+.viewcolor {
+	background-color:white;
+}
+.bluebkg {
+	background-color:#0082B6;
+}
+#wordage-edit
+{
+	display:none;
+}
+#wordage-view
+{
+	display:block;
 }

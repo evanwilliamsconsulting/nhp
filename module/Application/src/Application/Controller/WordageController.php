@@ -58,6 +58,60 @@ class WordageController extends AbstractActionController
 		
         return $view;
     }
+    public function contentAction()
+    {
+    	$this->log = $this->getServiceLocator()->get('log');
+    	$log = $this->log;
+    	$log->info("view action");
+
+	// Initialize the View
+    	$view = new ViewModel();
+	$view->setTerminal(true);
+	// Retreive the parameters
+	$id = $this->params()->fromRoute('item');
+	$log->info($id);
+
+	// 2Do: Check to see that user is logged in
+
+ 	$persistent = $this->getAuthService()->getStorage();
+	$namespace = $persistent->getNamespace();
+	$log->info($namespace);
+
+    	// 2Do: Populate username with user's username
+    	$userSession = new Container('user');
+	$this->username = $userSession->username;
+	$log->info($this->username);
+	$loggedIn = $userSession->loggedin;
+	if ($loggedIn)
+	{
+		$log->info("Logged In");
+		// Set the Helpers
+		$layout = $this->layout();
+		foreach($layout->getVariables() as $child)
+		{
+			$child->setLoggedIn(true);
+			$child->setUserName($username);
+		}
+	}
+	else
+	{
+		$log->info("Not Logged In");
+	       	return $this->redirect()->toUrl('https://www.evtechnote.us/');
+	}
+		
+	$em = $this->getEntityManager()	;
+		
+	$wordage = $em->getRepository('Application\Entity\Wordage')->find($id);
+		
+	$theWords = $wordage->getWordage();
+	$title = $wordage->getTitle();
+		
+	$variables = array("status" => "200",'id'=>$theId,'title'=>$title,'content'=>$theWords,true);
+        $response = $this->getResponse();
+        $response->setStatusCode(200);
+        $response->setContent(json_encode($variables));
+	return $response;
+    }
     public function viewAction()
     {
     	// Load the logger
@@ -65,13 +119,13 @@ class WordageController extends AbstractActionController
     	$log = $this->log;
     	$log->info("view action");
 		
-		// Initialize the View
+	// Initialize the View
     	$view = new ViewModel();
-		// Retreive the parameters
-		$id = $this->params()->fromRoute('item');
-	    $log->info($id);
+	// Retreive the parameters
+	$id = $this->params()->fromRoute('item');
+	$log->info($id);
 		
-		// 2Do: Check to see that user is logged in
+	// 2Do: Check to see that user is logged in
 
  	$persistent = $this->getAuthService()->getStorage();
 	$namespace = $persistent->getNamespace();
@@ -81,12 +135,6 @@ class WordageController extends AbstractActionController
 	$log->info($username);
 */
 
-/*
-    	if (!$this->getAuthService()->hasIdentity())
-        {
-	       return $this->redirect()->toUrl('https://www.evtechnote.us/');
-        }
-*/
     	// 2Do: Populate username with user's username
     	$userSession = new Container('user');
 		$this->username = $userSession->username;
@@ -121,11 +169,7 @@ class WordageController extends AbstractActionController
 		$view->title = $title;
 		$view->content = $theWords;
 		$view->id =$id;
-        return $view;
-    }
-    public function content()
-    {
-	return "content";
+	return $view;
     }
     public function wordageAction()
     {
@@ -140,11 +184,17 @@ class WordageController extends AbstractActionController
     }
     public function changeAction()
     {
-	$changedtext = $this->params()->fromPost('thetext');
+    	$this->log = $this->getServiceLocator()->get('log');
+    	$log = $this->log;
+    	$log->info("change action");
 
-	$wordageid = $this->params()->fromPost('id');
-	$theId = substr($wordageid,strpos('wordage-',$wordageid)+8,strlen($wordageid));
-	$theArray = array('id' => $theId);
+	$changedtext = $this->params()->fromPost('thetext');
+    	$log->info($changedtext);
+
+	$id = $this->params()->fromRoute('item');
+	$log->info($id);
+	//$theId = substr($wordageid,strpos('wordage-',$wordageid)+8,strlen($wordageid));
+	$theArray = array('id' => $id);
 
 	$em = $this->getEntityManager();
 	$wordage = $em->getRepository('Application\Entity\Wordage')->findOneBy($theArray);
@@ -157,6 +207,7 @@ class WordageController extends AbstractActionController
         $response = $this->getResponse();
         $response->setStatusCode(200);
         $response->setContent(json_encode($variables));
+	$log->info("finished wordage change");
 	return $response;
     }
     public function editAction()
@@ -165,10 +216,14 @@ class WordageController extends AbstractActionController
     	$log = $this->log;
 	$log->info("Wordage Edit");
 	$view = new ViewModel();
+	$view->setTerminal(true);
 	$renderer = new PhpRenderer();
 	$resolver = new Resolver\AggregateResolver();
 	$renderer->setResolver($resolver);
 	$log->info("Wordage Edit: setResolver");
+
+	//$this->_helper->layout()->disableLayout();
+	//$this->_helper->viewRenderer->setNoRender(true);
 
 	$map = new Resolver\TemplateMapResolver(array(
     		'edit'      => __DIR__ . '/../../../view/application/wordage/edit.phtml',
