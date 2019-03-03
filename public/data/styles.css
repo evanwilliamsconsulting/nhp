@@ -63,6 +63,10 @@ body {
 {
 	display:inline;
 }
+#main-bar
+{
+	display:inline;
+}
 #site_toolbar {
 	float:left;
 	width:400px;
@@ -213,6 +217,21 @@ body {
 	margin-top:10px;
 	margin-bottom:10px;
 }
+.file-item {
+	width: 80%;
+	margin-left:20%;
+	margin-right:auto;
+	margin-top:5px;
+	margin-bottom:0px;
+	position:relative;
+	flush:right;
+	text-align:left;
+	float:top;
+	height:200px;
+}
+.file-item > span {
+	font-size:11pt;
+}
 .picture-edit-image {
 	position:relative;
 	top:0px;
@@ -226,7 +245,7 @@ body {
 	width:99%;
 }
 #slogan {
-	text-align:left;
+	left:-40px;
 	position:relative;
 	top:10px;
 }

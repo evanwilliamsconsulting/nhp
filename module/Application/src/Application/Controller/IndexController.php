@@ -17,6 +17,10 @@ use Zend\EventManager\EventManger;
 use Publish\BlockHelper as BlockHelper;
 use Publish\Block\Broadsheet;
 
+use Application\Model\Containers as Containers;
+use Application\Entity\Container as ContainerObject;
+use Application\View\Helper\ContainerHelper as ContainerHelper;
+
 class IndexController extends AbstractActionController
 {
 	private $windowWidth;
@@ -64,22 +68,6 @@ class IndexController extends AbstractActionController
 	    $log->info("Got View Model");
 	    $view->content = $this->content();
 	
-/*
-				$year = '2015';
-				$month = '12';
-				$day = '15';
-				$pageno = 1;
-				$broadsheet = new Broadsheet($year,$month,$day,$pageno);
-*/
-	    //$broadsheet = new Broadsheet("http://nhpress.net/index_html/pageone/");
-/*
-	    $broadsheet->refresh();
-	    $log->info("New Block Helper");
-	    $log->info("set Base URI");
-	    $snapshot = $broadsheet->toHTML();
-	    $log->info("snapshot");
-*/
-
 	    $log->info("content");
 	    
 		/*
@@ -96,6 +84,31 @@ class IndexController extends AbstractActionController
     	$logger = $this->getServiceLocator()->get('log');
 	$view->message = "OK";
     	$this->getServiceLocator()->get('log')->info("Hi");
+
+        $em = $this->getEntityManager();
+
+	$items = new Containers();
+	$items->setLog($log);
+	$items->setEntityManager($em);
+	$items->loadDataSource();
+
+
+	$theItems = $items->toArray();
+	$html = "Page One";
+	$html .= "<br/>";
+	$html .= "<br/>";
+	foreach ($theItems as $key => $item)
+	{
+		$containerItem = new ContainerHelper();
+		$containerItem->setServiceLocator($this->getServiceLocator());
+		$containerItem->setViewModel($view);
+		$containerItem->setEntityManager($em);
+		$containerItem->setContainerObject($item["object"]);
+		$html .= $containerItem->toHTML();
+		$html .= "<br/>";
+		$html .= "<br/>";
+	}
+	$view->content = $html;
         return $view;
     }
 	public function loginAction()
@@ -135,5 +148,19 @@ class IndexController extends AbstractActionController
     public function content()
     {
 	return "content";
+    }
+    public function getEntityManager()
+    {
+        if (null == $this->em)
+        {
+	    try {
+            	$this->em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+                //$this->em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+            } catch (Exception $e) {
+		//print_r($e);
+		//print_r($e-getPrevious());
+	    }
+	}
+	return $this->em;
     }
 }

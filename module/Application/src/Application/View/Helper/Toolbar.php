@@ -65,10 +65,11 @@ class Toolbar extends AbstractHelper
     {
 	$this->context = $context;
     }
-    public function showOutput($attempt)
+    public function _invoke($attempt)
     {
 	$context = $this->context;
         $renderer = $this->getRenderer();
+/*
 	if ($context == "Issue")
 	{
     		$retval = "<div id='toolbar'>";
@@ -79,12 +80,17 @@ class Toolbar extends AbstractHelper
 	}
 	else
 	{
+*/
     		$retval = "<div id='toolbar'>";
 		$retval .= "<ul class='toolbar_list'>";
-		$retval .= "<li class='toolbar_tab'><a href='/issue/correspondant?new=Wordage'>New Wordage</a></li>";
+		$retval .= "<li class='toolbar_tab'><a href='/correspondant/index?new=Wordage'>New Wordage</a></li>";
+		$retval .= "<li class='toolbar_tab'><a href='/correspondant/index?new=Picture'>New Picture</a></li>";
+		$retval .= "<li class='toolbar_tab'><a href='/correspondant/index?new=File'>New File</a></li>";
 		$retval .= "</ul>";
 		$retval .= "</div>";
+/*
 	}
+*/
 
         return $retval;
     }
@@ -118,8 +124,8 @@ class Toolbar extends AbstractHelper
     	$retval = "<div id='toolbar'>";
 	$retval .= "<ul class='toolbar_list'>";
 	$retval .= "<li class='toolbar_tab'><a href='/correspondant/index?new=wordage'>Wordage</a></li>";
-	$retval .= "<li class='toolbar_tab'>&nbsp;&nbsp;&nbsp;</li>";
 	$retval .= "<li class='toolbar_tab'><a href='/correspondant/index?new=picture'>Pix</a></li>";
+	$retval .= "<li class='toolbar_tab'><a href='/correspondant/index?new=file'>File</a></li>";
 	$retval .= "</ul>";
 	$retval .= "</div>";
         return $retval;

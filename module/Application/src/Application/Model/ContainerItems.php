@@ -5,16 +5,24 @@ use Zend\Db\Adapter\Driver\ResultInterface;
 use Zend\Db\ResultSet\AbstractResultSet as AbstractResultSet;
 use Zend\Stdlib\ArrayObject as ArrayObject;
 
-class Items extends AbstractResultSet
+use Application\Model\ContainerItems as ContainerItems;
+use Application\Entity\ContainerItems as ContainerItemObject;
+
+class ContainerItems extends AbstractResultSet
 {
      private $itemArray;
      protected $em;
      protected $obj;
      protected $log;
+     protected $containerId;
 
      public function __construct()
      {
 		$this->obj = new ArrayObject();
+    }
+    public function setLog($log)
+    {
+	$this->log = $log;
     }
     public function setEntityManager($em)
     {
@@ -27,29 +35,28 @@ class Items extends AbstractResultSet
 	public function loadDataSource()
 	{
 		$em = $this->getEntityManager();
-		$wordages = $em->getRepository('Application\Entity\Wordage')->findAll();
-		foreach	($wordages as $wordage)
+		$containerId = $this->containerId;
+		$criteria = Array();
+		$criteria["containerid"] = $containerId;
+		$containers = $em->getRepository('Application\Entity\ContainerItems')->findBy($criteria);
+		$this->log->info(print_r($containers,true));
+
+		foreach ($containers as $container)
 		{
+			$this->log->info(print_r($container,true));
+			$this->log->info("Id");
+			$this->log->info($container->getId());
+			$this->log->info("username");
+			$this->log->info($container->getUsername());
+			$this->log->info("original");
+			$this->log->info($container->getOriginalDate());
+			$this->log->info("title");
 			$newArray = Array();
-			$newArray["type"] = "Wordage";	
-			$newArray["object"] = $wordage;
+			$newArray["type"] = "ContainerItem";
+			$newArray["object"] = $container;
+			$this->log->info(print_r($container,true));
 			$this->obj->append($newArray);
-		}
-		$pictures = $em->getRepository('Application\Entity\Picture')->findAll();
-		foreach	($pictures as $picture)
-		{
-			$newArray = Array();
-			$newArray["type"] = "Picture";	
-			$newArray["object"] = $picture;
-			$this->obj->append($newArray);
-		}
-		$files = $em->getRepository('Application\Entity\File')->findAll();
-		foreach ($files as $file)
-		{
-			$newArray = Array();
-			$newArray["type"] = "File";
-			$newArray["object"] = $file;
-			$this->obj->append($newArray);
+			$this->log->info(print_r($newArray,true));
 		}
 	}
     public function getDataSource()
@@ -61,6 +68,14 @@ class Items extends AbstractResultSet
 	 	$it = $this->obj->getIterator();
 	 	return $it->count();
 	 }
+     public function setContainerId($id)
+     {
+	$this->containerId = $id;
+     }
+     public function getContainerId()
+     {
+	return $this->containerId;
+     }
      /** Iterator */
      public function next()
 	 {
@@ -97,6 +112,7 @@ class Items extends AbstractResultSet
      public function toArray()
 	 {
 	 	$it = $this->obj->getIterator();
+		$this->log->info(print_r($this->obj,true));
 	   return $it->getArrayCopy();	
 	 }
 }

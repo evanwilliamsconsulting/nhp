@@ -1,4 +1,18 @@
 <?php
+/*
+
++
+| Field    | Type         | Null | Key | Default | Extra          |
++----------+--------------+------+-----+---------+----------------+
+| id       | int(11)      | NO   | PRI | NULL    | auto_increment |
+| author   | varchar(255) | YES  |     | NULL    |                |
+| filename | varchar(255) | NO   |     | NULL    |                |
+| filepath | varchar(255) | NO   |     | NULL    |                |
+| username | varchar(255) | YES  |     | NULL    |                |
+| original | datetime     | YES  |     | NULL    |                |
++----------+--------------+------+-----+---------+----------------+
+
+*/
 
 namespace Application\Entity;
 
@@ -12,9 +26,9 @@ use Zend\Validator\Date;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="Picture")
+ * @ORM\Table(name="File")
  */
-class Picture implements InputFilterAwareInterface
+class File implements InputFilterAwareInterface
 {
     private $columnsize;
 
@@ -26,9 +40,9 @@ class Picture implements InputFilterAwareInterface
         $this->id = (isset($data['id'])) ? $data['id'] : null;
         $this->username = (isset($data['username'])) ? $data['username'] : null;
         $this->original = (isset($data['original'])) ? $data['original'] : null;
-        $this->title= (isset($data['title'])) ? $data['title'] : null;
-        $this->picture = (isset($data['picture'])) ? $data['picture'] : null;
-        $this->columnSize = (isset($data['columnSize'])) ? $data['columnSize'] : null;
+        $this->author= (isset($data['author'])) ? $data['author'] : null;
+        $this->filename = (isset($data['filename'])) ? $data['filename'] : null;
+        $this->filepath = (isset($data['filepath'])) ? $data['filepath'] : null;
     }
     public function getInputFilter()
     {
@@ -61,19 +75,19 @@ class Picture implements InputFilterAwareInterface
 
             $inputFilter->add(
             	$factory->createInput(array(
-                'name' => 'title',
+                'name' => 'author',
                 'required' => false,
             )));
 
             $inputFilter->add(
             	$factory->createInput(array(
-                'name' => 'wordage',
+                'name' => 'filename',
                 'required' => false,
             )));
 
             $inputFilter->add(
             	$factory->createInput(array(
-                'name' => 'columnSize',
+                'name' => 'filepath',
                 'required' => false,
             )));
  
@@ -103,43 +117,29 @@ class Picture implements InputFilterAwareInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=255, nullable=false)
+     * @ORM\Column(name="author", type="string", length=255, nullable=false)
      */
-    private $title;
+    private $author;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="credit", type="string", length=255, nullable=false)
+     * @ORM\Column(name="filename", type="string", length=255, nullable=false)
      */
-    private $credit;
+    private $filename;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="picture", type="string", length=255, nullable=false)
+     * @ORM\Column(name="filepath", type="string", length=255, nullable=false)
      */
-    private $picture;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="width", type="integer", nullable=false)
-     */
-    private $width;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="height", type="integer", nullable=false)
-     */
-    private $height;
+    private $filepath;
 
     /**
      * @var string
 	 * 
 	 * @ORM\Column(name="username", type="string", length=255, nullable=false)
-     *
+    	 *
 	 **/
     private $username;
 
@@ -160,11 +160,23 @@ class Picture implements InputFilterAwareInterface
         return $this->id;
     }
 
+    /*
+     * Set id
+     * @param integer $id
+     * @return File
+     */
+    public function setId($id)
+    {
+	$this->id = $id;
+
+	return $this;
+    }
+
     /**
      * Set username
      *
      * @param string $username
-     * @return Picture 
+     * @return File 
      */
     public function setUsername($username)
     {
@@ -187,7 +199,7 @@ class Picture implements InputFilterAwareInterface
      * Set original_date
      *
      * @param \DateTime $original
-     * @return Picture 
+     * @return File 
      */
     public function setOriginal($originalDate)
     {
@@ -207,116 +219,71 @@ class Picture implements InputFilterAwareInterface
     }
 
     /**
-     * Set caption 
+     * Set author 
      *
-     * @param string $title
-     * @return Picture 
+     * @param string $author
+     * @return File 
      */
-    public function setTitle($title)
+    public function setAuthor($author)
     {
-        $this->title = $title;
+        $this->author = $author;
+
+        return $author;
+    }
+
+    /**
+     * Get author
+     *
+     * @return string
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * Set filename
+     *
+     * @param string $filename
+     * @return Filename 
+     */
+    public function setFilename($filename)
+    {
+        $this->filename = $filename;
 
         return $this;
     }
 
     /**
-     * Get title 
+     * Get filename
      *
      * @return string 
      */
-    public function getTitle()
+    public function getFilename()
     {
-        return $this->title;
+        return $this->filename;
     }
 
     /**
-     * Set picture 
+     * Set filepath
      *
-     * @param string $picture
-     * @return Picture 
+     * @param string $filepath
+     * @return Filepath
      */
-    public function setPicture($picture)
+    public function setFilepath($filepath)
     {
-        $this->picture = $picture;
+        $this->filepath = $filepath;
 
         return $this;
     }
 
     /**
-     * Get picture 
+     * Get filepath
      *
      * @return string 
      */
-    public function getPicture()
+    public function getFilepath()
     {
-        return $this->picture;
-    }
-
-    /**
-     * Set credit 
-     *
-     * @param string $credit
-     * @return Picture 
-     */
-    public function setCredit($credit)
-    {
-        $this->credit = $credit;
-
-        return $this;
-    }
-
-    /**
-     * Get credit 
-     *
-     * @return string 
-     */
-    public function getCredit()
-    {
-        return $this->credit;
-    }
-
-    /**
-     * Set width 
-     *
-     * @param integer $width
-     * @return Picture 
-     */
-    public function setWidth($width)
-    {
-        $this->width = $width;
-
-        return $this;
-    }
-
-    /**
-     * Get width 
-     *
-     * @return integer 
-     */
-    public function getWidth()
-    {
-        return $this->width;
-    }
-    /**
-     * Set height 
-     *
-     * @param integer $height
-     * @return Picture 
-     */
-    public function setHeight($height)
-    {
-        $this->height = $height;
-
-        return $this;
-    }
-
-    /**
-     * Get height 
-     *
-     * @return integer 
-     */
-    public function getHeight()
-    {
-        return $this->height;
+        return $this->filepath;
     }
 }

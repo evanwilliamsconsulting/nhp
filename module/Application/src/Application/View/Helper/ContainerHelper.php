@@ -18,6 +18,7 @@ class ContainerHelper extends AbstractHelper implements ServiceLocatorAwareInter
 	protected $itemId;
 	protected $viewmodel;
 	protected $renderer;
+	protected $em;
 
     /** 
      * Set the service locator. 
@@ -55,9 +56,77 @@ class ContainerHelper extends AbstractHelper implements ServiceLocatorAwareInter
 		$this->containerObject = $containerObject;
 		$this->container = $containerObject->getId();
 	}
+	public function getContainerObject()
+	{
+		return $this->containerObject;
+	}
 	public function toHTML()
 	{
-		return $this->containerObject->toHTML();
+		$obj = $this->containerObject;
+		$bgColor = $obj->getBgColor();
+		$openingDiv = "<div style=\"";
+		$openingDiv .= "background-color: ";
+		$openingDiv .= $bgColor;
+		$openingDiv .= "\">";	
+		$html = $openingDiv;
+		$html .= "<div>";
+		$html .= "<b>Container</b></br>";
+		$html .= $obj->getTitle();
+		$html .= "</div>";
+
+/*
+		$html .= "<div>";
+		$html .= "background: " . $obj->getBackground();
+		$html .= " backgroundHeight: " . $obj->getBackgroundHeight();
+		$html .= " backgroundWidth: " . $obj->getBackgroundWidth();
+		$html .= " frame: " . $obj->getFrame();
+		$html .= "</div>";
+*/
+		// $html .= "</br>";
+		// $html .= " Items: ";
+		$items = $obj->getItems();
+		// $html .= print_r($items,true);
+		// $html .= "</br>";
+		foreach ($items as $key1 => $item2)
+		{
+			//$html .= "</br>";
+			// $html .= $key1;
+			$obj2 = $item2["object"];
+			$itemid = $obj2->getItemId();
+			$itemtype = $obj2->getItemType();
+			if ($itemtype == "WORD")
+			{
+				$html .= "<br/>";
+				// $html .= "Wordage";
+				// $html .= "<br/>";
+				// $html .= "Wordage Id: ";
+				// $html .= $itemid;
+				$em = $this->getEntityManager()	;
+		
+				$wordage = $em->getRepository('Application\Entity\Wordage')->find($itemid);
+		
+				$theWords = $wordage->getWordage();
+				$title = $wordage->getTitle();
+
+				$html .= "<br/>";
+				$html .= "Title: ";
+				$html .= $title;
+				$html .= "<br/>";
+				$html .= $theWords;
+		
+			}
+/*
+			$html .= "</br>";
+			$html .= print_r($obj2,true);
+			$html .= "</br>";
+			$html .= "</br>";
+			$html .= print_r($item2,true);
+			$html .= "</br>";
+*/
+		}
+		$html .= "</br>";
+		//return $this->containerObject->toHTML();
+		return $html;
 	}
 	public function setUsername($username)
 	{
@@ -75,6 +144,14 @@ class ContainerHelper extends AbstractHelper implements ServiceLocatorAwareInter
 	{
 		return $this->renderer;
 	}
+    public function setEntityManager($em)
+    {
+    	$this->em = $em;
+    }
+	public function getEntityManager()
+	{
+		return $this->em;
+	}
     public function __invoke()
     {
         $viewRender = $this->getServiceLocator()->get('ViewRenderer');
@@ -87,15 +164,18 @@ class ContainerHelper extends AbstractHelper implements ServiceLocatorAwareInter
     	
     	$view = $this->getViewModel();
 
-    	$view->html = $this->toHTML();
+    	//$view->html = $this->toHTML();
 		
-		$view->setTemplate('items/container.phtml');
+	$view->setTemplate('items/container.phtml');
 		
-		//return $view;
+
+	//return print_r($this->containerObject,true);
+	//return $view;
+	return $this->toHTML();
 		
 		//return $retval;
 		
 //		return print_r($view,true);
-	    return $viewRender->render($view);
+//	return $viewRender->render($view);
     }
 }

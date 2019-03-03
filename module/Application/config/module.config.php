@@ -250,6 +250,37 @@ return array(
                        'controller' => 'correspondant',
                        'action' => 'index',
                     ),
+                    'container' => array(
+                       '__NAMESPACE__' => 'Application\Controller',
+                       'controller' => 'correspondant',
+                       'action' => 'container',
+                    ),
+                ), 
+                'may_terminate' => true,
+                'child_routes' => array(
+                    'process' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/[:action]',
+                            'constraints' => array(
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                            ),
+                        ),
+                    ),
+                ),
+            ), 
+            'container' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/container/',
+                    'defaults' => array(
+                       '__NAMESPACE__' => 'Application\Controller',
+                       'controller' => 'container',
+                       'action' => 'index',
+                    ),
                 ), 
                 'may_terminate' => true,
                 'child_routes' => array(

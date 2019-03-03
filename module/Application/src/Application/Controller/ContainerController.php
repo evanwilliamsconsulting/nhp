@@ -9,145 +9,230 @@
 
 namespace Application\Controller;
 
-
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Application\Entity\Container;
-use Hex\View\Helper\CustomHelper;
+
 use Doctrine\ORM\EntityManager;
-use Application\Form\Entity\ContainerForm;
+use Application\Form\Entity\CorrespondantForm;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterInterface;
 use Zend\InputFilter\InputFilterAwareInterface;
-use Zend\Session\Container as SessionContainer;
+use Zend\Session\Container;
+use Zend\Stdlib\ArrayObject as ArrayObject;
+
+use Application\Model\Containers as Containers;
+use Application\Entity\Container as ContainerObject;
+use Application\Entity\Wordage as Wordage;
+/*
+use Application\Entity\Container as ContainerType;
+
+use Application\View\Helper\WordageHelper as WordageHelper;
+use Application\Service\WordageService as WordageService;
+
+use Application\View\Helper\PictureHelper as PictureHelper;
+*/
+use Application\View\Helper\ContainerHelper as ContainerHelper;
 
 class ContainerController extends AbstractActionController
 {
-	protected $em;
-	protected $authservice;
-	protected $username;
-	protected $log;
- 
+    protected $em;
+    protected $authservice;
+    protected $username;
+    protected $log;
+    protected $obj;
+
     public function __construct()
-	{
-	}
+    {
+    }
     public function getEntityManager()
     {
         if (null == $this->em)
         {
-            $this->em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+	    try {
+            	$this->em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+                //$this->em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+            } catch (Exception $e) {
+		print_r($e);
+		print_r($e-getPrevious());
+	    }
 	}
 	return $this->em;
     }
-	public function getAuthService()
-    {
-        if (! $this->authservice) {
-            $this->authservice = $this->getServiceLocator()
-                                      ->get('AuthService');
-        }
-        return $this->authservice;
-    }
     public function indexAction()
     {
-		$view = new ViewModel();
+	$this->log = $this->getServiceLocator()->get('log');
+        $log = $this->log;
+        $log->info("Container Controller");
 
-		$view->content = $this->content();
-
-        return $view;
-    }
-    public function content()
-    {
-		return "content";
-    }
-	public function viewAction()
-    {
-    	// Load the logger
-    	$this->log = $this->getServiceLocator()->get('log');
-    	$log = $this->log;
-    	$log->info("Container Controller view action");
-		
-		// Initialize the View
-    	$view = new ViewModel();
-
-		// Retreive the parameters
-		$id = $this->params()->fromRoute('item');
-	    $log->info($id);
-		
-		// 2Do: Check to see that user is logged in
-    	if (!$this->getAuthService()->hasIdentity())
-        {
-	       return $this->redirect()->toUrl('http://www.newhollandpress.com/');
-        }
-    	// 2Do: Populate username with user's username
-    	$userSession = new SessionContainer('user');
-		$this->username = $userSession->username;
-		$log->info($this->username);
-		
-		$em = $this->getEntityManager();
-		
-		$container = $em->getRepository('Application\Entity\Container')->find($id);
-
-		$topic = new \Application\View\Helper\TopicToolbar('container');
-		$view->topic = $topic;
-		
-		$view->content = print_r($container,true);
-
-        return $view;
-    }
-    public function newAction()
-    {
-		$this->log = $this->getServiceLocator()->get('log');
-    	$log = $this->log;
-    	$log->info("new form");
-	    $view = new ViewModel();
-        $form = new ContainerForm();
-    	// 2015-09-10
-    	// 2Do: Check to see that user is logged in
-    	if (!$this->getAuthService()->hasIdentity())
-        {
-	       return $this->redirect()->toUrl('http://www.newhollandpress.com/container/index');
-        }
-    	// 2Do: Populate username with user's username
-    	$userSession = new SessionContainer('user');
-		$this->username = $userSession->username;
-		$log->info($this->username);
-    	// 2Do: Implement Calendar Widget in Javascript for date and fix validation
-        $form->get('submit')->setValue('Add');
-		
-		$container = new Container();
-
-        $form->bind($container);
-        $form->get('username')->setValue($this->username);
-        $request = $this->getRequest();
-		//$log->info($request);
-        if ($request->isPost()) {
-            $em = $this->getEntityManager();
-
-            $inputFilter = $container->getInputFilter();
+    	$userSession = new Container('user'); // Talk about conflicting names!
+	$this->username = $userSession->username;
+	$log->info($this->username);
+	$loggedIn = $userSession->loggedin;
+	if ($loggedIn)
+	{
+		$log->info("Logged In");
+		// Set the Helpers
+		$layout = $this->layout();
+		foreach($layout->getVariables() as $child)
+		{
+			$child->setLoggedIn(true);
+			$child->setUserName($this->username);
+			}
+	}
+	else
+	{
+		$log->info("Not Logged In");
+	       return $this->redirect()->toUrl('https://www.evtechnote.us/');
+	}
     
-	    $form->setInputFilter($inputFilter);
-	    $form->setData($request->getPost());
-		$log->info(print_r($request->getPost(),true));
-		//$theData = $form->getData();
-		//$log->info(print_r($theData,true));
-	    if ($form->isValid())
-	    {
-	       $log->info("is valid!");
-		   $container->exchangeArray($request->getPost());
-		   $log->info("data exchanged");
-		   $log->info(print_r($form->getData(),true));
-	       $em->persist($form->getData());
-		   $log->info("persisted");
-	       $em->flush();
-		   $log->info("flushed");
-	       return $this->redirect()->toUrl('http://www.newhollandpress.com/container/index');
-	    }
+        $em = $this->getEntityManager();
 
+	$new = $this->params()->fromQuery('new');
+
+	if (!is_null($new))
+	{
+		$log->info("There Was Something New");
+		if ($new == "container")
+		{
+			$log->info("New Container");
+			$newContainer = new ContainerType();
+			$newContainer->setTitle("new");
+			$newContainer->setUsername("ewilliams");
+		        $log->info(print_r($newContainer,true));	
+			$em->persist($newContainer);
+			$em->flush();
+
+			return $this->redirect()->toRoute('container');
+		}
+	}
+
+	$log->info("Container / index moving on");
+	// This second layout look really should happen if logged in.
+	//$layout->setTemplate('layout/correspondant');
+
+	$items = new Containers();
+	$items->setLog($log);
+	$items->setEntityManager($em);
+	$items->loadDataSource();
+		
+	$view = new ViewModel();
+		
+	$itemArray = Array();
+	$log->info("Ready to Process Items");
+	foreach ($items->toArray() as $num => $item)
+	{
+		$log->info("Retrieved Items");
+		$log->info(print_r($item,true));
+		if ($item["type"] == "Container")
+		{
+			$log->info("process Container Item");
+			$containerObject = $item["object"];
+			$log->info(print_r($containerObject,true));
+			$id = $containerObject->getId();
+			$this->log->info("id");
+			$this->log->info($containerObject->getId());
+			$username = $containerObject->getUsername();
+			$this->log->info("username");
+			$this->log->info($containerObject->getUsername());
+			$original = $containerObject->getOriginalDate();
+			$this->log->info("original");
+			$this->log->info($containerObject->getOriginalDate());
+			$title = $containerObject->getTitle();
+			$this->log->info("title");
+			$this->log->info($containerObject->getTitle());
+			$background = $containerObject->getBackground();
+			$this->log->info("background");
+			$this->log->info($containerObject->getBackground());
+			$frame = $containerObject->getFrame();
+			$this->log->info("frame");
+			$this->log->info($containerObject->getFrame());
+			$backgroundWidth = $containerObject->getBackgroundWidth();
+			$this->log->info("backgroundWidth");
+			$this->log->info($containerObject->getBackgroundWidth());
+			$backgroundHeight = $containerObject->getBackgroundHeight();
+			$this->log->info("backgroundHeight");
+			$this->log->info($containerObject->getBackgroundHeight());
 /*
+			$itemArray["id"] = $id;
+			$itemArray["username"] = $username;
+			$itemArray["original"] = $original;
+			$itemArray["title"] = $title;
+			$itemArray["background"] = $background;
+			$itemArray["backgroundWidth"] = $backgroundWidth;
+			$itemArray["backgroundHeight"] = $backgroundHeight;
+			$itemArray["frame"] = $frame;
 */
+			$bcolor = '#bb22bb';
+			$view = new ViewModel(array('id' => $id,
+				'username' => $username,
+				'original' => $original,
+				'title' => $title,
+				'background' => $background,
+				'backgroundWidth' => $backgroundWidth,
+				'backgroundHeight' => $backgroundHeight,
+				'frame' => $frame
+			));
+			$containerItem = new ContainerHelper();
+			$containerItem->setServiceLocator($this->getServiceLocator());
+			$containerItem->setViewModel($view);
+			$containerItem->setContainerObject($item["object"]);
+			$itemArray[] = $containerItem;
+		}
+/*
+		if ($item["type"] == "Wordage")
+		{
+			$log->info("Process Wordage Item");
+			$wordageObject = $item["object"];
+			$wordage = $wordageObject->getWordage();
+			$id = $wordageObject->getId();
+			$original = $wordageObject->getOriginal();
+			$title = $wordageObject->getTitle();
+			$username = $wordageObject->getUsername();
+			$bcolor = '#ff22bb';
+			$view = new ViewModel(array('wordage' => $wordage,
+				'id' => $id,
+				'original' => $original,
+				'title' => $title,
+				'username' => $username,
+				'bcolor' => $bcolor
+			));
+			$wordageItem = new WordageHelper();
+			$wordageItem->setServiceLocator($this->getServiceLocator());
+			$wordageItem->setViewModel($view);
+			$wordageItem->setWordageObject($item["object"]);
+			$itemArray[] = $wordageItem;
+		}
+		else 
+		{
+			$log->info("Process Picture Object");
+			$pictureObject = $item["object"];
+			$picture = $pictureObject->getPicture();
+			$id = $pictureObject->getId();
+			$original = $pictureObject->getOriginal();
+			$caption = $pictureObject->getCaption();
+			$username = $pictureObject->getUsername();
+			$bcolor = '#00bbbb';
+			$view = new ViewModel(array('picture' => $picture,
+				'id' => $id,
+				'original' => $original,
+				'caption' => $caption,
+				'username' => $username,
+				'bcolor' => $bcolor
+			));
+			$pictureItem = new PictureHelper();
+			$pictureItem->setServiceLocator($this->getServiceLocator());
+			$pictureItem->setViewModel($view);
+			$pictureItem->setPictureObject($item["object"]);
+			$itemArray[] = $pictureItem;
+		}		
+*/
+	}
+	$view->items = $itemArray;
 
-        }
-	$view->form = $form;
-	return $view;
-    }	
+	$log->info(print_r($view->items,true));
+	
+	$log->info("Ready to return view");
+
+        return $view;
+    }
 }

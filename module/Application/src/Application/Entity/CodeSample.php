@@ -1,4 +1,22 @@
 <?php
+/*
+
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| id         | int(11)      | NO   | PRI | NULL    | auto_increment |
+| fileid     | int(11)      | YES  |     | NULL    |                |
+| title      | varchar(255) | YES  |     | NULL    |                |
+| language   | varchar(255) | YES  |     | NULL    |                |
+| code       | text         | YES  |     | NULL    |                |
+| first_line | int(11)      | YES  |     | NULL    |                |
+| last_line  | int(11)      | YES  |     | NULL    |                |
+| username   | varchar(255) | YES  |     | NULL    |                |
+| original   | datetime     | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+
+
+*/
 
 namespace Application\Entity;
 
@@ -12,12 +30,9 @@ use Zend\Validator\Date;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="Container")
+ * @ORM\Table(name="CodeSample")
  */
-
-
-
-class Container implements InputFilterAwareInterface
+class CodeSample implements InputFilterAwareInterface
 {
     private $columnsize;
 
@@ -28,15 +43,14 @@ class Container implements InputFilterAwareInterface
     public function exchangeArray($data)
     {
         $this->id = (isset($data['id'])) ? $data['id'] : null;
+        $this->fileid = (isset($data['fileid'])) ? $data['fileid'] : null;
+        $this->title= (isset($data['title'])) ? $data['title'] : null;
+        $this->language= (isset($data['language'])) ? $data['language'] : null;
+        $this->code= (isset($data['code'])) ? $data['code'] : null;
+        $this->first_line = (isset($data['first_line'])) ? $data['first_line'] : null;
+        $this->last_line = (isset($data['last_line'])) ? $data['last_line'] : null;
         $this->username = (isset($data['username'])) ? $data['username'] : null;
         $this->original = (isset($data['original'])) ? $data['original'] : null;
-        $this->title= (isset($data['title'])) ? $data['title'] : null;
-        $this->background= (isset($data['background'])) ? $data['background'] : null;
-        $this->frame = (isset($data['frame'])) ? $data['frame'] : null;
-        $this->backgroundwidth  = (isset($data['backgroundwidth'])) ? $data['backgroundwidth'] : null;
-        $this->backgroundheight = (isset($data['backgroundheight'])) ? $data['backgroundheight'] : null;
-	$this->bgColor = (isset($data['bgColor'])) ? $data['bgColor'] : null;
-        $this->items = (isset($data['items'])) ? $data['items'] : null;
     }
     public function setEntityManager($em)
     {
@@ -51,6 +65,12 @@ class Container implements InputFilterAwareInterface
             $inputFilter->add(
             	$factory->createInput(array(
                 'name' => 'id',
+                'required' => false,
+            )));
+
+            $inputFilter->add(
+            	$factory->createInput(array(
+                'name' => 'fileid',
                 'required' => false,
             )));
 
@@ -79,35 +99,27 @@ class Container implements InputFilterAwareInterface
 
             $inputFilter->add(
             	$factory->createInput(array(
-                'name' => 'background',
+                'name' => 'language',
                 'required' => false,
             )));
 
             $inputFilter->add(
             	$factory->createInput(array(
-                'name' => 'bgColor',
+                'name' => 'code',
                 'required' => false,
             )));
 
             $inputFilter->add(
             	$factory->createInput(array(
-                'name' => 'frame',
+                'name' => 'first_line',
                 'required' => false,
             )));
 
             $inputFilter->add(
             	$factory->createInput(array(
-                'name' => 'backgroundheight',
+                'name' => 'last_line',
                 'required' => false,
             )));
-
-            $inputFilter->add(
-            	$factory->createInput(array(
-                'name' => 'backgroundwidth',
-                'required' => false,
-            )));
-
-
  
             $this->inputFilter = $inputFilter;
         }
@@ -130,14 +142,44 @@ class Container implements InputFilterAwareInterface
      */
     private $id;
 
+    /*
+     *  @var integer
+     * 
+     * @ORM\Column(name="fileid", type="integer", length=255, nullable=false)
+     *
+     */
+    private $fileid;
+
     /**
      * @var string
      *
-     * @ORM\Column(name="wordage", type="string", length=255, nullable=false)
+     * @ORM\Column(name="code", type="string", length=255, nullable=false)
      */
+    private $code;
+
+    /**
+     *
+     * 
+     * @ORM\Column(name="first_line", type="integer", length=255, nullable=false)
+     * @var integer
+     */
+    private $first_line;
+
+    /**
+     *
+     * 
+     * @ORM\Column(name="last_line", type="integer", length=255, nullable=false)
+     * @var integer
+     */
+    private $last_line;
+	
+	
     /**
      * @var string
-     */
+	 * 
+	 * @ORM\Column(name="username", type="string", length=255, nullable=false)
+     *
+	 **/
     private $username;
 
     /**
@@ -150,58 +192,18 @@ class Container implements InputFilterAwareInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="bgColor", type="string", length=50, nullable=false)
-     */
-    private $bgColor;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="title", type="text", length=2255, nullable=false)
+     * @ORM\Column(name="title", type="text", length=255, nullable=false)
      */
     private $title;
 
     /**
-     * @var boolean
+     * @var string
      *
-     * @ORM\Column(name="background", type="boolean", nullable=false)
+     * @ORM\Column(name="language", type="text", length=255, nullable=false)
      */
-    private $background;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="frame", type="boolean", nullable=false)
-     */
-    private $frame;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="backgroundwidth", type="integer", nullable=false)
-     *
-     */
-    private $backgroundwidth;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="backgroundheight", type="integer", nullable=false)
-     *
-     */
-    private $backgroundheight;
+    private $language;
 
 
-    private $items;
-
-    public function getItems()
-    {
-	return $this->items;
-    }
-    public function setItems($itemsArray)
-    {
-	$this->items = $itemsArray;
-    }
     /**
      * Get id
      *
@@ -213,10 +215,23 @@ class Container implements InputFilterAwareInterface
     }
 
     /**
+     * Set id
+     *
+     * @return CodeSample 
+     *
+     */
+    public function setId($id)
+    {
+       $this->id = $id;
+
+       return $this;
+    }
+
+    /**
      * Set username
      *
      * @param string $username
-     * @return Container
+     * @return CodeSample 
      */
     public function setUsername($username)
     {
@@ -238,10 +253,10 @@ class Container implements InputFilterAwareInterface
     /**
      * Set original_date
      *
-     * @param \DateTime $originalDate
-     * @return Container
+     * @param \DateTime $original
+     * @return CodeSample 
      */
-    public function setOriginalDate($originalDate)
+    public function setOriginal($originalDate)
     {
         $this->original = $originalDate;
 
@@ -253,36 +268,16 @@ class Container implements InputFilterAwareInterface
      *
      * @return \DateTime 
      */
-    public function getOriginalDate()
+    public function getOriginal()
     {
         return $this->original;
-    }
-
-    /**
-     * Set bgColor
-     *
-     * @param string $bgColor
-     * @return Container
-     */
-    public function setBgColor($bgColor)
-    {
-	$this->bgColor = $bgColor;
-    }
-    /**
-     * Get bgColor 
-     *
-     * @return string 
-     */
-    public function getBgColor()
-    {
-        return $this->bgColor;
     }
 
     /**
      * Set title
      *
      * @param string $title
-     * @return Container
+     * @return CodeSample 
      */
     public function setTitle($title)
     {
@@ -302,94 +297,96 @@ class Container implements InputFilterAwareInterface
     }
 
     /**
-     * Set background
+     * Set code 
      *
-     * @param string $background
-     * @return Container
+     * @param string $code
+     * @return CodeSample 
      */
-    public function setBackground($background)
+    public function setCode($code)
     {
-        $this->background = $background;
+        $this->code = $code;
 
         return $this;
     }
 
     /**
-     * Get background
+     * Get code
      *
      * @return string 
      */
-    public function getBackground()
+    public function getCode()
     {
-        return $this->background;
+        return $this->code;
     }
 
     /**
-     * Set frame
+     * Set language 
      *
-     * @param boolean $frame
-     * @return Container
+     * @param string $language
+     * @return CodeSample 
      */
-    public function setFrame($frame)
+    public function setLanguage($language)
     {
-        $this->frame = $frame;
+        $this->language = $language;
 
         return $this;
     }
 
     /**
-     * Get frame
+     * Get language 
      *
-     * @return boolean 
+     * @return string 
      */
-    public function getFrame()
+    public function getLanguage()
     {
-        return $this->frame;
+        return $this->language;
     }
 
     /**
-     * Set backgroundwidth
+
+    /**
+     * Set first_line 
      *
-     * @param integer $backgroundwidth
-     * @return Container
+     * @param integer $first_line
+     * @return CodeSample 
      */
-    public function setBackgroundwidth($backgroundwidth)
+    public function setFirst_line($first_line)
     {
-        $this->backgroundwidth = $backgroundwidth;
+        $this->first_line = $first_line;
 
         return $this;
     }
 
     /**
-     * Get backgroundwidth
+     * Get first_line 
      *
      * @return integer 
      */
-    public function getBackgroundwidth()
+    public function getFirst_line()
     {
-        return $this->backgroundwidth;
+        return $this->first_line;
     }
-
     /**
-     * Set backgroundheight
+     * Set last_line 
      *
-     * @param integer $backgroundheight
-     * @return Container
+     * @param integer $last_line
+     * @return CodeSample 
      */
-    public function setBackgroundheight($backgroundheight)
+    public function setLast_line($last_line)
     {
-        $this->backgroundheight = $backgroundheight;
+        $this->last_line = $last_line;
 
         return $this;
     }
 
     /**
-     * Get backgroundheight
+     * Get last_line 
      *
      * @return integer 
      */
-    public function getBackgroundheight()
+    public function getLast_line()
     {
-        return $this->backgroundheight;
+        return $this->last_line;
     }
+}
 }

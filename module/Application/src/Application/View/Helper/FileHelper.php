@@ -9,11 +9,12 @@ use Zend\View\Renderer\PhpRenderer;
 use Zend\View\Model\ViewModel;
 use Application\Service\PictureService as PictureService;  
  
-class PictureHelper extends AbstractHelper implements ServiceLocatorAwareInterface
+class FileHelper extends AbstractHelper implements ServiceLocatorAwareInterface
 {
     protected static $state;
-    protected $pictureObject;
-    protected $picture;
+    protected $fileObject;
+    protected $filename;
+    protected $filepath;
     protected $username;
     protected $itemId;
     protected $viewmodel;
@@ -50,13 +51,12 @@ class PictureHelper extends AbstractHelper implements ServiceLocatorAwareInterfa
     {
         return $this->viewmodel;
     }
-    public function setPictureObject($pictureObject)
+    public function setFileObject($fileObject)
     {
-        $this->pictureObject = $pictureObject;
-        $picture = $pictureObject->getPicture();
-        $picture = "thumb_" . $picture;
+        $this->fileObject = $fileObject;
+        $this->filename = $fileObject->getFilename();
+        $this->filepath = $fileObject->getFilepath();
         $username = $this->getUsername();
-        $this->picture = "/uploads/" . $username . "/pix/" . $picture;
     }
     public function setUsername($username)
     {
@@ -84,12 +84,11 @@ class PictureHelper extends AbstractHelper implements ServiceLocatorAwareInterfa
     	
     	$view = $this->getViewModel();
 		
-        //$view->picture = $this->picture;
-        $view->picture = "/images/placeholder.jpg";
-	$view->width= "50";
-	$view->height="50";
+	$view->bcolor = "#aa4433";
+	$view->filename = $this->filename;
+	$view->filepath = $this->filepath;
 
-	$view->setTemplate('items/picture.phtml');
+	$view->setTemplate('items/file.phtml');
 		
 	return $viewRender->render($view);
     }

@@ -15,10 +15,12 @@
  <body class="bluebkg">
     <div id="main-header">
       <!-- Unnamed (Shape) -->
-      <ul id="login-bar">
+      <ul id="main-bar">
           <li id="site_toolbar">
 		<?php echo print_r($this->layout()->site_toolbar,true) ?>
           </li>
+      </ul>
+      <ul id="login-bar">
 	  <li id="user_toolbar">
 		<?php echo print_r($this->layout()->user_toolbar,true) ?>
 	  </li>
@@ -29,7 +31,7 @@
                   <span class="bright">Covering the Internet and Internet Technology</span>
 	      </div>
               <div id="issue_date">
-                  <span class="bright">June 25, 2018&nbsp;&nbsp;</span>
+                  <span class="bright"><?php echo date("F j, Y");  ?>&nbsp;&nbsp;</span>
               </div>
               <span class="white">&nbsp;&nbsp;Evan's TechNote</span>
           </div>
