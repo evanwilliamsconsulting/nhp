@@ -1,0 +1,6 @@
+A Code Sample is like a Book.
+A Book is like a Code Sample.
+
+These are basic entities that reference other entities but are not "COMPOSITES" of these entites like Containers or perhaps Pages
+
+They are objects.
