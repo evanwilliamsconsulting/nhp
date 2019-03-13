@@ -95,7 +95,7 @@ class ContainerController extends AbstractActionController
 		if ($new == "container")
 		{
 			$log->info("New Container");
-			$newContainer = new ContainerType();
+			$newContainer = new Containers();
 			$newContainer->setTitle("new");
 			$newContainer->setUsername("ewilliams");
 		        $log->info(print_r($newContainer,true));	

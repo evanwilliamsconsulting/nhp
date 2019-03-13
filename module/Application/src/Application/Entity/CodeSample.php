@@ -389,4 +389,3 @@ class CodeSample implements InputFilterAwareInterface
         return $this->last_line;
     }
 }
-}

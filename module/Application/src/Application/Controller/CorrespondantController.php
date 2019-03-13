@@ -24,12 +24,14 @@ use Application\Model\Items as Items;
 use Application\Entity\Wordage as Wordage;
 use Application\Entity\Picture as Picture;
 use Application\Entity\File as File;
+use Application\Entity\CodeSample as CodeSample;
 
 use Application\View\Helper\WordageHelper as WordageHelper;
 use Application\Service\WordageService as WordageService;
 
 use Application\View\Helper\PictureHelper as PictureHelper;
 use Application\View\Helper\FileHelper as FileHelper;
+use Application\View\Helper\CodeHelper as CodeHelper;
 
 use Application\View\Helper\Toolbar as Toolbar;
 
@@ -88,6 +90,24 @@ class CorrespondantController extends AbstractActionController
 		$log->info("Not Logged In");
 	       return $this->redirect()->toUrl('https://www.evtechnote.us/');
 	}
+
+	if (!is_null($new))
+	{
+		$log->info("There Was Something New");
+		if ($new == "container")
+		{
+			$log->info("New Container");
+			$newContainer = new Container();
+			$newContainer->setTitle("new");
+			$newContainer->setUsername("evanwill");
+		        $log->info(print_r($newContainer,true));	
+			$em->persist($newContainer);
+			$em->flush();
+
+			return $this->redirect()->toRoute('correspondant');
+		}
+
+        }
     
         $em = $this->getEntityManager();
 
@@ -158,6 +178,11 @@ class CorrespondantController extends AbstractActionController
 
 	$log->info("Ready to return view");
 
+	$toolbar = new Toolbar();
+	$toolbar->setContext("containers");
+	$view->toolbar = $toolbar;	
+	$view->items = $itemArray;
+
         return $view;
     }
     public function indexAction()
@@ -196,12 +221,10 @@ class CorrespondantController extends AbstractActionController
 		$log->info("There Was Something New");
 		if ($new == "wordage")
 		{
-			$log->info("New Wwordage");
+			$log->info("New Wordage");
 			$newWordage = new Wordage();
 			$newWordage->setTitle("new");
 			$newWordage->setUsername("evanwill");
-			$newWordage->setWordage("new");
-			$newWordage->setColumnsize("65");
 		        $log->info(print_r($newWordage,true));	
 			$em->persist($newWordage);
 			$em->flush();
@@ -233,6 +256,17 @@ class CorrespondantController extends AbstractActionController
 			$newFile->setAuthor("EJW");
 			$log->info(print_r($newFile,true));
 			$em->persist($newFile);
+			$em->flush();
+
+			return $this->redirect()->toRoute('correspondant');
+		}
+		else if ($new == "code")
+		{
+			$log->info("New Code");
+			$newCodeSample = new CodeSample();
+			$newCodeSample->setUsername("evanwill");
+			$log->info(print_r($newCodeSample,true));
+			$em->persist($newCodeSample);
 			$em->flush();
 
 			return $this->redirect()->toRoute('correspondant');
@@ -300,9 +334,9 @@ class CorrespondantController extends AbstractActionController
 			$pictureItem->setPictureObject($item["object"]);
 			$itemArray[] = $pictureItem;
 		}		
-		else if ($item["type"] = "File")
+		else if ($item["type"] == "File")
 		{
-			$log->info("Process Picture Object");
+			$log->info("Process File Object");
 			$fileObject = $item["object"];
 			$filename = $fileObject->getFilename();
 			$filepath = $fileObject->getFilepath();
@@ -325,9 +359,40 @@ class CorrespondantController extends AbstractActionController
 			$fileItem->setFileObject($item["object"]);
 			$itemArray[] = $fileItem;
 		}
+		else if ($item["type"] == "CodeSample")
+		{
+			$log->info("Process Code Sample Object");
+			$codeObject = $item["object"];
+			$fileid = $codeObject->getFileId();
+			$firstLine = $codeObject->getFirstLine();
+			$lastLine = $codeObject->getLastLine();
+			$title = $codeObject->getTitle();
+			$code = $codeObject->getCode();
+			$language = $codeObject->getLanguage();	
+			$view = new ViewModel(array('fileid' => $fileid,
+				'id' => $id,
+				'fileid' => $fileid,
+				'first_line' => $firstLine,
+				'last_line' => $lastLine,
+				'title' => $title,
+				'code' => $code,
+				'language' => $language,
+				'original' => $original,
+				'username' => $username,
+				'bcolor' => $bcolor
+			));
+			$codeItem = new CodeHelper();
+			$codeItem->setServiceLocator($this->getServiceLocator());
+			// What do you suppose that the Service Locator does?
+			$codeItem->setViewModel($view);
+			$codeItem->setCodeObject($item["object"]);
+			$itemArray[] = $codeItem;
+
+		}
 	}
 
 	$toolbar = new Toolbar();
+	$toolbar->setContext("objects");
 	$view->toolbar = $toolbar;	
 	$view->items = $itemArray;
 	

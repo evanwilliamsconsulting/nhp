@@ -23,6 +23,7 @@ use Application\View\Helper\ContainerHelper as ContainerHelper;
 
 class IndexController extends AbstractActionController
 {
+    protected $em;
 	private $windowWidth;
 	private $windowHeight;
     protected $storage;
