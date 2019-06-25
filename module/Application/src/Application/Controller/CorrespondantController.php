@@ -26,6 +26,8 @@ use Application\Entity\Picture as Picture;
 use Application\Entity\File as File;
 use Application\Entity\CodeSample as CodeSample;
 
+//use Application\Entity\Container as Bag;
+
 use Application\View\Helper\WordageHelper as WordageHelper;
 use Application\Service\WordageService as WordageService;
 
@@ -69,14 +71,12 @@ class CorrespondantController extends AbstractActionController
     {
 	$this->log = $this->getServiceLocator()->get('log');
         $log = $this->log;
-        $log->info("Correspondant Container Controller");
     	$userSession = new Container('user');
 	$this->username = $userSession->username;
-	$log->info($this->username);
 	$loggedIn = $userSession->loggedin;
+	$loggedIn = true;
 	if ($loggedIn)
 	{
-		$log->info("Logged In");
 		// Set the Helpers
 		$layout = $this->layout();
 		foreach($layout->getVariables() as $child)
@@ -87,20 +87,22 @@ class CorrespondantController extends AbstractActionController
 	}
 	else
 	{
-		$log->info("Not Logged In");
 	       return $this->redirect()->toUrl('https://www.evtechnote.us/');
 	}
 
+        $em = $this->getEntityManager();
+
+	$new = $this->params()->fromQuery('new');
+
 	if (!is_null($new))
 	{
-		$log->info("There Was Something New");
 		if ($new == "container")
 		{
-			$log->info("New Container");
-			$newContainer = new Container();
+			$newContainer = new Bag();
 			$newContainer->setTitle("new");
 			$newContainer->setUsername("evanwill");
-		        $log->info(print_r($newContainer,true));	
+			$newContainer->setBackgroundWidth(600);
+			$newContainer->setBackgroundHeight(400);
 			$em->persist($newContainer);
 			$em->flush();
 
@@ -120,40 +122,19 @@ class CorrespondantController extends AbstractActionController
 	$view = new ViewModel();
 		
 	$itemArray = Array();
-	$log->info("Ready to Process Items");
 	foreach ($items->toArray() as $num => $item)
 	{
-		$log->info("Retrieved Items");
-		$log->info(print_r($item,true));
 		if ($item["type"] == "Container")
 		{
-			$log->info("process Container Item");
 			$containerObject = $item["object"];
-			$log->info(print_r($containerObject,true));
 			$id = $containerObject->getId();
-			$this->log->info("id");
-			$this->log->info($containerObject->getId());
 			$username = $containerObject->getUsername();
-			$this->log->info("username");
-			$this->log->info($containerObject->getUsername());
 			$original = $containerObject->getOriginalDate();
-			$this->log->info("original");
-			$this->log->info($containerObject->getOriginalDate());
 			$title = $containerObject->getTitle();
-			$this->log->info("title");
-			$this->log->info($containerObject->getTitle());
 			$background = $containerObject->getBackground();
-			$this->log->info("background");
-			$this->log->info($containerObject->getBackground());
 			$frame = $containerObject->getFrame();
-			$this->log->info("frame");
-			$this->log->info($containerObject->getFrame());
 			$backgroundWidth = $containerObject->getBackgroundWidth();
-			$this->log->info("backgroundWidth");
-			$this->log->info($containerObject->getBackgroundWidth());
 			$backgroundHeight = $containerObject->getBackgroundHeight();
-			$this->log->info("backgroundHeight");
-			$this->log->info($containerObject->getBackgroundHeight());
 			$bcolor = '#bb22bb';
 
 			$view = new ViewModel(array('id' => $id,
@@ -176,7 +157,6 @@ class CorrespondantController extends AbstractActionController
 	}
 	$view->items = $itemArray;
 
-	$log->info("Ready to return view");
 
 	$toolbar = new Toolbar();
 	$toolbar->setContext("containers");
@@ -187,17 +167,12 @@ class CorrespondantController extends AbstractActionController
     }
     public function indexAction()
     {
-	$this->log = $this->getServiceLocator()->get('log');
-        $log = $this->log;
-        $log->info("Correspondant Controller");
-
     	$userSession = new Container('user');
 	$this->username = $userSession->username;
-	$log->info($this->username);
 	$loggedIn = $userSession->loggedin;
+	$loggedIn = true;
 	if ($loggedIn)
 	{
-		$log->info("Logged In");
 		// Set the Helpers
 		$layout = $this->layout();
 		foreach($layout->getVariables() as $child)
@@ -208,7 +183,6 @@ class CorrespondantController extends AbstractActionController
 	}
 	else
 	{
-		$log->info("Not Logged In");
 	       return $this->redirect()->toUrl('https://www.evtechnote.us/');
 	}
     
@@ -218,14 +192,11 @@ class CorrespondantController extends AbstractActionController
 
 	if (!is_null($new))
 	{
-		$log->info("There Was Something New");
 		if ($new == "wordage")
 		{
-			$log->info("New Wordage");
 			$newWordage = new Wordage();
 			$newWordage->setTitle("new");
 			$newWordage->setUsername("evanwill");
-		        $log->info(print_r($newWordage,true));	
 			$em->persist($newWordage);
 			$em->flush();
 
@@ -233,14 +204,12 @@ class CorrespondantController extends AbstractActionController
 		}
 		else if ($new == "picture")
 		{
-			$log->info("New Picture");
 			$newPicture = new Picture();
 			$newPicture->setTitle("new");
 			$newPicture->setUsername("evanwill");
 			$newPicture->setCredit("EJW");
 			$newPicture->setWidth(150);
 			$newPicture->setHeight(150);
-		        $log->info(print_r($newPicture,true));	
 			$em->persist($newPicture);
 			$em->flush();
 
@@ -248,13 +217,11 @@ class CorrespondantController extends AbstractActionController
 		}
 		else if ($new == "file")
 		{
-			$log->info("New File");
 			$newFile = new File();
 			$newFile->setUsername("evanwill");
 			$newFile->setFilename("test");
 			$newFile->setFilepath("/filestore");
 			$newFile->setAuthor("EJW");
-			$log->info(print_r($newFile,true));
 			$em->persist($newFile);
 			$em->flush();
 
@@ -262,10 +229,8 @@ class CorrespondantController extends AbstractActionController
 		}
 		else if ($new == "code")
 		{
-			$log->info("New Code");
 			$newCodeSample = new CodeSample();
 			$newCodeSample->setUsername("evanwill");
-			$log->info(print_r($newCodeSample,true));
 			$em->persist($newCodeSample);
 			$em->flush();
 
@@ -273,7 +238,6 @@ class CorrespondantController extends AbstractActionController
 		}
 	}
 
-	$log->info("Correspondant / index moving on");
 	// This second layout look really should happen if logged in.
 	//$layout->setTemplate('layout/correspondant');
 
@@ -284,13 +248,10 @@ class CorrespondantController extends AbstractActionController
 	$view = new ViewModel();
 		
 	$itemArray = Array();
-	$log->info("Ready to Process Items");
 	foreach ($items->toArray() as $num => $item)
 	{
-		$log->info("Retrieved Items");
 		if ($item["type"] == "Wordage")
 		{
-			$log->info("Process Wordage Item");
 			$wordageObject = $item["object"];
 			$wordage = $wordageObject->getWordage();
 			$id = $wordageObject->getId();
@@ -313,7 +274,6 @@ class CorrespondantController extends AbstractActionController
 		}
 		else if ($item["type"] == "Picture")
 		{
-			$log->info("Process Picture Object");
 			$pictureObject = $item["object"];
 			$picture = $pictureObject->getPicture();
 			$id = $pictureObject->getId();
@@ -336,7 +296,6 @@ class CorrespondantController extends AbstractActionController
 		}		
 		else if ($item["type"] == "File")
 		{
-			$log->info("Process File Object");
 			$fileObject = $item["object"];
 			$filename = $fileObject->getFilename();
 			$filepath = $fileObject->getFilepath();
@@ -361,7 +320,6 @@ class CorrespondantController extends AbstractActionController
 		}
 		else if ($item["type"] == "CodeSample")
 		{
-			$log->info("Process Code Sample Object");
 			$codeObject = $item["object"];
 			$fileid = $codeObject->getFileId();
 			$firstLine = $codeObject->getFirstLine();
@@ -396,7 +354,6 @@ class CorrespondantController extends AbstractActionController
 	$view->toolbar = $toolbar;	
 	$view->items = $itemArray;
 	
-	$log->info("Ready to return view");
 
         return $view;
     }

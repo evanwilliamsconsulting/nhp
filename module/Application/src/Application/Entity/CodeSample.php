@@ -5,7 +5,6 @@
 | Field      | Type         | Null | Key | Default | Extra          |
 +------------+--------------+------+-----+---------+----------------+
 | id         | int(11)      | NO   | PRI | NULL    | auto_increment |
-| fileid     | int(11)      | YES  |     | NULL    |                |
 | title      | varchar(255) | YES  |     | NULL    |                |
 | language   | varchar(255) | YES  |     | NULL    |                |
 | code       | text         | YES  |     | NULL    |                |
@@ -43,12 +42,11 @@ class CodeSample implements InputFilterAwareInterface
     public function exchangeArray($data)
     {
         $this->id = (isset($data['id'])) ? $data['id'] : null;
-        $this->fileid = (isset($data['fileid'])) ? $data['fileid'] : null;
         $this->title= (isset($data['title'])) ? $data['title'] : null;
         $this->language= (isset($data['language'])) ? $data['language'] : null;
         $this->code= (isset($data['code'])) ? $data['code'] : null;
-        $this->first_line = (isset($data['first_line'])) ? $data['first_line'] : null;
-        $this->last_line = (isset($data['last_line'])) ? $data['last_line'] : null;
+        $this->firstline = (isset($data['first_line'])) ? $data['first_line'] : null;
+        $this->lastline = (isset($data['last_line'])) ? $data['last_line'] : null;
         $this->username = (isset($data['username'])) ? $data['username'] : null;
         $this->original = (isset($data['original'])) ? $data['original'] : null;
     }
@@ -65,12 +63,6 @@ class CodeSample implements InputFilterAwareInterface
             $inputFilter->add(
             	$factory->createInput(array(
                 'name' => 'id',
-                'required' => false,
-            )));
-
-            $inputFilter->add(
-            	$factory->createInput(array(
-                'name' => 'fileid',
                 'required' => false,
             )));
 
@@ -142,14 +134,6 @@ class CodeSample implements InputFilterAwareInterface
      */
     private $id;
 
-    /*
-     *  @var integer
-     * 
-     * @ORM\Column(name="fileid", type="integer", length=255, nullable=false)
-     *
-     */
-    private $fileid;
-
     /**
      * @var string
      *
@@ -163,7 +147,7 @@ class CodeSample implements InputFilterAwareInterface
      * @ORM\Column(name="first_line", type="integer", length=255, nullable=false)
      * @var integer
      */
-    private $first_line;
+    private $firstline;
 
     /**
      *
@@ -171,7 +155,7 @@ class CodeSample implements InputFilterAwareInterface
      * @ORM\Column(name="last_line", type="integer", length=255, nullable=false)
      * @var integer
      */
-    private $last_line;
+    private $lastline;
 	
 	
     /**
@@ -345,47 +329,47 @@ class CodeSample implements InputFilterAwareInterface
     /**
 
     /**
-     * Set first_line 
+     * Set firstline 
      *
-     * @param integer $first_line
+     * @param integer $firstline
      * @return CodeSample 
      */
-    public function setFirst_line($first_line)
+    public function setFirstLine($firstline)
     {
-        $this->first_line = $first_line;
+        $this->firstline = $firstline;
 
         return $this;
     }
 
     /**
-     * Get first_line 
+     * Get firstline 
      *
      * @return integer 
      */
-    public function getFirst_line()
+    public function getFirstLine()
     {
-        return $this->first_line;
+        return $this->firstline;
     }
     /**
-     * Set last_line 
+     * Set lastline 
      *
-     * @param integer $last_line
+     * @param integer $lastline
      * @return CodeSample 
      */
-    public function setLast_line($last_line)
+    public function setLastLine($lastline)
     {
-        $this->last_line = $last_line;
+        $this->lastline = $lastline;
 
         return $this;
     }
 
     /**
-     * Get last_line 
+     * Get lastline 
      *
      * @return integer 
      */
-    public function getLast_line()
+    public function getLastLine()
     {
-        return $this->last_line;
+        return $this->lastline;
     }
 }

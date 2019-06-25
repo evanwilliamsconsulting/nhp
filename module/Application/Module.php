@@ -27,6 +27,7 @@ use Application\View\Helper\UserToolbar as UserToolbar;
 use Application\View\Helper\SiteToolbar as SiteToolbar;
 use Zend\Session\SessionManager;
 use Zend\Session\Container;
+use Zend\Session\Config\SessionConfig;
 use Zend\Log\Logger;
 use Zend\Log\Writer\Db;
 use Application\View\Helper\TopicToolbar as TopicToolbar;
@@ -122,6 +123,13 @@ class Module implements AutoloaderProviderInterface, ViewHelperProviderInterface
 
 	    $viewModel->user_toolbar = $userToolbar;
 		$viewModel->site_toolbar = $siteToolbar;
+/*
+	$this->initSession([
+		´remember_me_seconds´ => 180,
+		´use_cookies´ => true,
+		´cookie_httponly´ => true,
+	]);
+*/
     }
     public function getConfig()
     {
@@ -137,6 +145,16 @@ class Module implements AutoloaderProviderInterface, ViewHelperProviderInterface
             ),
         );
     }
+/*
+    public function initSession($config)
+    {
+	$sessionConfig = new SessionConfig();
+	$sessionConfig->setOptions($config);
+	$sessionManager = new SessionManager($sessionConfig);
+	$sessionManager->start();
+	Container::setDefaultManager($sessionManager);
+    }
+*/
     public function getViewHelperConfig()
     {
         return array(

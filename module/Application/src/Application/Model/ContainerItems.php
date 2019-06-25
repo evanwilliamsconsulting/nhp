@@ -39,24 +39,13 @@ class ContainerItems extends AbstractResultSet
 		$criteria = Array();
 		$criteria["containerid"] = $containerId;
 		$containers = $em->getRepository('Application\Entity\ContainerItems')->findBy($criteria);
-		$this->log->info(print_r($containers,true));
 
 		foreach ($containers as $container)
 		{
-			$this->log->info(print_r($container,true));
-			$this->log->info("Id");
-			$this->log->info($container->getId());
-			$this->log->info("username");
-			$this->log->info($container->getUsername());
-			$this->log->info("original");
-			$this->log->info($container->getOriginalDate());
-			$this->log->info("title");
 			$newArray = Array();
 			$newArray["type"] = "ContainerItem";
 			$newArray["object"] = $container;
-			$this->log->info(print_r($container,true));
 			$this->obj->append($newArray);
-			$this->log->info(print_r($newArray,true));
 		}
 	}
     public function getDataSource()
@@ -112,7 +101,6 @@ class ContainerItems extends AbstractResultSet
      public function toArray()
 	 {
 	 	$it = $this->obj->getIterator();
-		$this->log->info(print_r($this->obj,true));
 	   return $it->getArrayCopy();	
 	 }
 }

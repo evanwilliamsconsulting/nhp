@@ -52,22 +52,20 @@ class AuthController extends AbstractActionController
 	//$this->_helper->viewRenderer->setNoRender(true);
     	$view = new ViewModel();
 
-
-/*
-        if ($this->getAuthService()->hasIdentity())
+	if ($this->getAuthService()->hasIdentity())
         {
-		// Set Logged In and Username attributes in helpers
-	  	$log->info("Set Logged In and Username attributes in Helpers");
-		$layout = $this->layout();
-		foreach($layout->getVariables() as $child)
-		{
-			$log->info(print_r($child,true));
-			$child->setLoggedIn(true);
-			$child->setUserName($username);
-		}
-        	return $this->redirect()->toRoute('correspondant');
+               // Set Logged In and Username attributes in helpers
+               $log->info("Set Logged In and Username attributes in Helpers");
+               $layout = $this->layout();
+               foreach($layout->getVariables() as $child)
+               {
+                       $log->info(print_r($child,true));
+                       $child->setLoggedIn(true);
+                       $child->setUserName($username);
+               }
+               return $this->redirect()->toRoute('correspondant');
         }
-*/
+
 
 
         $form = $this->getForm();
@@ -82,8 +80,8 @@ class AuthController extends AbstractActionController
     }
     public function authenticateAction()
     {
-	$this->log = $this->getServiceLocator()->get('log');
-        $log = $this->log;
+//	$this->log = $this->getServiceLocator()->get('log');
+ //       $log = $this->log;
 
         $form = $this->getForm();
         $redirect = 'home';
@@ -123,11 +121,9 @@ class AuthController extends AbstractActionController
                     	// set storage again
                 	$this->getAuthService()->getStorage()->write($request->getPost('username'));
 		   	// Set Logged In and Username attributes in helpers
-	  	    	$log->info("Set Logged In and Username attributes in Helpers");
 		    	$layout = $this->layout();
 		    	foreach($layout->getVariables() as $child)
 		    	{
-				$log->info(print_r($child,true));
 				$child->setLoggedIn(true);
 				$child->setUserName($username);
 		    	}
@@ -136,11 +132,9 @@ class AuthController extends AbstractActionController
 			// Clear the Identity and Start over!
 			$this->getAuthService()->clearIdentity();
 			// Set Logged In and Username attributes in helpers
-	  		$log->info("Set Logged In and Username attributes in Helpers");
 			$layout = $this->layout();
 		    	foreach($layout->getVariables() as $child)
 		    	{
-				$log->info(print_r($child,true));
 				$child->setLoggedIn(false);
 				$child->setUserName("");
 		    	}

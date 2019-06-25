@@ -46,27 +46,9 @@ class Containers extends AbstractResultSet
 	{
 		$em = $this->getEntityManager();
 		$containers = $em->getRepository('Application\Entity\Container')->findAll();
-		$this->log->info(print_r($containers,true));
 
 		foreach ($containers as $container)
 		{
-			$this->log->info(print_r($container,true));
-			$this->log->info("Id");
-			$this->log->info($container->getId());
-			$this->log->info("username");
-			$this->log->info($container->getUsername());
-			$this->log->info("original");
-			$this->log->info($container->getOriginalDate());
-			$this->log->info("title");
-			$this->log->info($container->getTitle());
-			$this->log->info("background");
-			$this->log->info($container->getBackground());
-			$this->log->info("frame");
-			$this->log->info($container->getFrame());
-			$this->log->info("backgroundWidth");
-			$this->log->info($container->getBackgroundWidth());
-			$this->log->info("backgroundHeight");
-			$this->log->info($container->getBackgroundHeight());
 
 			// Find all Container Items for this Container;
 			$containerId = $container->getId();
@@ -78,12 +60,9 @@ class Containers extends AbstractResultSet
 
 
 			$itemArray = Array();
-			$this->log->info("Ready to Process Container Items");
 			foreach ($items->toArray() as $num => $item)
 			{
 				$newArray2 = $item;
-				$this->log->info("Retrieved Container Items");
-				$this->log->info(print_r($item,true));
 				$itemArray[] = $newArray2;
 				
 			}
@@ -93,9 +72,7 @@ class Containers extends AbstractResultSet
 			$newArray["object"] = $container;
 			//$container->setItems(print_r($itemArray,true));
 			$container->setItems($itemArray);
-			$this->log->info(print_r($container,true));
 			$this->obj->append($newArray);
-			$this->log->info(print_r($newArray,true));
 		}
 
 
@@ -149,7 +126,6 @@ class Containers extends AbstractResultSet
      public function toArray()
 	 {
 	 	$it = $this->obj->getIterator();
-		$this->log->info(print_r($this->obj,true));
 	   	$returnArray = $it->getArrayCopy();	
 		return $returnArray;
 	 }
