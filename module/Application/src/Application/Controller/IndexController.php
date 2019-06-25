@@ -48,28 +48,22 @@ class IndexController extends AbstractActionController
     }
     public function indexAction()
     {
-    	$log = $this->getServiceLocator()->get('log');
-    	$log->info('Will work equally well');
 	    $view = new ViewModel();
 
 
 	if ($this->getAuthService()->getIdentity() != NULL)
 	{
-	  	    $log->info("Set Logged In and Username attributes in Helpers");
 		    $layout = $this->layout();
 		    foreach($layout->getVariables() as $child)
 		    {
-			$log->info(print_r($child,true));
 			$child->setLoggedIn(true);
 			$child->setUserName($username);
 		    }
 	}
 	
 	    
-	    $log->info("Got View Model");
 	    $view->content = $this->content();
 	
-	    $log->info("content");
 	    
 		/*
 		 * On window resize you are to call the resize event.
@@ -82,9 +76,7 @@ class IndexController extends AbstractActionController
 		$view->style .= "px;height:100px;";
 		 * 
 		 */
-    	$logger = $this->getServiceLocator()->get('log');
 	$view->message = "OK";
-    	$this->getServiceLocator()->get('log')->info("Hi");
 
         $em = $this->getEntityManager();
 
