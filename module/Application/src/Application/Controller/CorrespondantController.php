@@ -25,8 +25,12 @@ use Application\Entity\Wordage as Wordage;
 use Application\Entity\Picture as Picture;
 use Application\Entity\File as File;
 use Application\Entity\CodeSample as CodeSample;
+use Application\Entity\Experience as Experience;
 
-//use Application\Entity\Container as Bag;
+use Application\Entity\Container as Bag;
+use Application\Entity\Schematic as Schematic;
+use Application\Entity\Lesson as Lesson;
+use Application\Entity\Graphic as Graphic;
 
 use Application\View\Helper\WordageHelper as WordageHelper;
 use Application\Service\WordageService as WordageService;
@@ -34,6 +38,7 @@ use Application\Service\WordageService as WordageService;
 use Application\View\Helper\PictureHelper as PictureHelper;
 use Application\View\Helper\FileHelper as FileHelper;
 use Application\View\Helper\CodeHelper as CodeHelper;
+use Application\View\Helper\ExperienceHelper as ExperienceHelper;
 
 use Application\View\Helper\Toolbar as Toolbar;
 
@@ -100,6 +105,7 @@ class CorrespondantController extends AbstractActionController
 		{
 			$newContainer = new Bag();
 			$newContainer->setTitle("new");
+			$newContainer->setContainerType("container");
 			$newContainer->setUsername("evanwill");
 			$newContainer->setBackgroundWidth(600);
 			$newContainer->setBackgroundHeight(400);
@@ -108,7 +114,43 @@ class CorrespondantController extends AbstractActionController
 
 			return $this->redirect()->toRoute('correspondant');
 		}
+		else if ($new == "schematic")
+                {
+			$newContainer = new Schematic();
+			$newContainer->setTitle("new");
+			$newContainer->setContainerType("schematic");
+			$newContainer->setUsername("evanwill");
+			$newContainer->setBackgroundWidth(600);
+			$newContainer->setBackgroundHeight(400);
+			$em->persist($newContainer);
+			$em->flush();
 
+			return $this->redirect()->toRoute('correspondant');
+		}
+		else if ($new == "lesson")
+                {
+			$newContainer = new Lesson();
+			$newContainer->setTitle("new");
+			$newContainer->setContainerType("lesson");
+			$newContainer->setUsername("evanwill");
+			$newContainer->setBackgroundWidth(600);
+			$newContainer->setBackgroundHeight(400);
+			$em->persist($newContainer);
+			$em->flush();
+
+			return $this->redirect()->toRoute('correspondant');
+		}
+		else if ($new == "graphic")
+                {
+			$newContainer = new Graphic();
+			$newContainer->setTitle("new");
+			$newContainer->setContainerType("graphic");
+			$newContainer->setUsername("evanwill");
+			$newContainer->setBackgroundWidth(600);
+			$newContainer->setBackgroundHeight(400);
+			$em->persist($newContainer);
+			$em->flush();
+		}
         }
     
         $em = $this->getEntityManager();
@@ -196,7 +238,10 @@ class CorrespondantController extends AbstractActionController
 		{
 			$newWordage = new Wordage();
 			$newWordage->setTitle("new");
-			$newWordage->setUsername("evanwill");
+			$newWordage->setUsername($this->username);
+			$newWordage->setOriginal("20200101");
+			$newWordage->setColumnSize(45);
+			$newWordage->setWordage("test");
 			$em->persist($newWordage);
 			$em->flush();
 
@@ -232,6 +277,15 @@ class CorrespondantController extends AbstractActionController
 			$newCodeSample = new CodeSample();
 			$newCodeSample->setUsername("evanwill");
 			$em->persist($newCodeSample);
+			$em->flush();
+
+			return $this->redirect()->toRoute('correspondant');
+		}
+		else if ($new == "experience")
+		{
+			$newExperience = new Experience();
+			$newExperience->setUsername("evanwill");
+			$em->persist($newExperience);
 			$em->flush();
 
 			return $this->redirect()->toRoute('correspondant');
@@ -346,6 +400,59 @@ class CorrespondantController extends AbstractActionController
 			$codeItem->setCodeObject($item["object"]);
 			$itemArray[] = $codeItem;
 
+		}
+		else if ($item["type"] == "Experience")
+		{
+			$experienceObject = $item["object"];
+			$id = $experienceObject->getId();
+
+			
+			$log = $this->getServiceLocator()->get('log');
+			$log->info($id);
+			$description = $experienceObject->getDescription();
+			$log->info($description);
+			$title = $experienceObject->getTitle();
+			$skills = $experienceObject->getSkills();
+			$company = $experienceObject->getCompany();
+			$role = $experienceObject->getRole();
+			
+
+			$dtStart = $experienceObject->getStartDate();
+			$dtEnd= $experienceObject->getEndDate();
+
+			$startDate = $dtStart->format("m-d-Y");
+			$endDate = $dtEnd->format("m-d-Y");
+
+			//$log->info($startDate);
+			//$log->info($endDate);
+
+
+			//$startDate='2010-01-01';
+			//$endDate='2011-02-02';
+
+			
+			//$title='Web Developer';
+			//$skills='PHP';
+			//$role='Employment';
+			//$description='Built Website';
+			
+			$view = new ViewModel(array('id' => $id,
+				'startDate' => $startDate,
+				'endDate' => $endDate,
+				'title' => $title,
+				'skills' => $skills,
+				'company' => $company,
+				'role' => $role,
+				'description' => $description,
+				'original' => $original,
+				'username' => $username,
+			));
+			$experienceItem = new ExperienceHelper();
+			$experienceItem->setServiceLocator($this->getServiceLocator());
+			// What do you suppose that the Service Locator does?
+			$experienceItem->setViewModel($view);
+			$experienceItem->setExperienceObject($item["object"]);
+			$itemArray[] = $experienceItem;
 		}
 	}
 

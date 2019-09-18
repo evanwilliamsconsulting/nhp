@@ -91,6 +91,12 @@ body {
 	position:relative;
 	display:inline;
 }
+#topic-toolbar-edit {
+	display:block;
+}
+#topic-toolbar-save {
+	display:none;
+}
 #correspondent-toolbar {
 	width: 80%;
 	background-color:#dd2266;
@@ -307,9 +313,6 @@ body {
 	float:top;
 	height:20px;
 }
-#hidden {
-	background-color:#0082B6;
-}
 #picture {
         position:absolute;
 	top:10px;
@@ -376,7 +379,19 @@ body {
 {
 	display:none;
 }
+#experience-edit
+{
+	display:none;
+}
 #wordage-view
 {
 	display:block;
+}
+#experience-view
+{
+	display:block;
+}
+.expvis
+{
+	visibility:hidden;
 }

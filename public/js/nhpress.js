@@ -4,6 +4,8 @@ $(document).ready(function()
 	var theWordageId;
 	var wordageEditMode = false;
 	var wordageReload = false;
+	var experienceEditMode = false;
+	var experienceReload = false;
 /*
 	window_info = ({ "width" : $(window).width(), "height" : $(window).height()});
 	var width = $(document).width();
@@ -26,7 +28,7 @@ $(document).ready(function()
 	closeForm = function()
 	{
 	    $("#hidden").hide();
-	}
+	},
 	clickLogin = function()
 	{
 		$.ajax({
@@ -37,18 +39,30 @@ $(document).ready(function()
 			}
 		});
 		$("#hidden").show();
-	}
-	loadEditForm = function(id)
+	},
+	loadEditForm = function(topic,id)
 	{
-
-		$("#wordage-view").hide();
-		$("#topic-toolbar-edit").hide();
-		$("#wordage-edit").show();
-		$("#topic-toolbar-view").show();
-		$("#topic-toolbar-save").show();		
-		$wordageEditMode = true;
-	}
-	loadViewForm = function(id)
+		if (topic == "wordage")
+		{
+		    $("#wordage-view").hide();
+		    $("#wordage-edit").show();
+		    $wordageEditMode = true;
+		}
+		else if (topic == "experience")
+		{
+		    $("#experience-view").hide();
+		    $("#experience-edit").show();
+		    $("#topic-toolbar-edit").hide();
+		    $("#topic-toolbar-save").show();
+/*
+		    $experienceEditMode = true;
+		$.get("/experience/edit/1", function(data, status){
+			$("#experience-edit").html(data);
+  			});
+*/
+		}
+	},
+	loadViewForm = function(topic,id)
 	{
 			$("#topic-toolbar-save").show();		
 			saveEditForm(id);
@@ -65,15 +79,17 @@ $(document).ready(function()
 				}
 			});			
 			$wordageReload = false;
-	}
-	saveEditForm = function(id)
+	},
+	saveEditForm = function(topic,id)
 	{
-		$("#topic-toolbar-save").show();		
-		var ed = tinyMCE.get('wordage-edit-textarea');
-		//$ed.setProgressState(1); // Show progress
-		var content = ed.getContent();
-		var url = "/wordage/change/" + id;
-		$.ajax({
+		$("#topic-toolbar-save").hide();		
+		$("#topic-toolbar-edit").show();		
+		if (topic == "wordage")
+		{
+			var ed = tinyMCE.get('wordage-edit-textarea');
+			var content = ed.getContent();
+			var url = "/wordage/change/" + id;
+			$.ajax({
 			type:"POST",
 			url:url,
 			data: 
@@ -84,8 +100,55 @@ $(document).ready(function()
 				ed.setContent(data.content);
 				$("#wordage-view").innerHTML = data.content;
 			}
-		});
-	}
+			});
+		}
+		else if (topic == "experience")
+		{
+			var description=$("input[type=text][name=description]").val();
+			var skills=$("input[type=text][name=skills]").val();
+			var role=$("input[type=text][name=role]").val();
+			var company=$("input[type=text][name=company]").val();
+			var title=$("input[type=text][name=title]").val();
+			var startDate=$("input[type=text][name=startDate]").val();
+			var endDate=$("input[type=text][name=endDate]").val();
+/*
+		     alert(description);
+		     alert(skills);
+		     alert(company);
+		     alert(role);
+		     alert(title);
+		     alert(startDate);
+		     alert(endDate);
+*/
+		    var url = "/experience/change/" + id;
+			$.ajax({
+			type:"GET",
+			url:url,
+			data: 
+		    {
+				description:description,
+				skills:skills,
+				company:company,
+				role:role,
+				title:title,
+				startDate:startDate,
+				endDate:endDate
+		    }, 
+		    success: function(data) {
+				$("#wordage-view").innerHTML = data.content;
+		    }
+		    });
+		    $("#experience-edit").hide();
+		    $("#description-view").html(description);
+		    $("#skills-view").html(skills);
+		    $("#role-view").html(role);
+		    $("#company-view").html(company);
+		    $("#title-view").html(title);
+		    $("#startDate-view").html(startDate);
+		    $("#endDate-view").html(endDate);
+		    $("#experience-view").show();
+		}
+	},
 	clickLogout = function()
         {
                 $.ajax({
@@ -96,7 +159,7 @@ $(document).ready(function()
 			     window.setTimeout(function() {window.location = "http://evtechnote.us/"}, 300)
 			}
 		});
-	}
+	},
 	wordageChangeFunc = function()
 	{
 		$.ajax({
@@ -111,7 +174,7 @@ $(document).ready(function()
 				//alert(data);
 			}
 		});
-	}
+	},
 	clickPictureItem = function(pictureitemid)
         {
 	   thePictureId = pictureitemid;
@@ -126,7 +189,7 @@ $(document).ready(function()
 			darkr();
 		}
 	    });
-	}
+	},
 	clickDeleteWordage = function(wordagetextid)
 	{
 		var strconfirm = confirm("Are you sure you want to delete?");
@@ -142,7 +205,7 @@ $(document).ready(function()
 				window.location.href="/correspondant/index";
 			}
 		});
-	}
+	},
 	clickDeletePicture = function(picturetextid)
 	{
 		var strconfirm = confirm("Are you sure you want to delete?");
@@ -158,7 +221,7 @@ $(document).ready(function()
 				window.location.href="/correspondant/index";
 			}
 		});
-	}
+	},
 	clickWordageItemText = function(wordagetextid)
 	{
 		theWordageId = wordagetextid;
@@ -184,7 +247,7 @@ $(document).ready(function()
         			});
 			}
 		});
-	}
+	},
 	closeWordageEdit = function(wordagetextid)
 	{
 		//alert("close Wordage Edit");
@@ -202,7 +265,7 @@ $(document).ready(function()
 				//window.location.href="http://dev.newhollandpress.com/correspondant/index";
 			}
 		});
-	}
+	},
 	closeEditWordage = function()
         {
 	    $("#dialog").show();
@@ -260,4 +323,4 @@ darkr = function()
               			}
           		});
 	}
-});
+})

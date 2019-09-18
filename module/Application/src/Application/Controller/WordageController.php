@@ -168,33 +168,26 @@ class WordageController extends AbstractActionController
     {
     	// Load the logger
     	$this->log = $this->getServiceLocator()->get('log');
-    	$log = $this->log;
-    	$log->info("view action");
 		
 	// Initialize the View
     	$view = new ViewModel();
 	// Retreive the parameters
 	$id = $this->params()->fromRoute('item');
-	$log->info($id);
 		
 	// 2Do: Check to see that user is logged in
 
  	$persistent = $this->getAuthService()->getStorage();
 	$namespace = $persistent->getNamespace();
-	$log->info($namespace);
 /*
 	$username = $persistent->getUsername();
-	$log->info($username);
 */
 
     	// 2Do: Populate username with user's username
     	$userSession = new Container('user');
 		$this->username = $userSession->username;
-		$log->info($this->username);
 		$loggedIn = $userSession->loggedin;
 		if ($loggedIn)
 		{
-			$log->info("Logged In");
 			// Set the Helpers
 			$layout = $this->layout();
 			foreach($layout->getVariables() as $child)
@@ -205,7 +198,6 @@ class WordageController extends AbstractActionController
 		}
 		else
 		{
-			$log->info("Not Logged In");
 	       		return $this->redirect()->toUrl('https://www.evtechnote.us/');
 		}
 		
@@ -236,15 +228,10 @@ class WordageController extends AbstractActionController
     }
     public function changeAction()
     {
-    	$this->log = $this->getServiceLocator()->get('log');
-    	$log = $this->log;
-    	$log->info("change action");
 
 	$changedtext = $this->params()->fromPost('thetext');
-    	$log->info($changedtext);
 
 	$id = $this->params()->fromRoute('item');
-	$log->info($id);
 	//$theId = substr($wordageid,strpos('wordage-',$wordageid)+8,strlen($wordageid));
 	$theArray = array('id' => $id);
 
@@ -259,20 +246,15 @@ class WordageController extends AbstractActionController
         $response = $this->getResponse();
         $response->setStatusCode(200);
         $response->setContent(json_encode($variables));
-	$log->info("finished wordage change");
 	return $response;
     }
     public function editAction()
     {
-    	$this->log = $this->getServiceLocator()->get('log');
-    	$log = $this->log;
-	$log->info("Wordage Edit");
 	$view = new ViewModel();
 	$view->setTerminal(true);
 	$renderer = new PhpRenderer();
 	$resolver = new Resolver\AggregateResolver();
 	$renderer->setResolver($resolver);
-	$log->info("Wordage Edit: setResolver");
 
 	//$this->_helper->layout()->disableLayout();
 	//$this->_helper->viewRenderer->setNoRender(true);
@@ -288,23 +270,15 @@ class WordageController extends AbstractActionController
 
 	$resolver->attach($map);
 	$resolver->attach($stack);
-	$log->info("Wordage Edit: setResolver");
-	$log->info("Wordage Edit: retrieveWordage");
 
 	$wordageid = $this->params()->fromRoute('item');
-	$log->info($wordageid);
 	//$wordageid = $this->params()->fromQuery('id');
-	$log->info("Wordage Edit: fromQuery");
 	// Looking for: wordage- or 8 chars
-	$log->info("Wordage Edit: setid ". $wordageid);
 
 	$theArray = array('id' => $wordageid);
 
 	$em = $this->getEntityManager();
-	$log->info("Wordage Edit: findOne");
-	$log->info(print_r($theArray,true));
 	$wordage = $em->getRepository('Application\Entity\Wordage')->findOneBy($theArray);
-	$log->info("Wordage Edit: findOne");
 	$actualWords = $wordage->getWordage();
 	$theWords = $wordage->getWordage();
 	$title = $wordage->getTitle();
@@ -316,15 +290,11 @@ class WordageController extends AbstractActionController
     }
     public function editinplaceAction()
     {
-    	$this->log = $this->getServiceLocator()->get('log');
-    	$log = $this->log;
-	$log->info("Wordage Edit");
 	$viewModel = new ViewModel();
 	$viewModel->setTemplate("edit");
 	$renderer = new PhpRenderer();
 	$resolver = new Resolver\AggregateResolver();
 	$renderer->setResolver($resolver);
-	$log->info("Wordage Edit: setResolver");
 
 	$map = new Resolver\TemplateMapResolver(array(
     		'edit'      => __DIR__ . '/../../../view/application/wordage/edit.phtml',
@@ -337,37 +307,25 @@ class WordageController extends AbstractActionController
 
 	$resolver->attach($map);
 	$resolver->attach($stack);
-	$log->info("Wordage Edit: setResolver");
-	$log->info("Wordage Edit: retrieveWordage");
 
 	$wordageid = $this->params()->fromRoute('item');
-	$log->info($wordageid);
 	//$wordageid = $this->params()->fromQuery('id');
-	$log->info("Wordage Edit: fromQuery");
 	// Looking for: wordage- or 8 chars
 	$viewModel->setVariable('theid',$wordageid);
-	$log->info("Wordage Edit: setid ". $wordageid);
 
 	$theArray = array('id' => $wordageid);
 
 	$em = $this->getEntityManager();
-	$log->info("Wordage Edit: findOne");
-	$log->info(print_r($theArray,true));
 	$wordage = $em->getRepository('Application\Entity\Wordage')->findOneBy($theArray);
-	$log->info("Wordage Edit: findOne");
 	$actualWords = $wordage->getWordage();
 	$viewModel->setVariable('actualWords',$actualWords);
 	$viewModel->setVariable('id',$theId);
-	$log->info("Wordage Edit: fix JSON");
 
 	$variables = array("id" => $wordageid,"view" => $renderer->render($viewModel),"thewordage" => print_r($wordage,true));
-	$log->info("Wordage Edit: variables");
-	$log->info(print_r($variables,true));
 	$jsonModel = new JsonModel($variables);
         $response = $this->getResponse();
         $response->setStatusCode(200);
         $response->setContent(json_encode($variables));
-	$log->info("Wordage Edit: return JSON");
 	return $response;
     }
 }

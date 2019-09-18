@@ -48,8 +48,10 @@ class IndexController extends AbstractActionController
     }
     public function indexAction()
     {
-	    $view = new ViewModel();
+	$this->log = $this->getServiceLocator()->get('log');
+	$view = new ViewModel();
 
+	$this->log->info("test");
 
 	if ($this->getAuthService()->getIdentity() != NULL)
 	{
@@ -81,7 +83,6 @@ class IndexController extends AbstractActionController
         $em = $this->getEntityManager();
 
 	$items = new Containers();
-	$items->setLog($log);
 	$items->setEntityManager($em);
 	$items->loadDataSource();
 

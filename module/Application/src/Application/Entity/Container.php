@@ -11,8 +11,14 @@ use Zend\InputFilter\InputFilterInterface;
 use Zend\Validator\Date;
 
 /**
+ *
  * @ORM\Entity
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="container_type",type="string")
+ * @ORM\DiscriminatorMap({"container" = "Container","schematic" = "Schematic","lesson" = "Lesson","graphic" = "Graphic","resume" = "Resume"})
  * @ORM\Table(name="Container")
+ *
+ *
  */
 
 
@@ -37,6 +43,7 @@ class Container implements InputFilterAwareInterface
         $this->backgroundheight = (isset($data['backgroundheight'])) ? $data['backgroundheight'] : null;
 	$this->bgColor = (isset($data['bgColor'])) ? $data['bgColor'] : null;
         $this->items = (isset($data['items'])) ? $data['items'] : null;
+	$this->container_type = (isset($data['container_type'])) ? $data['container_type'] : null;
     }
     public function setEntityManager($em)
     {
@@ -74,6 +81,12 @@ class Container implements InputFilterAwareInterface
             $inputFilter->add(
             	$factory->createInput(array(
                 'name' => 'title',
+                'required' => false,
+            )));
+
+            $inputFilter->add(
+            	$factory->createInput(array(
+                'name' => 'container_type',
                 'required' => false,
             )));
 
@@ -157,9 +170,11 @@ class Container implements InputFilterAwareInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="text", length=2255, nullable=false)
+     * @ORM\Column(name="title", type="text", length=255, nullable=false)
      */
     private $title;
+
+    private $container_type;
 
     /**
      * @var boolean
@@ -299,6 +314,29 @@ class Container implements InputFilterAwareInterface
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * Set container_type 
+     *
+     * @param string $container_type
+     * @return Container
+     */
+    public function setContainerType($container_type)
+    {
+        $this->container_type = $container_type;
+
+        return $this;
+    }
+
+    /**
+     * Get container type
+     *
+     * @return string 
+     */
+    public function getContainerType()
+    {
+        return $this->container_type;
     }
 
     /**

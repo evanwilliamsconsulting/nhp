@@ -11,11 +11,15 @@ use Zend\InputFilter\InputFilterInterface;
 use Zend\Validator\Date;
 
 /**
+ *
  * @ORM\Entity
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="itemtype",type="string")
+ * @ORM\DiscriminatorMap({"container" = "ContainerItems","schematic" = "SchematicParts"})
  * @ORM\Table(name="ContainerItems")
+ *
+ *
  */
-
-
 
 class ContainerItems implements InputFilterAwareInterface
 {
@@ -105,11 +109,6 @@ class ContainerItems implements InputFilterAwareInterface
     private $itemid;
 
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="itemtype", type="string", length=50, nullable=false)
-     */
     private $itemtype;
 
     /**

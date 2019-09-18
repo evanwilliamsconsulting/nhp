@@ -51,6 +51,14 @@ class Items extends AbstractResultSet
 			$newArray["object"] = $file;
 			$this->obj->append($newArray);
 		}
+		$experiences= $em->getRepository('Application\Entity\Experience')->findAll();
+		foreach ($experiences as $experience)
+		{
+			$newArray = Array();
+			$newArray["type"] = "Experience";
+			$newArray["object"] = $experience;
+			$this->obj->append($newArray);
+		}
 	}
     public function getDataSource()
     {

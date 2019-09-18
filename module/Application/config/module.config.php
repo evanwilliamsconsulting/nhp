@@ -324,6 +324,32 @@ return array(
                     ),
                 ),
             ), 
+            'experience' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/experience/',
+                    'defaults' => array(
+                       '__NAMESPACE__' => 'Application\Controller',
+                       'controller' => 'correspondant',
+                       'action' => 'index',
+                    ),
+                ), 
+                'may_terminate' => true,
+                'child_routes' => array(
+                    'process' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                  	    'route'    => '/:item[/]',
+                            'constraints' => array(
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                            ),
+                        ),
+                    ),
+                ),
+            ), 
             'home' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
@@ -415,6 +441,7 @@ return array(
             'Application\Controller\Pix' => 'Application\Controller\PixController',
             'Application\Controller\PixLink' => 'Application\Controller\PixlinkController',
             'Application\Controller\Wordage' => 'Application\Controller\WordageController',
+            'Application\Controller\Experience' => 'Application\Controller\ExperienceController',
             'Application\Controller\Code' => 'Application\Controller\CodeController',
             'Application\Controller\Picture' => 'Application\Controller\PictureController',
             'Application\Controller\Correspondant' => 'Application\Controller\CorrespondantController',
@@ -449,6 +476,7 @@ return array(
         'invokables' => array(  
             'customHelper' => 'Application\View\Helper\CustomHelper',  
 	    'wordageHelper' => 'Application\View\Helper\WordageHelper',
+	    'experienceHelper' => 'Application\View\Helper\ExperienceHelper',
                 // more helpers here ...  
         )  
     ),  

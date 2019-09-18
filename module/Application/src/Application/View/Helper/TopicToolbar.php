@@ -8,18 +8,12 @@ class TopicToolbar extends AbstractHelper
 	protected $base;
 	 
 
-    public function __invoke($topic,$id)
+    public function __invoke($topic,$id,$state="default")
     {
-	#2do Move embedded links
     	$this->base = "https://www.evtechnote.us/";
-		$this->base .= $topic;	
-		$retval = "<ul class='toolbar-list'>";
-		$retval .= "<li id='topic-toolbar-view' class='toolbar-tab'><a href='https://www.evtechnote.us/wordage/view/" . $id . "' );'>View</a></li>";
-		$retval .= "<li class='toolbar-tab'>&nbsp;&nbsp;</li>";
-		$retval .= "<li id='topic-toolbar-edit' class='toolbar-tab'><a href='#' onclick='loadEditForm(" . $id . ");'>Edit</a></li>";
-		$retval .= "<li class='toolbar-tab'>&nbsp;&nbsp;</li>";
-		$retval .= "<li id='topic-toolbar-save' class='toolbar-tab'><a href='#' onclick='saveEditForm(" . $id . ");'>Save</a></li>";
-		$retval .= "</ul>";
+	$this->base .= $topic;	
+	$retval = "<div id='topic-toolbar-edit' class='toolbar-tab'><a href='#' onclick='javascript:loadEditForm(\"" . $topic . "\"," . $id . ");'><img src='/img/edit.png' width=75 height=75/></a></div>";
+	$retval .= "<div id='topic-toolbar-save' class='toolbar-tab'><a href='#' onclick='javascript:saveEditForm(\"" . $topic . "\"," . $id . ");'><img src='/img/save.png' width=75 height=75/></a></div>";
         
         return $retval;
     }

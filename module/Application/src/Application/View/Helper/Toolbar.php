@@ -100,6 +100,7 @@ class Toolbar extends AbstractHelper
 	$retval .= "<li class='toolbar_tab'><a href='/correspondant/index?new=picture'>Pix</a></li>";
 	$retval .= "<li class='toolbar_tab'><a href='/correspondant/index?new=file'>File</a></li>";
 	$retval .= "<li class='toolbar_tab'><a href='/correspondant/index?new=code'>Code Sample</a></li>";
+	$retval .= "<li class='toolbar_tab'><a href='/correspondant/index?new=experience'>Experience</a></li>";
 	$retval .= "</ul>";
 	$retval .= "</div>";
       }
@@ -108,6 +109,9 @@ class Toolbar extends AbstractHelper
     	$retval = "<div id='toolbar'>";
 	$retval .= "<ul class='toolbar_list'>";
 	$retval .= "<li class='toolbar_tab'><a href='/correspondant/container?new=container'>Container</a></li>";
+	$retval .= "<li class='toolbar_tab'><a href='/correspondant/container?new=schematic'>Schematic</a></li>";
+	$retval .= "<li class='toolbar_tab'><a href='/correspondant/container?new=lesson'>Lesson</a></li>";
+	$retval .= "<li class='toolbar_tab'><a href='/correspondant/container?new=graphic'>Graphic</a></li>";
 	$retval .= "</ul>";
 	$retval .= "</div>";
       }

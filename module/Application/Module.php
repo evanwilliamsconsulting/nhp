@@ -32,7 +32,9 @@ use Zend\Log\Logger;
 use Zend\Log\Writer\Db;
 use Application\View\Helper\TopicToolbar as TopicToolbar;
 use Application\View\Helper\WordageHelper as WordageHelper;
+use Application\View\Helper\ExperienceHelper as ExperienceHelper;
 use Application\Service\WordageService as WordageService;
+use Application\Service\ExperienceSerice as ExperienceService;
 use Application\View\Helper\ItemHelper as ItemHelper;
 use Application\Service\ItemService as ItemService;
 use Zend\Db\Adapter;
@@ -47,19 +49,23 @@ class Module implements AutoloaderProviderInterface, ViewHelperProviderInterface
             'factories'=>array(
                 'log' => function($sm) {
                     $log = new Logger();
+/*
 		    $dbconfig = array(
         		'driver'         => 'PdoMysql',
         		'dsn'            => 'mysql:dbname=nhpress;host=localhost',
         		'username'       => 'root',
         		'password'       => 'ptH3984z'
 			);
+*/
+/*
 		    $db = new Zend_Db_Adapter_Adapter($dbconfig);
 		    $mapping = [
-			'timestamp' => 'date',
+			'timestamp' => 'datetime',
 			'priority' => 'type',
 			'message' => 'event',
 			];
-		    $writer = new Zend_Log_Writer_Db($db,'log_table_name');
+*/
+		    $writer = new Zend_Log_Writer_FirePHP();
                     $log->addWriter($writer);
                     return $log;
                 },
@@ -176,6 +182,11 @@ class Module implements AutoloaderProviderInterface, ViewHelperProviderInterface
 		            $helper = new WordageHelper($wordageService);
 		            return $helper;
 		        },
+			'experiencehelper' => function($sm) {
+				$experienceService = new ExperienceService($sm);
+				$helper = new ExperienceHelper($experienceService);
+				return $helper;
+			},
 		        'itemhelper' => function($sm) {
 		        	$itemService = new ItemService($sm);
 				$helper = new ItemHelper($itemService);
