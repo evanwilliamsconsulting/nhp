@@ -25,6 +25,10 @@ $(document).ready(function()
 		}
 	});
 */
+	showMenu = function()
+	{
+		$("#main-bar").show();
+	},
 	closeForm = function()
 	{
 	    $("#hidden").hide();
@@ -46,6 +50,8 @@ $(document).ready(function()
 		{
 		    $("#wordage-view").hide();
 		    $("#wordage-edit").show();
+		    $("#topic-toolbar-edit").hide();
+		    $("#topic-toolbar-save").show();
 		    $wordageEditMode = true;
 		}
 		else if (topic == "experience")
@@ -101,6 +107,8 @@ $(document).ready(function()
 				$("#wordage-view").innerHTML = data.content;
 			}
 			});
+		    	$("#wordage-view").show();
+		    	$("#wordage-edit").hide();
 		}
 		else if (topic == "experience")
 		{

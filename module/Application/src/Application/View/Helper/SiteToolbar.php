@@ -14,17 +14,18 @@ class SiteToolbar extends AbstractHelper
     	// This top id is rendered separately
     	// we can rename it and keep it going!
     	//$siteToolbarHTML = "<div id='site_toolbar' class='toolbar'>";
-		$siteToolbarHTML = "<ul class='sitelist'>";
-		$siteToolbarHTML .= "<li class='sitetab bright'>Home</li>";
-		$siteToolbarHTML .= "<li class='sitetab'>&nbsp;&nbsp;</li>";
-		$siteToolbarHTML .= "<li class='sitetab bright'>Issues</li>";
-		$siteToolbarHTML .= "<li class='sitetab'>&nbsp;&nbsp;</li>";
-		$siteToolbarHTML .= "<li class='sitetab bright'>Write!</li>";
-		$siteToolbarHTML .= "<li class='sitetab'>&nbsp;&nbsp;</li>";
-		$siteToolbarHTML .= "<li class='sitetab bright'>Advertise!</li>";
-		$siteToolbarHTML .= "<li class='sitetab'>&nbsp;&nbsp;</li>";
-		$siteToolbarHTML .= "<li class='sitetab bright'>Contact</li>";
-		$siteToolbarHTML .= "</ul>";
+		//$siteToolbarHTML = "<ul class='sitelist'>";
+		$siteToolbarHTML = "";
+		$siteToolbarHTML .= "<li class='sitetab bright'>Home</li>\n";
+		//$siteToolbarHTML .= "<li class='sitetab'>&nbsp;&nbsp;</li>\n";
+		$siteToolbarHTML .= "<li class='sitetab bright'>Issues</li>\n";
+		//$siteToolbarHTML .= "<li class='sitetab'>&nbsp;&nbsp;</li>\n";
+		$siteToolbarHTML .= "<li class='sitetab bright'>Write!</li>\n";
+		//$siteToolbarHTML .= "<li class='sitetab'>&nbsp;&nbsp;</li>\n";
+		$siteToolbarHTML .= "<li class='sitetab bright'>Advertise!</li>\n";
+		//j$siteToolbarHTML .= "<li class='sitetab'>&nbsp;&nbsp;</li>\n";
+		$siteToolbarHTML .= "<li class='sitetab bright'>Contact</li>\n";
+		//$siteToolbarHTML .= "</ul>";
 		return $siteToolbarHTML;
     }
     public function setState()

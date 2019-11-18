@@ -11,7 +11,8 @@ class UserToolbar extends AbstractHelper
 
     public function __invoke()
     {
-	$userToolbarHTML = "<ul>";
+	//$userToolbarHTML = "<ul>";
+	$userToolbarHTML = "";
     	// This top id is rendered separately
     	// we can rename it and keep it going!
     	//$siteToolbarHTML = "<div id='site_toolbar' class='toolbar'>";
@@ -19,18 +20,19 @@ class UserToolbar extends AbstractHelper
         	{
 			$userToolbarHTML .= '<li class="usertab bright"><a href="#" onclick="';
 			$userToolbarHTML .= 'clickLogin();">';
+			$userToolbarHTML .= "\n";
 			$userToolbarHTML .= "Login";
-			$userToolbarHTML .= "</a></li>";
+			$userToolbarHTML .= "</a></li>\n";
 		}
 		else 
 		{
-	        	$userToolbarHTML = "<li class='usertab bright'>Welcome&nbsp;" . $this->username . "</li>";
+	        	$userToolbarHTML = "<li class='usertab bright'>Welcome&nbsp;" . $this->username . "</li>\n";
 			$userToolbarHTML .= '<li class="usertab bright"><a href="/auth/logout">';
 			//$userToolbarHTML .= 'clickLogout();">';
 			$userToolbarHTML .= "Logout";
-			$userToolbarHTML .= "</a></li>";
+			$userToolbarHTML .= "</a></li>\n";
         	}
-		$userToolbarHTML .= "</ul>";
+		//$userToolbarHTML .= "</ul>";
 		return $userToolbarHTML;
     }
     public function setState()

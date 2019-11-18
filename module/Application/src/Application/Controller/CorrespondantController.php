@@ -40,6 +40,8 @@ use Application\View\Helper\FileHelper as FileHelper;
 use Application\View\Helper\CodeHelper as CodeHelper;
 use Application\View\Helper\ExperienceHelper as ExperienceHelper;
 
+use Application\View\Helper\HeadlineHelper as HeadlineHelper;
+
 use Application\View\Helper\Toolbar as Toolbar;
 
 
@@ -193,7 +195,7 @@ class CorrespondantController extends AbstractActionController
 			$containerItem->setServiceLocator($this->getServiceLocator());
 			$containerItem->setViewModel($view);
 			$containerItem->setEntityManager($em);
-			$containerItem->setContainerObject($item["object"]);
+			$containerItem->setContainerObject($containerObject);
 			$itemArray[] = $containerItem;
 		}
 	}
@@ -284,7 +286,11 @@ class CorrespondantController extends AbstractActionController
 		else if ($new == "experience")
 		{
 			$newExperience = new Experience();
+			$dt = new \DateTime("20200101");
 			$newExperience->setUsername("evanwill");
+			$newExperience->setStartDate($dt);
+			$newExperience->setOriginal($dt);
+			$newExperience->setEndDate($dt);
 			$em->persist($newExperience);
 			$em->flush();
 
@@ -420,9 +426,14 @@ class CorrespondantController extends AbstractActionController
 			$dtStart = $experienceObject->getStartDate();
 			$dtEnd= $experienceObject->getEndDate();
 
-			$startDate = $dtStart->format("m-d-Y");
-			$endDate = $dtEnd->format("m-d-Y");
-
+			if ($dtStart != null)
+			{
+				$startDate = $dtStart->format("m-d-Y");
+			}
+			if ($dtEnd != null)
+			{
+				$endDate = $dtEnd->format("m-d-Y");
+			}
 			//$log->info($startDate);
 			//$log->info($endDate);
 

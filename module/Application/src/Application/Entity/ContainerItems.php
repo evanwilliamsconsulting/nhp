@@ -12,11 +12,14 @@ use Zend\Validator\Date;
 
 /**
  *
+ *
  * @ORM\Entity
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="itemtype",type="string")
  * @ORM\DiscriminatorMap({"container" = "ContainerItems","schematic" = "SchematicParts"})
  * @ORM\Table(name="ContainerItems")
+ *
+ *
  *
  *
  */
@@ -127,15 +130,6 @@ class ContainerItems implements InputFilterAwareInterface
 
 
     /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->containerid;
-    }
-    /**
      * Get container id
      *
      * @return integer 
@@ -145,6 +139,18 @@ class ContainerItems implements InputFilterAwareInterface
         return $this->containerid;
     }
 
+    /*
+     *   Set container id
+     *
+     *   @param int $containerid
+     *   @return ContainerItem
+     *
+     */ 
+    public function setContainerId($containerid)
+    {
+	$this->containerid = $containerid;
+	return $this;
+    }
     /**
      * Get item id
      *
@@ -156,6 +162,28 @@ class ContainerItems implements InputFilterAwareInterface
     }
 
     /**
+     * Set item id
+     *
+     * @param int itemid
+     * @return ContainerItem
+     *
+     */
+    public function setItemId($itemid)
+    {
+        $this->itemid = $itemid;
+        return $this;
+    }
+
+    /**
+     * Get itemtype 
+     *
+     * @return string 
+     */
+    public function getItemType()
+    {
+        return $this->itemtype;
+    }
+
     /**
      * Set itemtype 
      *
@@ -170,13 +198,13 @@ class ContainerItems implements InputFilterAwareInterface
     }
 
     /**
-     * Get itemtype 
+     * Get username
      *
      * @return string 
      */
-    public function getItemType()
+    public function getUsername()
     {
-        return $this->itemtype;
+        return $this->username;
     }
 
     /**
@@ -193,13 +221,13 @@ class ContainerItems implements InputFilterAwareInterface
     }
 
     /**
-     * Get username
+     * Get original_date
      *
-     * @return string 
+     * @return \DateTime 
      */
-    public function getUsername()
+    public function getOriginalDate()
     {
-        return $this->username;
+        return $this->original;
     }
 
     /**
@@ -214,19 +242,4 @@ class ContainerItems implements InputFilterAwareInterface
 
         return $this;
     }
-
-    /**
-     * Get original_date
-     *
-     * @return \DateTime 
-     */
-    public function getOriginalDate()
-    {
-        return $this->original;
-    }
-    public function getTitle()
-    {
-	return "Title";
-    }
-
 }

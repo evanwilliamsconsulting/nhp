@@ -67,6 +67,7 @@ class Containers extends AbstractResultSet
 				
 			}
 
+			$container->setEntityManager($this->em);
 			$newArray = Array();
 			$newArray["type"] = "Container";
 			$newArray["object"] = $container;

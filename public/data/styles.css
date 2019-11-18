@@ -1,17 +1,206 @@
-body {
-	margin-left:100px;
-	margin-right:100px;
-	background-color:black;
-}
-#main-header
-{
+@media only screen and (min-width: 1024px) {
+    body {
+	margin-left:10%;
+	margin-right:10%;
+    }
+    #main-header
+    {
+       display:block;
 	background-color:#0082B6;
-	background-image: url("/images/circuitboard.jpg");
-	background-repeat: no-repeat;
+	color:black;
 	background-size: 100%;
+    }
+  #main-bar
+  {
+	position:absolute;
+	display:none;
+  }
+
+.userlist {
+    list-style:none;
+    float:left;
 }
-#content
+.toolbar-list
 {
+	list-style:none;
+	float:left;
+}
+.toolbar-tab
+{
+	color:black;
+	font-size:18pt;
+}
+.sitelist {
+    list-style:none;
+    float:left;
+}
+.sitetab {
+    color:black;
+    font-size:18pt;
+    margin:10px;
+    padding:10px;
+}
+.usertab {
+    color:black;
+    font-size:18pt;
+    margin:10px;
+    padding:10px;
+}
+.sidebar {
+	background-image: url("/images/home/u28.png")
+}
+#site_toolbar {
+	float:left;
+	width:40%;
+	margin-left:auto;
+	margin-right:auto;
+	position:relative;
+}
+#user_toolbar {
+	float:right;
+	width:40%;
+	margin-left:auto;
+	margin-right:auto;
+	position:relative;
+}
+#topic-toolbar {
+	float:right;
+	width:10%;
+	margin-left:auto;
+	margin-right:auto;
+	position:relative;
+}
+.bright {
+	color:white;
+	background-color:black;
+	margin:10px;
+	padding:10px;
+}
+.bright a:link
+{
+	color:white;
+}
+.bright a:visited
+{
+	color:pink;
+}
+.bright a:hover
+{
+	color:red;
+}
+}
+@media only screen and (min-width: 480px and max-width: 1024px)
+{
+  body {
+	background-color:white;
+  }
+  #main-header
+  {
+	background-color:#0082B6;
+	background-size: 100%;
+  }
+  #main-bar
+  {
+	position:absolute;
+	display:none;
+	color:black;
+	background-color:#0082B6;
+  }
+  #login-bar
+  {
+        display:none;
+  }
+  #top-bar
+  {
+	display:none;
+  }
+
+.userlist {
+    list-style:none;
+    float:left;
+}
+.toolbar-list
+{
+	list-style:none;
+	float:left;
+}
+.toolbar-tab
+{
+	color:black;
+	font-size:18pt;
+}
+.sitelist {
+    list-style:none;
+    float:left;
+}
+.sitetab {
+    color:black;
+    font-size:18pt;
+}
+.usertab {
+    color:black;
+    font-size:18pt;
+}
+.sidebar {
+	background-image: url("/images/home/u28.png")
+}
+#site_toolbar {
+	float:left;
+	width:40%;
+	margin-left:auto;
+	margin-right:auto;
+	position:relative;
+}
+#user_toolbar {
+	float:right;
+	width:40%;
+	margin-left:auto;
+	margin-right:auto;
+	position:relative;
+}
+#topic-toolbar {
+	float:right;
+	width:10%;
+	margin-left:auto;
+	margin-right:auto;
+	position:relative;
+}
+.bright {
+	color:black;
+}
+.bright a:link
+{
+	color:black;
+}
+.bright a:visited
+{
+	color:black;
+}
+}
+@media only screen and (max-width: 480px) {
+  body {
+	background-color:white;
+  }
+  #main-header
+  {
+	background-color:#0082B6;
+	background-size: 100%;
+  }
+  #main-bar
+  {
+	color:black;
+	background-color:#0082B6;
+	display:none;
+	position:absolute;
+  }
+  #login-bar
+  {
+        display:none;
+  }
+  #top-bar
+  {
+	display:none;
+  }
 }
 #footer
 {
@@ -24,72 +213,6 @@ body {
 	list-style:none;
 }
 .itemHelper_Wide > ul > li {
-	display:inline;
-}
-.userlist {
-    list-style:none;
-    float:left;
-}
-.toolbar-list
-{
-	display:inline;
-	list-style:none;
-	float:left;
-}
-.toolbar-tab
-{
-	color:black;
-	font-size:18pt;
-	display:inline;
-}
-.sitelist {
-    list-style:none;
-    float:left;
-}
-.sitetab {
-    color:black;
-    font-size:18pt;
-    display:inline;
-}
-.usertab {
-    color:black;
-    font-size:18pt;
-    display:inline;
-}
-.sidebar {
-	background-image: url("/images/home/u28.png")
-}
-#login-bar
-{
-	display:inline;
-}
-#main-bar
-{
-	display:inline;
-}
-#site_toolbar {
-	float:left;
-	width:400px;
-	margin-left:auto;
-	margin-right:auto;
-	position:relative;
-	display:inline;
-}
-#user_toolbar {
-	float:right;
-	width:400px;
-	margin-left:auto;
-	margin-right:auto;
-	position:relative;
-	display:inline;
-}
-#topic-toolbar {
-	float:right;
-	width:100px;
-	margin-left:auto;
-	margin-right:auto;
-	position:relative;
-	display:inline;
 }
 #topic-toolbar-edit {
 	display:block;
@@ -114,16 +237,13 @@ body {
 	top:-10px;
 }
 #masthead {
-	width: 99%;
+	width: 80%;
 	margin-left:auto;
 	margin-right:auto;
 	margin-top:5px;
 	margin-bottom:0px;
 	text-align:center;
 
-}
-#masthead > span {
-	font-size:64pt;
 }
 #welcome {
 	position:absolute;
@@ -136,16 +256,13 @@ body {
 	width:20%;	
 }
 #topbar {
-	width: 60%;
+	width: 10%;
 	background-color:#0082B6;
 	margin-left:10%;
 	margin-right:auto;
 	margin-top:5px;
 	margin-bottom:0px;
 	text-align:center;
-}
-#topbar > span {
-	font-size:20pt;
 }
 .wordage-item {
 	width: 80%;
@@ -250,21 +367,10 @@ body {
 .picture-edit-text > textarea {
 	width:99%;
 }
-#slogan {
-	left:-40px;
-	position:relative;
-	top:10px;
-}
-#slogan > span {
-	font-size:18pt;
-}
 #issue_date {
 	text-align:right;
 	position:relative;
 	top:-18px;	
-}
-#issue_date > span {
-	font-size:18pt;
 }
 #login_box {
 	background-color:#0082B6;
@@ -288,17 +394,12 @@ body {
 	postition:relative;
 	left:1%;
 }
-.content_div {
-	width:98%;
-	position:absolute;
-}
 
 .itemlist {
     list-style:none;
 }
 .itemtab {
     font-size:18pt;
-    display:inline;
 }
 #footer {
 	width: auto;
@@ -343,17 +444,6 @@ body {
 #dialog {
 	display:none;
 }
-.bright {
-	color:yellow;
-}
-.bright a:link
-{
-	color:yellow;
-}
-.bright a:visited
-{
-	color:yellow;
-}
 .bright a:hover
 {
 	color:white;
@@ -364,6 +454,11 @@ body {
 }
 .white {
 	color:white;
+	background-color:black;
+	margin:10px;
+	padding:10px;
+	font-size:large;
+	font-style:bold;
 }
 .width800 {
 	width:800px;
@@ -371,9 +466,6 @@ body {
 }
 .viewcolor {
 	background-color:white;
-}
-.bluebkg {
-	background-color:#0082B6;
 }
 #wordage-edit
 {
@@ -392,6 +484,10 @@ body {
 	display:block;
 }
 .expvis
+{
+	visibility:hidden;
+}
+.details
 {
 	visibility:hidden;
 }

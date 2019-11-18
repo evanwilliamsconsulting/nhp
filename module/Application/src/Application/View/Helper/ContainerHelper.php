@@ -54,7 +54,6 @@ class ContainerHelper extends AbstractHelper implements ServiceLocatorAwareInter
 	public function setContainerObject($containerObject)
 	{
 		$this->containerObject = $containerObject;
-		$this->container = $containerObject->getId();
 	}
 	public function getContainerObject()
 	{
@@ -62,31 +61,11 @@ class ContainerHelper extends AbstractHelper implements ServiceLocatorAwareInter
 	}
 	public function toHTML()
 	{
-		$obj = $this->containerObject;
-		$bgColor = $obj->getBgColor();
-		$openingDiv = "<div style=\"";
-		$openingDiv .= "background-color: ";
-		$openingDiv .= $bgColor;
-		$openingDiv .= "\">";	
-		$html = $openingDiv;
-		$html .= "<div>";
-		$html .= "<b>Container</b></br>";
-		$html .= $obj->getTitle();
-		$html .= "</div>";
-
-/*
-		$html .= "<div>";
-		$html .= "background: " . $obj->getBackground();
-		$html .= " backgroundHeight: " . $obj->getBackgroundHeight();
-		$html .= " backgroundWidth: " . $obj->getBackgroundWidth();
-		$html .= " frame: " . $obj->getFrame();
-		$html .= "</div>";
-*/
-		// $html .= "</br>";
-		// $html .= " Items: ";
-		$items = $obj->getItems();
-		// $html .= print_r($items,true);
-		// $html .= "</br>";
+		$html = " Items: ";
+		$containerObject = $this->containerObject;
+		$containerObject->setEntityManager($this->em);
+		$items = $containerObject->getItems();
+		$html .= "</br>";
 		foreach ($items as $key1 => $item2)
 		{
 			//$html .= "</br>";
@@ -115,17 +94,14 @@ class ContainerHelper extends AbstractHelper implements ServiceLocatorAwareInter
 				$html .= $theWords;
 		
 			}
-/*
 			$html .= "</br>";
 			$html .= print_r($obj2,true);
 			$html .= "</br>";
 			$html .= "</br>";
 			$html .= print_r($item2,true);
 			$html .= "</br>";
-*/
 		}
 		$html .= "</br>";
-		//return $this->containerObject->toHTML();
 		return $html;
 	}
 	public function setUsername($username)

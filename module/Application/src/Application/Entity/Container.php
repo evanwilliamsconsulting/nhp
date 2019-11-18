@@ -10,6 +10,8 @@ use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 use Zend\Validator\Date;
 
+use Application\Entity\ContainerItems; 
+
 /**
  *
  * @ORM\Entity
@@ -48,6 +50,10 @@ class Container implements InputFilterAwareInterface
     public function setEntityManager($em)
     {
 	$this->em = $em;
+    }
+    public function getEntityManager()
+    {
+	return $this->em;
     }
     public function getInputFilter()
     {
@@ -211,6 +217,20 @@ class Container implements InputFilterAwareInterface
 
     public function getItems()
     {
+	$em = $this->getEntityManager();
+	$containerId = $this->getId();
+	$criteria = Array();
+	$criteria["containerid"] = $containerId;
+	$containers = $em->getRepository('Application\Entity\ContainerItems')->findBy($criteria);
+	$items= Array();
+
+	foreach ($containers as $container)
+	{
+		$items["type"] = "ContainerItem";
+		$items["object"] = $container;
+	}
+	
+
 	return $this->items;
     }
     public function setItems($itemsArray)

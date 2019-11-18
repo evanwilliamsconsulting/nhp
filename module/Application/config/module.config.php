@@ -272,6 +272,37 @@ return array(
                     ),
                 ),
             ), 
+            'movie' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/movie/',
+                    'defaults' => array(
+                       '__NAMESPACE__' => 'Application\Controller',
+                       'controller' => 'movie',
+                       'action' => 'index',
+                    ),
+                    'search' => array(
+                       '__NAMESPACE__' => 'Application\Controller',
+                       'controller' => 'movie',
+                       'action' => 'search',
+                    ),
+                ), 
+                'may_terminate' => true,
+                'child_routes' => array(
+                    'process' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '/[:action]',
+                            'constraints' => array(
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                            ),
+                        ),
+                    ),
+                ),
+            ), 
             'container' => array(
                 'type' => 'Literal',
                 'options' => array(
@@ -445,6 +476,7 @@ return array(
             'Application\Controller\Code' => 'Application\Controller\CodeController',
             'Application\Controller\Picture' => 'Application\Controller\PictureController',
             'Application\Controller\Correspondant' => 'Application\Controller\CorrespondantController',
+            'Application\Controller\Movie' => 'Application\Controller\MovieController',
             'Application\Controller\Article' => 'Application\Controller\ArticleController',
         ),
     ),

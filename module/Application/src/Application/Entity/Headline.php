@@ -1,108 +1,159 @@
 <?php
 
-
+namespace Application\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Zend\InputFilter\Factory as InputFactory;
+use Zend\InputFilter\InputFilter;
+use Zend\InputFilter\InputFilterAwareInterface;
+use Zend\InputFilter\InputFilterInterface;
+use Zend\Validator\Date;
+
 /**
- * Headline
+ * @ORM\Entity
+ * @ORM\Table(name="Headline")
  */
-class Headline
+class Headline implements InputFilterAwareInterface
 {
+    private $columnsize;
+
+
+    protected $inputFilter;
+    protected $em;
+
+    public function exchangeArray($data)
+    {
+        $this->id = (isset($data['id'])) ? $data['id'] : null;
+        $this->username = (isset($data['username'])) ? $data['username'] : null;
+        $this->original = (isset($data['original'])) ? $data['original'] : null;
+        $this->headline= (isset($data['headline'])) ? $data['headline'] : null;
+        $this->fontsize = (isset($data['fontsize'])) ? $data['fontsize'] : null;
+        $this->fontstyle = (isset($data['fontstyle'])) ? $data['fontstyle'] : null;
+        $this->fontfamily  = (isset($data['fontfamily'])) ? $data['fontfamily'] : null;
+    }
+    public function setEntityManager($em)
+    {
+	$this->em = $em;
+    }
+    public function getInputFilter()
+    {
+        if (!$this->inputFilter) {
+            $inputFilter = new InputFilter();
+			$factory = new InputFactory();
+
+            $inputFilter->add(
+            	$factory->createInput(array(
+                'name' => 'id',
+                'required' => false,
+            )));
+
+            $inputFilter->add(
+            	$factory->createInput(array(
+                'name' => 'username',
+                'required' => false,
+            )));
+			
+
+            $inputFilter->add(
+            	$factory->createInput(array(
+                'name' => 'original',
+                'required' => false,
+                'options' => array(
+                	'format' => 'Ymd'
+				)
+            ))
+			);
+
+            $inputFilter->add(
+            	$factory->createInput(array(
+                'name' => 'headline',
+                'required' => false,
+            )));
+
+            $inputFilter->add(
+            	$factory->createInput(array(
+                'name' => 'fontsize',
+                'required' => false,
+            )));
+
+            $inputFilter->add(
+            	$factory->createInput(array(
+                'name' => 'fontstyle',
+                'required' => false,
+            )));
+
+            $inputFilter->add(
+            	$factory->createInput(array(
+                'name' => 'fontfamily',
+                'required' => false,
+            )));
+ 
+            $this->inputFilter = $inputFilter;
+        }
+        return $this->inputFilter;
+    }
+    public function setInputFilter(InputFilterInterface $inputFilter)
+    {
+        throw new \Exception("Not Used");
+    }
+    public function getArrayCopy()
+    {
+        return get_object_vars($this);
+    }
     /**
      * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
-     * @var integer
-     */
-    private $width;
-
-    /**
-     * @var integer
-     */
-    private $height;
-
-    /**
-     * @var boolean
-     */
-    private $gluex;
-
-    /**
-     * @var boolean
-     */
-    private $gluey;
-
-    /**
-     * @var boolean
-     */
-    private $prevx;
-
-    /**
-     * @var boolean
-     */
-    private $prevy;
-
-    /**
-     * @var boolean
-     */
-    private $resetx;
-
-    /**
-     * @var boolean
-     */
-    private $resety;
-
-    /**
-     * @var boolean
-     */
-    private $drift;
-
-    /**
-     * @var boolean
-     */
-    private $gravity;
-
-    /**
-     * @var integer
-     */
-    private $offsetx;
-
-    /**
-     * @var integer
-     */
-    private $offsety;
+     * @var string
+	 * 
+	 * @ORM\Column(name="username", type="string", length=255, nullable=false)
+     *
+	 **/
+    private $username;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="original", type="string", length=255, nullable=false)
+     */
+    private $original;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="headline", type="text", length=2255, nullable=false)
      */
     private $headline;
 
     /**
      * @var string
-     */
-    private $topline;
-
-    /**
-     * @var boolean
-     */
-    private $usetopline;
-
-    /**
-     * @var integer
+     *
+     * @ORM\Column(name="fontsize", type="text", length=2255, nullable=false)
      */
     private $fontsize;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="fontfamily", type="text", length=2255, nullable=false)
      */
-    private $headlineclass;
+    private $fontfamily;
 
     /**
-     * @var boolean
+     * @var string
+     *
+     * @ORM\Column(name="fontstyle", type="text", length=2255, nullable=false)
      */
-    private $italic;
+    private $fontstyle;
+
+
 
 
     /**
@@ -116,286 +167,56 @@ class Headline
     }
 
     /**
-     * Set width
+     * Set username
      *
-     * @param integer $width
-     * @return Headline
+     * @param string $username
+     * @return Wordage
      */
-    public function setWidth($width)
+    public function setUsername($username)
     {
-        $this->width = $width;
+        $this->username = $username;
 
         return $this;
     }
 
     /**
-     * Get width
+     * Get username
      *
-     * @return integer 
+     * @return string 
      */
-    public function getWidth()
+    public function getUsername()
     {
-        return $this->width;
+        return $this->username;
     }
 
     /**
-     * Set height
+     * Set original_date
      *
-     * @param integer $height
-     * @return Headline
+     * @param \DateTime $original
+     * @return Wordage
      */
-    public function setHeight($height)
+    public function setOriginal($originalDate)
     {
-        $this->height = $height;
+        $this->original = $originalDate;
 
         return $this;
     }
 
     /**
-     * Get height
+     * Get original_date
      *
-     * @return integer 
+     * @return \DateTime 
      */
-    public function getHeight()
+    public function getOriginal()
     {
-        return $this->height;
+        return $this->original;
     }
 
     /**
-     * Set gluex
-     *
-     * @param boolean $gluex
-     * @return Headline
-     */
-    public function setGluex($gluex)
-    {
-        $this->gluex = $gluex;
-
-        return $this;
-    }
-
-    /**
-     * Get gluex
-     *
-     * @return boolean 
-     */
-    public function getGluex()
-    {
-        return $this->gluex;
-    }
-
-    /**
-     * Set gluey
-     *
-     * @param boolean $gluey
-     * @return Headline
-     */
-    public function setGluey($gluey)
-    {
-        $this->gluey = $gluey;
-
-        return $this;
-    }
-
-    /**
-     * Get gluey
-     *
-     * @return boolean 
-     */
-    public function getGluey()
-    {
-        return $this->gluey;
-    }
-
-    /**
-     * Set prevx
-     *
-     * @param boolean $prevx
-     * @return Headline
-     */
-    public function setPrevx($prevx)
-    {
-        $this->prevx = $prevx;
-
-        return $this;
-    }
-
-    /**
-     * Get prevx
-     *
-     * @return boolean 
-     */
-    public function getPrevx()
-    {
-        return $this->prevx;
-    }
-
-    /**
-     * Set prevy
-     *
-     * @param boolean $prevy
-     * @return Headline
-     */
-    public function setPrevy($prevy)
-    {
-        $this->prevy = $prevy;
-
-        return $this;
-    }
-
-    /**
-     * Get prevy
-     *
-     * @return boolean 
-     */
-    public function getPrevy()
-    {
-        return $this->prevy;
-    }
-
-    /**
-     * Set resetx
-     *
-     * @param boolean $resetx
-     * @return Headline
-     */
-    public function setResetx($resetx)
-    {
-        $this->resetx = $resetx;
-
-        return $this;
-    }
-
-    /**
-     * Get resetx
-     *
-     * @return boolean 
-     */
-    public function getResetx()
-    {
-        return $this->resetx;
-    }
-
-    /**
-     * Set resety
-     *
-     * @param boolean $resety
-     * @return Headline
-     */
-    public function setResety($resety)
-    {
-        $this->resety = $resety;
-
-        return $this;
-    }
-
-    /**
-     * Get resety
-     *
-     * @return boolean 
-     */
-    public function getResety()
-    {
-        return $this->resety;
-    }
-
-    /**
-     * Set drift
-     *
-     * @param boolean $drift
-     * @return Headline
-     */
-    public function setDrift($drift)
-    {
-        $this->drift = $drift;
-
-        return $this;
-    }
-
-    /**
-     * Get drift
-     *
-     * @return boolean 
-     */
-    public function getDrift()
-    {
-        return $this->drift;
-    }
-
-    /**
-     * Set gravity
-     *
-     * @param boolean $gravity
-     * @return Headline
-     */
-    public function setGravity($gravity)
-    {
-        $this->gravity = $gravity;
-
-        return $this;
-    }
-
-    /**
-     * Get gravity
-     *
-     * @return boolean 
-     */
-    public function getGravity()
-    {
-        return $this->gravity;
-    }
-
-    /**
-     * Set offsetx
-     *
-     * @param integer $offsetx
-     * @return Headline
-     */
-    public function setOffsetx($offsetx)
-    {
-        $this->offsetx = $offsetx;
-
-        return $this;
-    }
-
-    /**
-     * Get offsetx
-     *
-     * @return integer 
-     */
-    public function getOffsetx()
-    {
-        return $this->offsetx;
-    }
-
-    /**
-     * Set offsety
-     *
-     * @param integer $offsety
-     * @return Headline
-     */
-    public function setOffsety($offsety)
-    {
-        $this->offsety = $offsety;
-
-        return $this;
-    }
-
-    /**
-     * Get offsety
-     *
-     * @return integer 
-     */
-    public function getOffsety()
-    {
-        return $this->offsety;
-    }
-
-    /**
-     * Set headline
+     * Set headline 
      *
      * @param string $headline
-     * @return Headline
+     * @return Wordage
      */
     public function setHeadline($headline)
     {
@@ -415,56 +236,10 @@ class Headline
     }
 
     /**
-     * Set topline
+     * Set fontsize 
      *
-     * @param string $topline
-     * @return Headline
-     */
-    public function setTopline($topline)
-    {
-        $this->topline = $topline;
-
-        return $this;
-    }
-
-    /**
-     * Get topline
-     *
-     * @return string 
-     */
-    public function getTopline()
-    {
-        return $this->topline;
-    }
-
-    /**
-     * Set usetopline
-     *
-     * @param boolean $usetopline
-     * @return Headline
-     */
-    public function setUsetopline($usetopline)
-    {
-        $this->usetopline = $usetopline;
-
-        return $this;
-    }
-
-    /**
-     * Get usetopline
-     *
-     * @return boolean 
-     */
-    public function getUsetopline()
-    {
-        return $this->usetopline;
-    }
-
-    /**
-     * Set fontsize
-     *
-     * @param integer $fontsize
-     * @return Headline
+     * @param string $fontsize
+     * @return Fontsize
      */
     public function setFontsize($fontsize)
     {
@@ -476,7 +251,7 @@ class Headline
     /**
      * Get fontsize
      *
-     * @return integer 
+     * @return string 
      */
     public function getFontsize()
     {
@@ -484,48 +259,49 @@ class Headline
     }
 
     /**
-     * Set headlineclass
+     * Set fontstyle
      *
-     * @param string $headlineclass
-     * @return Headline
+     * @param string $fontstyle
+     * @return Fontstyle
      */
-    public function setHeadlineclass($headlineclass)
+    public function setFontstyle($fontstyle)
     {
-        $this->headlineclass = $headlineclass;
+        $this->fontstyle = $fontstyle;
 
         return $this;
     }
 
     /**
-     * Get headlineclass
+     * Get fontstyle
      *
      * @return string 
      */
-    public function getHeadlineclass()
+    public function getFontstyle()
     {
-        return $this->headlineclass;
+        return $this->fontstyle;
     }
 
     /**
-     * Set italic
+     * Set fontfamily
      *
-     * @param boolean $italic
-     * @return Headline
+     * @param string $fontfamily
+     * @return Fontfamily
      */
-    public function setItalic($italic)
+    public function setFontfamily($fontfamily)
     {
-        $this->italic = $italic;
+        $this->fontfamily = $fontfamily;
 
         return $this;
     }
 
     /**
-     * Get italic
+     * Get fontfamily
      *
-     * @return boolean 
+     * @return string 
      */
-    public function getItalic()
+    public function getFontfamily()
     {
-        return $this->italic;
+        return $this->fontfamily;
     }
+
 }

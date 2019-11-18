@@ -53,6 +53,13 @@ class IndexController extends AbstractActionController
 
 	$this->log->info("test");
 
+	$layout = $this->layout();
+	foreach($layout->getVariables() as $child)
+	{
+		$child->setLoggedIn(false);
+		$child->setUserName($username);
+	}
+
 	if ($this->getAuthService()->getIdentity() != NULL)
 	{
 		    $layout = $this->layout();
@@ -62,11 +69,8 @@ class IndexController extends AbstractActionController
 			$child->setUserName($username);
 		    }
 	}
+
 	
-	    
-	    $view->content = $this->content();
-	
-	    
 		/*
 		 * On window resize you are to call the resize event.
 		 * Do not PUSH window size out!
@@ -81,6 +85,7 @@ class IndexController extends AbstractActionController
 	$view->message = "OK";
 
         $em = $this->getEntityManager();
+	$html = "Page One";
 
 	$items = new Containers();
 	$items->setEntityManager($em);
@@ -94,14 +99,16 @@ class IndexController extends AbstractActionController
 	foreach ($theItems as $key => $item)
 	{
 		$containerItem = new ContainerHelper();
+		$containerItem->setEntityManager($em);
 		$containerItem->setServiceLocator($this->getServiceLocator());
 		$containerItem->setViewModel($view);
-		$containerItem->setEntityManager($em);
 		$containerItem->setContainerObject($item["object"]);
 		$html .= $containerItem->toHTML();
+		//$html .= print_r($item["object"],true);
 		$html .= "<br/>";
 		$html .= "<br/>";
 	}
+
 	$view->content = $html;
         return $view;
     }
