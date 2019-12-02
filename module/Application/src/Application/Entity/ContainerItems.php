@@ -1,4 +1,19 @@
 <?php
+/*
+
+mysql> show columns from ContainerItems;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| containerid | int(11)      | NO   |     | NULL    |       |
+| itemid      | int(11)      | NO   |     | NULL    |       |
+| itemtype    | char(5)      | NO   |     | NULL    |       |
+| original    | datetime     | YES  |     | NULL    |       |
+| username    | varchar(255) | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+*/
 
 namespace Application\Entity;
 
@@ -14,11 +29,7 @@ use Zend\Validator\Date;
  *
  *
  * @ORM\Entity
- * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorColumn(name="itemtype",type="string")
- * @ORM\DiscriminatorMap({"container" = "ContainerItems","schematic" = "SchematicParts"})
  * @ORM\Table(name="ContainerItems")
- *
  *
  *
  *
@@ -111,6 +122,11 @@ class ContainerItems implements InputFilterAwareInterface
      */
     private $itemid;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="itemtype", type="string", length=255,  nullable=false)
+     */
 
     private $itemtype;
 
@@ -221,22 +237,22 @@ class ContainerItems implements InputFilterAwareInterface
     }
 
     /**
-     * Get original_date
+     * Get original
      *
      * @return \DateTime 
      */
-    public function getOriginalDate()
+    public function getOriginal()
     {
         return $this->original;
     }
 
     /**
-     * Set original_date
+     * Set original
      *
-     * @param \DateTime $originalDate
+     * @param \DateTime $original
      * @return ContainerItem
      */
-    public function setOriginalDate($originalDate)
+    public function setOriginal($originalDate)
     {
         $this->original = $originalDate;
 

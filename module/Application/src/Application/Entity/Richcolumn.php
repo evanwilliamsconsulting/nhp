@@ -1,61 +1,245 @@
 <?php
-
-
+namespace Application\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Zend\InputFilter\Factory as InputFactory;
+use Zend\InputFilter\InputFilter;
+use Zend\InputFilter\InputFilterAwareInterface;
+use Zend\InputFilter\InputFilterInterface;
+use Zend\Validator\Date;
+
+use Application\Entity\ContainerItems; 
+
 /**
- * Richcolumn
+ *
+ * @ORM\Entity
+ * @ORM\Table(name="RichColumn")
+ *
  */
-class Richcolumn
+
+
+class RichColumn implements InputFilterAwareInterface
 {
+    private $columnsize;
+
+
+    protected $inputFilter;
+    protected $em;
+
+    public function exchangeArray($data)
+    {
+        $this->id = (isset($data['id'])) ? $data['id'] : null;
+        $this->username = (isset($data['username'])) ? $data['username'] : null;
+        $this->original = (isset($data['original'])) ? $data['original'] : null;
+        $this->title= (isset($data['title'])) ? $data['title'] : null;
+        $this->background= (isset($data['background'])) ? $data['background'] : null;
+        $this->frame = (isset($data['frame'])) ? $data['frame'] : null;
+        $this->backgroundwidth  = (isset($data['backgroundwidth'])) ? $data['backgroundwidth'] : null;
+        $this->backgroundheight = (isset($data['backgroundheight'])) ? $data['backgroundheight'] : null;
+	$this->bgColor = (isset($data['bgColor'])) ? $data['bgColor'] : null;
+        $this->items = (isset($data['items'])) ? $data['items'] : null;
+	$this->container_type = (isset($data['container_type'])) ? $data['container_type'] : null;
+    }
+    public function setEntityManager($em)
+    {
+	$this->em = $em;
+    }
+    public function getEntityManager()
+    {
+	return $this->em;
+    }
+    public function getInputFilter()
+    {
+        if (!$this->inputFilter) {
+            $inputFilter = new InputFilter();
+			$factory = new InputFactory();
+
+            $inputFilter->add(
+            	$factory->createInput(array(
+                'name' => 'id',
+                'required' => false,
+            )));
+
+            $inputFilter->add(
+            	$factory->createInput(array(
+                'name' => 'username',
+                'required' => false,
+            )));
+			
+
+            $inputFilter->add(
+            	$factory->createInput(array(
+                'name' => 'original',
+                'required' => false,
+                'options' => array(
+                	'format' => 'Ymd'
+				)
+            ))
+			);
+
+            $inputFilter->add(
+            	$factory->createInput(array(
+                'name' => 'title',
+                'required' => false,
+            )));
+
+            $inputFilter->add(
+            	$factory->createInput(array(
+                'name' => 'container_type',
+                'required' => false,
+            )));
+
+            $inputFilter->add(
+            	$factory->createInput(array(
+                'name' => 'background',
+                'required' => false,
+            )));
+
+            $inputFilter->add(
+            	$factory->createInput(array(
+                'name' => 'bgColor',
+                'required' => false,
+            )));
+
+            $inputFilter->add(
+            	$factory->createInput(array(
+                'name' => 'frame',
+                'required' => false,
+            )));
+
+            $inputFilter->add(
+            	$factory->createInput(array(
+                'name' => 'backgroundheight',
+                'required' => false,
+            )));
+
+            $inputFilter->add(
+            	$factory->createInput(array(
+                'name' => 'backgroundwidth',
+                'required' => false,
+            )));
+
+
+ 
+            $this->inputFilter = $inputFilter;
+        }
+        return $this->inputFilter;
+    }
+    public function setInputFilter(InputFilterInterface $inputFilter)
+    {
+        throw new \Exception("Not Used");
+    }
+    public function getArrayCopy()
+    {
+        return get_object_vars($this);
+    }
+
     /**
      * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var integer
+     *
+     * @ORM\Column(name="width", type="integer", nullable=false)
+     * @ORM\Width
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $width;
 
     /**
-     * @var integer
+     * @var height 
+     *
+     * @ORM\Column(name="height", type="integer", nullable=false)
+     * @ORM\Height
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $height;
 
     /**
-     * @var boolean
+     * @var gluex 
+     *
+     * @ORM\Column(name="gluex", type="integer", nullable=false)
+     * @ORM\Height
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $gluex;
 
     /**
      * @var boolean
      */
+    /**
+     * @var height 
+     *
+     * @ORM\Column(name="height", type="integer", nullable=false)
+     * @ORM\Height
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
     private $gluey;
 
     /**
      * @var boolean
+     */
+    /**
+     * @var height 
+     *
+     * @ORM\Column(name="height", type="integer", nullable=false)
+     * @ORM\Height
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $prevx;
 
     /**
      * @var boolean
      */
+    /**
+     * @var height 
+     *
+     * @ORM\Column(name="height", type="integer", nullable=false)
+     * @ORM\Height
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
     private $prevy;
 
     /**
      * @var boolean
+     */
+    /**
+     * @var height 
+     *
+     * @ORM\Column(name="height", type="integer", nullable=false)
+     * @ORM\Height
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $resetx;
 
     /**
      * @var boolean
      */
+    /**
+     * @var height 
+     *
+     * @ORM\Column(name="height", type="integer", nullable=false)
+     * @ORM\Height
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
     private $resety;
 
     /**
      * @var boolean
+     */
+    /**
+     * @var height 
+     *
+     * @ORM\Column(name="height", type="integer", nullable=false)
+     * @ORM\Height
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $drift;
 
@@ -66,6 +250,13 @@ class Richcolumn
 
     /**
      * @var integer
+     */
+    /**
+     * @var height 
+     *
+     * @ORM\Column(name="height", type="integer", nullable=false)
+     * @ORM\Height
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $offsetx;
 

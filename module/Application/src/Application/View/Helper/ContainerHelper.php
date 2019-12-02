@@ -65,21 +65,13 @@ class ContainerHelper extends AbstractHelper implements ServiceLocatorAwareInter
 		$containerObject = $this->containerObject;
 		$containerObject->setEntityManager($this->em);
 		$items = $containerObject->getItems();
-		$html .= "</br>";
-		foreach ($items as $key1 => $item2)
-		{
-			//$html .= "</br>";
-			// $html .= $key1;
-			$obj2 = $item2["object"];
+
+			$obj2 = $items["object"];
 			$itemid = $obj2->getItemId();
 			$itemtype = $obj2->getItemType();
 			if ($itemtype == "WORD")
 			{
 				$html .= "<br/>";
-				// $html .= "Wordage";
-				// $html .= "<br/>";
-				// $html .= "Wordage Id: ";
-				// $html .= $itemid;
 				$em = $this->getEntityManager()	;
 		
 				$wordage = $em->getRepository('Application\Entity\Wordage')->find($itemid);
@@ -95,12 +87,8 @@ class ContainerHelper extends AbstractHelper implements ServiceLocatorAwareInter
 		
 			}
 			$html .= "</br>";
-			$html .= print_r($obj2,true);
 			$html .= "</br>";
-			$html .= "</br>";
-			$html .= print_r($item2,true);
-			$html .= "</br>";
-		}
+
 		$html .= "</br>";
 		return $html;
 	}

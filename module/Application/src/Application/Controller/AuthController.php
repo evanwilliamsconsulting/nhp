@@ -52,6 +52,7 @@ class AuthController extends AbstractActionController
 	//$this->_helper->viewRenderer->setNoRender(true);
     	$view = new ViewModel();
 
+/*
 	if ($this->getAuthService()->hasIdentity())
         {
                // Set Logged In and Username attributes in helpers
@@ -65,6 +66,7 @@ class AuthController extends AbstractActionController
                }
                return $this->redirect()->toRoute('correspondant');
         }
+*/
 
 
 

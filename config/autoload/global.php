@@ -29,6 +29,8 @@ return array(
             'class' => 'Zend\Session\Config\SessionConfig',
             'options' => array(
                 'name' => 'nhp',
+		'gc_maxlifetime' =? 3600,
+		'gc_divisor' => 1,
             ),
         ),
         'storage' => 'Zend\Session\Storage\SessionArrayStorage',

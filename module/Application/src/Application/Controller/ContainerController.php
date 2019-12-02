@@ -23,14 +23,32 @@ use Zend\Stdlib\ArrayObject as ArrayObject;
 use Application\Model\Containers as Containers;
 use Application\Entity\Container as ContainerObject;
 use Application\Entity\Wordage as Wordage;
-/*
-use Application\Entity\Container as ContainerType;
+
+
+use Application\Model\Items as Items;
+use Application\Entity\Picture as Picture;
+use Application\Entity\File as File;
+use Application\Entity\CodeSample as CodeSample;
+use Application\Entity\Experience as Experience;
+
+use Application\Entity\Container as Bag;
+use Application\Entity\Schematic as Schematic;
+use Application\Entity\Lesson as Lesson;
+use Application\Entity\Graphic as Graphic;
 
 use Application\View\Helper\WordageHelper as WordageHelper;
 use Application\Service\WordageService as WordageService;
 
 use Application\View\Helper\PictureHelper as PictureHelper;
-*/
+use Application\View\Helper\FileHelper as FileHelper;
+use Application\View\Helper\CodeHelper as CodeHelper;
+use Application\View\Helper\ExperienceHelper as ExperienceHelper;
+
+use Application\View\Helper\HeadlineHelper as HeadlineHelper;
+
+use Application\View\Helper\Toolbar as Toolbar;
+
+
 use Application\View\Helper\ContainerHelper as ContainerHelper;
 
 class ContainerController extends AbstractActionController
@@ -38,7 +56,6 @@ class ContainerController extends AbstractActionController
     protected $em;
     protected $authservice;
     protected $username;
-    protected $log;
     protected $obj;
 
     public function __construct()
@@ -58,19 +75,17 @@ class ContainerController extends AbstractActionController
 	}
 	return $this->em;
     }
-    public function indexAction()
+    public function viewAction()
     {
+	$view = new ViewModel();
+
 	$this->log = $this->getServiceLocator()->get('log');
         $log = $this->log;
-        $log->info("Container Controller");
-
-    	$userSession = new Container('user'); // Talk about conflicting names!
+    	$userSession = new Container('user');
 	$this->username = $userSession->username;
-	$log->info($this->username);
 	$loggedIn = $userSession->loggedin;
 	if ($loggedIn)
 	{
-		$log->info("Logged In");
 		// Set the Helpers
 		$layout = $this->layout();
 		foreach($layout->getVariables() as $child)
@@ -81,7 +96,215 @@ class ContainerController extends AbstractActionController
 	}
 	else
 	{
-		$log->info("Not Logged In");
+	       return $this->redirect()->toUrl('https://www.evtechnote.us/');
+	}
+
+        $em = $this->getEntityManager();
+
+	$new = $this->params()->fromQuery('new');
+
+	if (!is_null($new))
+	{
+		if ($new == "container")
+		{
+			$newContainer = new Bag();
+			$newContainer->setTitle("new");
+			$newContainer->setContainerType("container");
+			$newContainer->setUsername("evanwill");
+			$newContainer->setBackgroundWidth(600);
+			$newContainer->setBackgroundHeight(400);
+			$em->persist($newContainer);
+			$em->flush();
+
+			return $this->redirect()->toRoute('correspondant');
+		}
+		else if ($new == "schematic")
+                {
+			$newContainer = new Schematic();
+			$newContainer->setTitle("new");
+			$newContainer->setContainerType("schematic");
+			$newContainer->setUsername("evanwill");
+			$newContainer->setBackgroundWidth(600);
+			$newContainer->setBackgroundHeight(400);
+			$em->persist($newContainer);
+			$em->flush();
+
+			return $this->redirect()->toRoute('correspondant');
+		}
+		else if ($new == "lesson")
+                {
+			$newContainer = new Lesson();
+			$newContainer->setTitle("new");
+			$newContainer->setContainerType("lesson");
+			$newContainer->setUsername("evanwill");
+			$newContainer->setBackgroundWidth(600);
+			$newContainer->setBackgroundHeight(400);
+			$em->persist($newContainer);
+			$em->flush();
+
+			return $this->redirect()->toRoute('correspondant');
+		}
+		else if ($new == "graphic")
+                {
+			$newContainer = new Graphic();
+			$newContainer->setTitle("new");
+			$newContainer->setContainerType("graphic");
+			$newContainer->setUsername("evanwill");
+			$newContainer->setBackgroundWidth(600);
+			$newContainer->setBackgroundHeight(400);
+			$em->persist($newContainer);
+			$em->flush();
+		}
+        }
+    
+        $em = $this->getEntityManager();
+
+
+        $repository = $em->getRepository('Application\Entity\Container');
+	$theItems = $repository->findAll();
+	$numItems = count($theItems);
+	$i = 0;
+
+		$theObject = $theItems[$i];
+
+		$containerItem = new ContainerHelper();
+		$containerItem->setEntityManager($em);
+		$containerItem->setServiceLocator($this->getServiceLocator());
+		$containerItem->setViewModel($view);
+		$containerItem->setContainerObject($theObject);
+		$html .= $containerItem->toHTML();
+
+	$html .= "<br/>";
+	$html .= $numItems;
+	$html .= "<br/>";
+	$view->content = $html;
+
+        return $view;
+    }
+    public function listAction()
+    {
+	$view = new ViewModel();
+
+	$this->log = $this->getServiceLocator()->get('log');
+        $log = $this->log;
+    	$userSession = new Container('user');
+	$this->username = $userSession->username;
+	$loggedIn = $userSession->loggedin;
+	if ($loggedIn)
+	{
+		// Set the Helpers
+		$layout = $this->layout();
+		foreach($layout->getVariables() as $child)
+		{
+			$child->setLoggedIn(true);
+			$child->setUserName($this->username);
+			}
+	}
+	else
+	{
+	       return $this->redirect()->toUrl('https://www.evtechnote.us/');
+	}
+
+        $em = $this->getEntityManager();
+
+	$new = $this->params()->fromQuery('new');
+
+	if (!is_null($new))
+	{
+		if ($new == "container")
+		{
+			$newContainer = new Bag();
+			$newContainer->setTitle("new");
+			$newContainer->setContainerType("container");
+			$newContainer->setUsername("evanwill");
+			$newContainer->setBackgroundWidth(600);
+			$newContainer->setBackgroundHeight(400);
+			$em->persist($newContainer);
+			$em->flush();
+
+			return $this->redirect()->toRoute('correspondant');
+		}
+		else if ($new == "schematic")
+                {
+			$newContainer = new Schematic();
+			$newContainer->setTitle("new");
+			$newContainer->setContainerType("schematic");
+			$newContainer->setUsername("evanwill");
+			$newContainer->setBackgroundWidth(600);
+			$newContainer->setBackgroundHeight(400);
+			$em->persist($newContainer);
+			$em->flush();
+
+			return $this->redirect()->toRoute('correspondant');
+		}
+		else if ($new == "lesson")
+                {
+			$newContainer = new Lesson();
+			$newContainer->setTitle("new");
+			$newContainer->setContainerType("lesson");
+			$newContainer->setUsername("evanwill");
+			$newContainer->setBackgroundWidth(600);
+			$newContainer->setBackgroundHeight(400);
+			$em->persist($newContainer);
+			$em->flush();
+
+			return $this->redirect()->toRoute('correspondant');
+		}
+		else if ($new == "graphic")
+                {
+			$newContainer = new Graphic();
+			$newContainer->setTitle("new");
+			$newContainer->setContainerType("graphic");
+			$newContainer->setUsername("evanwill");
+			$newContainer->setBackgroundWidth(600);
+			$newContainer->setBackgroundHeight(400);
+			$em->persist($newContainer);
+			$em->flush();
+		}
+        }
+    
+        $em = $this->getEntityManager();
+
+
+        $repository = $em->getRepository('Application\Entity\Container');
+	$theItems = $repository->findAll();
+	$numItems = count($theItems);
+	$i = 0;
+
+		$theObject = $theItems[$i];
+
+		$containerItem = new ContainerHelper();
+		$containerItem->setEntityManager($em);
+		$containerItem->setServiceLocator($this->getServiceLocator());
+		$containerItem->setViewModel($view);
+		$containerItem->setContainerObject($theObject);
+		$html .= $containerItem->toHTML();
+
+	$html .= "<br/>";
+	$html .= $numItems;
+	$html .= "<br/>";
+	$view->content = $html;
+
+        return $view;
+    }
+    public function indexAction()
+    {
+
+    	$userSession = new Container('user'); // Talk about conflicting names!
+	$this->username = $userSession->username;
+	$loggedIn = $userSession->loggedin;
+	if ($loggedIn)
+	{
+		// Set the Helpers
+		$layout = $this->layout();
+		foreach($layout->getVariables() as $child)
+		{
+			$child->setLoggedIn(true);
+			$child->setUserName($this->username);
+			}
+	}
+	else
+	{
 	       return $this->redirect()->toUrl('https://www.evtechnote.us/');
 	}
     
@@ -91,14 +314,10 @@ class ContainerController extends AbstractActionController
 
 	if (!is_null($new))
 	{
-		$log->info("There Was Something New");
 		if ($new == "container")
 		{
-			$log->info("New Container");
 			$newContainer = new Containers();
 			$newContainer->setTitle("new");
-			$newContainer->setUsername("ewilliams");
-		        $log->info(print_r($newContainer,true));	
 			$em->persist($newContainer);
 			$em->flush();
 
@@ -106,52 +325,32 @@ class ContainerController extends AbstractActionController
 		}
 	}
 
-	$log->info("Container / index moving on");
 	// This second layout look really should happen if logged in.
 	//$layout->setTemplate('layout/correspondant');
 
 	$items = new Containers();
-	$items->setLog($log);
 	$items->setEntityManager($em);
 	$items->loadDataSource();
 		
 	$view = new ViewModel();
 		
 	$itemArray = Array();
-	$log->info("Ready to Process Items");
 	foreach ($items->toArray() as $num => $item)
 	{
-		$log->info("Retrieved Items");
-		$log->info(print_r($item,true));
+		//$log->info(print_r($item,true));
 		if ($item["type"] == "Container")
 		{
-			$log->info("process Container Item");
+			//log->info("process Container Item");
 			$containerObject = $item["object"];
-			$log->info(print_r($containerObject,true));
+			//$log->info(print_r($containerObject,true));
 			$id = $containerObject->getId();
-			$this->log->info("id");
-			$this->log->info($containerObject->getId());
 			$username = $containerObject->getUsername();
-			$this->log->info("username");
-			$this->log->info($containerObject->getUsername());
 			$original = $containerObject->getOriginalDate();
-			$this->log->info("original");
-			$this->log->info($containerObject->getOriginalDate());
 			$title = $containerObject->getTitle();
-			$this->log->info("title");
-			$this->log->info($containerObject->getTitle());
 			$background = $containerObject->getBackground();
-			$this->log->info("background");
-			$this->log->info($containerObject->getBackground());
 			$frame = $containerObject->getFrame();
-			$this->log->info("frame");
-			$this->log->info($containerObject->getFrame());
 			$backgroundWidth = $containerObject->getBackgroundWidth();
-			$this->log->info("backgroundWidth");
-			$this->log->info($containerObject->getBackgroundWidth());
 			$backgroundHeight = $containerObject->getBackgroundHeight();
-			$this->log->info("backgroundHeight");
-			$this->log->info($containerObject->getBackgroundHeight());
 /*
 			$itemArray["id"] = $id;
 			$itemArray["username"] = $username;
@@ -181,7 +380,6 @@ class ContainerController extends AbstractActionController
 /*
 		if ($item["type"] == "Wordage")
 		{
-			$log->info("Process Wordage Item");
 			$wordageObject = $item["object"];
 			$wordage = $wordageObject->getWordage();
 			$id = $wordageObject->getId();
@@ -204,7 +402,6 @@ class ContainerController extends AbstractActionController
 		}
 		else 
 		{
-			$log->info("Process Picture Object");
 			$pictureObject = $item["object"];
 			$picture = $pictureObject->getPicture();
 			$id = $pictureObject->getId();
@@ -229,9 +426,7 @@ class ContainerController extends AbstractActionController
 	}
 	$view->items = $itemArray;
 
-	$log->info(print_r($view->items,true));
 	
-	$log->info("Ready to return view");
 
         return $view;
     }

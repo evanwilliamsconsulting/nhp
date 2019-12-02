@@ -222,12 +222,12 @@ class Container implements InputFilterAwareInterface
 	$criteria = Array();
 	$criteria["containerid"] = $containerId;
 	$containers = $em->getRepository('Application\Entity\ContainerItems')->findBy($criteria);
-	$items= Array();
+	$this->items= Array();
 
 	foreach ($containers as $container)
 	{
-		$items["type"] = "ContainerItem";
-		$items["object"] = $container;
+		$this->items["type"] = "ContainerItem";
+		$this->items["object"] = $container;
 	}
 	
 

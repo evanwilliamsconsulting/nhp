@@ -19,6 +19,7 @@ use Publish\Block\Broadsheet;
 
 use Application\Model\Containers as Containers;
 use Application\Entity\Container as ContainerObject;
+use Application\Entity\ContainerItems as Items;
 use Application\View\Helper\ContainerHelper as ContainerHelper;
 
 class IndexController extends AbstractActionController
@@ -48,68 +49,25 @@ class IndexController extends AbstractActionController
     }
     public function indexAction()
     {
-	$this->log = $this->getServiceLocator()->get('log');
+        $em = $this->getEntityManager();
+
 	$view = new ViewModel();
 
-	$this->log->info("test");
-
 	$layout = $this->layout();
-	foreach($layout->getVariables() as $child)
-	{
-		$child->setLoggedIn(false);
-		$child->setUserName($username);
-	}
 
-	if ($this->getAuthService()->getIdentity() != NULL)
-	{
-		    $layout = $this->layout();
-		    foreach($layout->getVariables() as $child)
-		    {
-			$child->setLoggedIn(true);
-			$child->setUserName($username);
-		    }
-	}
+        $theItems= $em->getRepository('Application\Entity\Container')->findAll();
 
-	
-		/*
-		 * On window resize you are to call the resize event.
-		 * Do not PUSH window size out!
-		 *
-		$view->width = $this->windowWidth;
-		$view->height = $this->windowHeight;
-		$view->style = "background-color:red;width:";
-		$view->style .= $this->width;
-		$view->style .= "px;height:100px;";
-		 * 
-		 */
-	$view->message = "OK";
+	$theObject = $theItems[0];
 
-        $em = $this->getEntityManager();
-	$html = "Page One";
-
-	$items = new Containers();
-	$items->setEntityManager($em);
-	$items->loadDataSource();
-
-
-	$theItems = $items->toArray();
-	$html = "Page One";
-	$html .= "<br/>";
-	$html .= "<br/>";
-	foreach ($theItems as $key => $item)
-	{
-		$containerItem = new ContainerHelper();
-		$containerItem->setEntityManager($em);
-		$containerItem->setServiceLocator($this->getServiceLocator());
-		$containerItem->setViewModel($view);
-		$containerItem->setContainerObject($item["object"]);
-		$html .= $containerItem->toHTML();
-		//$html .= print_r($item["object"],true);
-		$html .= "<br/>";
-		$html .= "<br/>";
-	}
+	$containerItem = new ContainerHelper();
+	$containerItem->setEntityManager($em);
+	$containerItem->setServiceLocator($this->getServiceLocator());
+	$containerItem->setViewModel($view);
+	$containerItem->setContainerObject($theObject);
+	$html = $containerItem->toHTML();
 
 	$view->content = $html;
+
         return $view;
     }
 	public function loginAction()
