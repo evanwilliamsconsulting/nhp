@@ -272,13 +272,14 @@ class ContainerController extends AbstractActionController
 	$i = 0;
 
 		$theObject = $theItems[$i];
-
+		$title = $theObject->getTitle();
 		$containerItem = new ContainerHelper();
 		$containerItem->setEntityManager($em);
 		$containerItem->setServiceLocator($this->getServiceLocator());
 		$containerItem->setViewModel($view);
 		$containerItem->setContainerObject($theObject);
-		$html .= $containerItem->toHTML();
+		//$html .= $containerItem->toHTML();
+		$html .= $title;
 
 	$html .= "<br/>";
 	$html .= $numItems;

@@ -5,6 +5,7 @@
 | Field      | Type         | Null | Key | Default | Extra          |
 +------------+--------------+------+-----+---------+----------------+
 | id         | int(11)      | NO   | PRI | NULL    | auto_increment |
+| fileid     | int(11)      | YES  |     | NULL    |                |
 | title      | varchar(255) | YES  |     | NULL    |                |
 | language   | varchar(255) | YES  |     | NULL    |                |
 | code       | text         | YES  |     | NULL    |                |
@@ -42,6 +43,7 @@ class CodeSample implements InputFilterAwareInterface
     public function exchangeArray($data)
     {
         $this->id = (isset($data['id'])) ? $data['id'] : null;
+        $this->fileid = (isset($data['fileid'])) ? $data['fileid'] : null;
         $this->title= (isset($data['title'])) ? $data['title'] : null;
         $this->language= (isset($data['language'])) ? $data['language'] : null;
         $this->code= (isset($data['code'])) ? $data['code'] : null;
@@ -63,6 +65,12 @@ class CodeSample implements InputFilterAwareInterface
             $inputFilter->add(
             	$factory->createInput(array(
                 'name' => 'id',
+                'required' => false,
+            )));
+
+            $inputFilter->add(
+            	$factory->createInput(array(
+                'name' => 'fileid',
                 'required' => false,
             )));
 
@@ -132,7 +140,15 @@ class CodeSample implements InputFilterAwareInterface
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
+
     private $id;
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="fileid", type="integer", nullable=false)
+     */
+    private $fileid;
+
 
     /**
      * @var string
@@ -207,6 +223,29 @@ class CodeSample implements InputFilterAwareInterface
     public function setId($id)
     {
        $this->id = $id;
+
+       return $this;
+    }
+
+    /**
+     * Get fileid
+     *
+     * @return integer 
+     */
+    public function getFileId()
+    {
+        return $this->fileid;
+    }
+
+    /**
+     * Set fileid
+     *
+     * @return CodeSample 
+     *
+     */
+    public function setFileId($fileid)
+    {
+       $this->fileid = $fileid;
 
        return $this;
     }

@@ -38,6 +38,7 @@ use Application\Service\WordageService as WordageService;
 use Application\View\Helper\PictureHelper as PictureHelper;
 use Application\View\Helper\FileHelper as FileHelper;
 use Application\View\Helper\CodeHelper as CodeHelper;
+use Application\View\Helper\BaseHelper as BaseHelper;
 use Application\View\Helper\ExperienceHelper as ExperienceHelper;
 
 use Application\View\Helper\HeadlineHelper as HeadlineHelper;
@@ -308,6 +309,7 @@ class CorrespondantController extends AbstractActionController
 	$view = new ViewModel();
 		
 	$itemArray = Array();
+
 	foreach ($items->toArray() as $num => $item)
 	{
 		if ($item["type"] == "Wordage")
@@ -378,14 +380,43 @@ class CorrespondantController extends AbstractActionController
 			$fileItem->setFileObject($item["object"]);
 			$itemArray[] = $fileItem;
 		}
+		else if ($item["type"] == "CodeBase")
+		{
+			$baseObject = $item["object"];
+			$id = $baseObject->getId();
+			$fileid = $baseObject->getFileId();
+			$title = $baseObject->getTitle();
+			$description = $baseObject->getDescription();
+			$code = $baseObject->getCode();
+			$author = $baseObject->getAuthor();
+			$username = $baseObject->getUsername();
+			$original = $baseObject->getOriginal();
+			$view = new ViewModel(array('id' => $id,
+					'fileid' => $fileid,
+					'code' => $code,
+					'title' => $title,
+					'description' => $description,
+					'author' => $author,
+					'original' => $original,
+					'username' => $username,
+					));
+			$baseItem = new BaseHelper();
+			$baseItem->setServiceLocator($this->getServiceLocator());
+			$baseItem->setViewModel($view);
+			$baseItem->setBaseObject($item["object"]);
+			$itemArray[] = $baseItem;
+		}
 		else if ($item["type"] == "CodeSample")
 		{
 			$codeObject = $item["object"];
+			$id = $codeObject->getId();
 			$fileid = $codeObject->getFileId();
 			$firstLine = $codeObject->getFirstLine();
 			$lastLine = $codeObject->getLastLine();
 			$title = $codeObject->getTitle();
 			$code = $codeObject->getCode();
+			$username = $codeObject->getUsername();
+			$original = $codeObject->getOriginal();
 			$language = $codeObject->getLanguage();	
 			$view = new ViewModel(array('fileid' => $fileid,
 				'id' => $id,

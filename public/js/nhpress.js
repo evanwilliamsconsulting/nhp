@@ -27,11 +27,12 @@ $(document).ready(function()
 */
 	showMenu = function()
 	{
-		$("#main-bar").show();
+	//	$("#main-bar").show();
 	},
 	closeForm = function()
 	{
-	    $("#hidden").hide();
+	    $("#dialog_box").hide();
+	    $('#content').css("opacity", "1");
 	},
 	clickLogin = function()
 	{
@@ -39,10 +40,11 @@ $(document).ready(function()
 			type:"POST",
 			url:"auth/login",
 			success: function(data) {
-				$("#hidden").html(data);
+				$("#dialog_box").html(data);
 			}
 		});
-		$("#hidden").show();
+		$('#content').css("opacity", "0.5");
+		$("#dialog_box").show();
 	},
 	loadEditForm = function(topic,id)
 	{

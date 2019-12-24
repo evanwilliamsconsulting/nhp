@@ -1,7 +1,11 @@
 <div style="background-color:<?php echo $this->bcolor;?>" id="file-<?php echo $this->id;?>">
     <div>
-	<?php foreach($this->noCommentsArray as $key => $line) { ?>
-	    <span style="color:black;">
+	<?php foreach($this->fileArray as $key => $line) { ?>
+	    <?php 
+		$styleArray = $this->styleArray;
+		$style = $styleArray[$key];
+	    ?>
+	    <span style="<?php echo $style ?>">
 	    <?php echo $line ?>
 	    </span>
 	<?php } ?>

@@ -134,10 +134,9 @@ class CodeBase implements InputFilterAwareInterface
     private $id;
 
     /**
-     * @var integer
      *
      * @ORM\Column(name="fileid", type="integer", nullable=false)
-     * @ORM\Fileid
+     * @var integer
      */
     private $fileid;
 
@@ -151,21 +150,19 @@ class CodeBase implements InputFilterAwareInterface
 
     /**
      *
+     * @ORM\Column(name="author", type="text", nullable=false)
+     * @var text 
+     */
+    private $author;
+
+    /**
+     *
      * 
      * @ORM\Column(name="description", type="text", nullable=false)
      * @var text 
      */
     private $description;
 
-    /**
-     *
-     * 
-     * @ORM\Column(name="author", type="string", length=255, nullable=false)
-     * @var string 
-     */
-    private $lastline;
-	
-	
     /**
      * @var string
 	 * 

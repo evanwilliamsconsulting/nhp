@@ -59,6 +59,23 @@ class Items extends AbstractResultSet
 			$newArray["object"] = $experience;
 			$this->obj->append($newArray);
 		}
+
+		$codebases = $em->getRepository('Application\Entity\CodeBase')->findAll();
+		foreach ($codebases as $codebase)
+		{
+			$newArray = Array();
+			$newArray["type"] = "CodeBase";
+			$newArray["object"] = $codebase;
+			$this->obj->append($newArray);
+		}
+		$codesamples = $em->getRepository('Application\Entity\CodeSample')->findAll();
+		foreach ($codesamples as $codesample)
+		{
+			$newArray = Array();
+			$newArray["type"] = "CodeSample";
+			$newArray["object"] = $codesample;
+			$this->obj->append($newArray);
+		}
 	}
     public function getDataSource()
     {

@@ -100,36 +100,47 @@ class CodeHelper extends AbstractHelper implements ServiceLocatorAwareInterface
 		$fileLine = $fileArray[$i];
 		$styleArray[$i] = 'color:black;';
 		// Test to see if $fileLine contains //
-		if (0 != ($pos = strpos($fileLine,"//")))
+		if (false !== ($pos = strpos($fileLine,"//")))
 		{
 			// Insert a line into the array
 			
+			if ($pos == 0)
+			{
+				/* Comment is length of line */
+				$fileLine .= "<br/>";
+				$fileArray[$i] = $fileLine;
+				$styleArray[$i] = 'color:red;';
+				$i++;
+			} 
+			else
+			{
+				$firstPartOfLine = substr($fileLine,0,$pos);
+				$secondPartOfLine = substr($fileLine,$pos);
+				$insertLine1 = $firstPartOfLine . "<br/>";
+				$insertLine2 = "<br/>" . $secondPartOfLine . "<br/>";
 
-			$firstPartOfLine = substr($fileLine,1,$pos-1);
-			$secondPartOfLine = substr($fileLine,$pos);
-			$insertLine1 = $firstPartOfLine;
-			$insertLine2 = $secondPartOfLine . "<br/>";
+				$insertLine = $fileLine;
+				$insertLine .= "<br/>";
+				$insertArray = Array();
+				$insertArray2 = Array();
+				$insertArray[] = $insertLine1;
+				$insertArray2[] = $insertLine2;
+				$arrayLength++;
+				$arrayLength++;
+				$firstArray = array_slice($fileArray,0,$i-1,true);
+				$secondArray = array_slice($fileArray,$i,$arrayLength - $i-1,true);
+				$fileArray = array_merge($firstArray,$insertArray,$secondArray);
+				$firstArray = array_slice($styleArray,0,$i-1,true);
+				$secondArray = array_slice($styleArray,$i,$arrayLength - $i+1, true);
+				$insertArray3[] = 'color:black;';	
+				$insertArray4[] = 'color:orange;';	
+				$styleArray = array_merge($firstArray,$insertArray3,$secondArray);
+				$styleArray[$i] = 'color:orange;';
+				$i++;
 
-			$insertLine = $fileLine;
-			$insertArray = Array();
-			$insertArray2 = Array();
-			$insertArray[] = $insertLine1;
-			$insertArray2[] = $insertLine2;
-			$arrayLength++;
-			$arrayLength++;
-			$firstArray = array_slice($fileArray,0,$i-1,true);
-			$secondArray = array_slice($fileArray,$i,$arrayLength - $i-1,true);
-			$fileArray = array_merge($firstArray,$insertArray,$insertArray2,$secondArray);
-			$firstArray = array_slice($styleArray,0,$i-1,true);
-			$secondArray = array_slice($styleArray,$i,$arrayLength - $i+1, true);
-			$insertArray3[] = 'color:black;';	
-			$insertArray4[] = 'color:orange;';	
-			$styleArray = array_merge($firstArray,$insertArray3,$insertArray4,$secondArray);
-			$styleArray[$i] = 'color:orange;';
-			$i++;
-
-			$styleArray[$i] = 'color:black;';
-			$i++;
+				$styleArray[$i] = 'color:black;';
+				$i++;
+			}
 
 		}
 		else
@@ -202,7 +213,7 @@ class CodeHelper extends AbstractHelper implements ServiceLocatorAwareInterface
     	
     	$view = $this->getViewModel();
 		
-	$view->bcolor = "#ffffff";
+	$view->bcolor = "#f9e79f";
 	$view->language = $this->language;
 	$view->title = $this->title;
 	$view->fileArray = $this->fileArray;
