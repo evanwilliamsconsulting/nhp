@@ -23,14 +23,20 @@
 */
 
 // the setup function runs once when you press reset or power the board
+
 void setup() {
+
   // initialize digital pin LED_BUILTIN as an output.
   pinMode(13, OUTPUT);
     // start serial port at 9600 bps:
   Serial.begin(9600);
+
   while (!Serial) {
+
     ; // wait for serial port to connect. Needed for native USB port only
+
   }
+
 }
 
 // the loop function runs over and over again forever

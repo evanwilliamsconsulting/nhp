@@ -25,7 +25,7 @@ use Application\Entity\Container as ContainerObject;
 use Application\Entity\Wordage as Wordage;
 
 
-use Application\Model\Items as Items;
+use Application\Model\ContainerItems as ContainerItems;
 use Application\Entity\Picture as Picture;
 use Application\Entity\File as File;
 use Application\Entity\CodeSample as CodeSample;
@@ -75,7 +75,7 @@ class ContainerController extends AbstractActionController
 	}
 	return $this->em;
     }
-    public function viewAction()
+    public function oldAction()
     {
 	$view = new ViewModel();
 
@@ -90,7 +90,7 @@ class ContainerController extends AbstractActionController
 		$layout = $this->layout();
 		foreach($layout->getVariables() as $child)
 		{
-			$child->setLoggedIn(true);
+			$child->setLoggedIn($loggedIn);
 			$child->setUserName($this->username);
 			}
 	}
@@ -270,19 +270,118 @@ class ContainerController extends AbstractActionController
 	$theItems = $repository->findAll();
 	$numItems = count($theItems);
 	$i = 0;
-
+	while ($i < $numItems)
+	{
 		$theObject = $theItems[$i];
 		$title = $theObject->getTitle();
+		$id = $theObject->getId();
 		$containerItem = new ContainerHelper();
 		$containerItem->setEntityManager($em);
 		$containerItem->setServiceLocator($this->getServiceLocator());
 		$containerItem->setViewModel($view);
 		$containerItem->setContainerObject($theObject);
-		//$html .= $containerItem->toHTML();
+		$html .= $id;
+		$html .= "&nbsp;-&nbsp;";
 		$html .= $title;
-
+		$html .= "&nbsp;-Edit:&nbsp;";
+		$html .= "<a href='";
+		$html .= "https://www.evtechnote.us/container/edit?id=";
+		$html .= trim($id);
+		$html .= "'>Edit</a>";
+		$html .= "<br/>";
+		$i++;
+	}
 	$html .= "<br/>";
-	$html .= $numItems;
+	$view->content = $html;
+
+        return $view;
+    }
+    public function editAction()
+    {
+	$view = new ViewModel();
+
+	$this->log = $this->getServiceLocator()->get('log');
+        $log = $this->log;
+    	$userSession = new Container('user');
+	$this->username = $userSession->username;
+	$loggedIn = $userSession->loggedin;
+	if ($loggedIn)
+	{
+		// Set the Helpers
+		$layout = $this->layout();
+		foreach($layout->getVariables() as $child)
+		{
+			$child->setLoggedIn(true);
+			$child->setUserName($this->username);
+			}
+	}
+	else
+	{
+	       return $this->redirect()->toUrl('https://www.evtechnote.us/');
+	}
+
+        $em = $this->getEntityManager();
+
+	$editId = $this->params()->fromQuery('id');
+
+        $em = $this->getEntityManager();
+
+	$criteria = array('id' => $editId);
+
+        $repository = $em->getRepository('Application\Entity\Container');
+	$theItems = $repository->findBy($criteria);
+	$numItems = count($theItems);
+	$i = 0;
+	$html = "Start of Container";
+	$html .= "<br/>";
+	while ($i < $numItems)
+	{
+		$theObject = $theItems[$i];
+		$title = $theObject->getTitle();
+		$id = $theObject->getId();
+		$containerItem = new ContainerHelper();
+		$containerItem->setEntityManager($em);
+		$containerItem->setServiceLocator($this->getServiceLocator());
+		$containerItem->setViewModel($view);
+		$containerItem->setContainerObject($theObject);
+		$html .= $id;
+		$html .= "&nbsp;-&nbsp;";
+		$html .= $title;
+		$html .= "<br/>";
+		$i++;
+		/* Now get the Items */
+		$containerId = $id;
+		$criteria = Array();
+		$criteria["containerid"] = $containerId;
+		$items = $em->getRepository('Application\Entity\ContainerItems')->findBy($criteria);
+		$this->items= Array();
+
+		$html .= "<br/>";
+		foreach ($items as $item)
+		{
+			$this->items["type"] = "ContainerItem";
+			$html .= "Container Item:";
+			$html .= "<br/>";
+			$this->items["object"] = $item;
+			$itemid = $item->getItemId();
+			$itemtype = $item->getItemType();
+			//$itemid = $item->itemid;
+			//$itemtype = $item->itemtype;
+			$html .= "ItemId:&nbsp;";
+			$html .= $itemid;
+			$html .= "&nbsp;-&nbsp;";
+			$html .= "ItemType:&nbsp;";
+			$html .= $itemtype;
+			$html .= "&nbsp;";
+			$html .= "<a href='";
+			$html .= "https://www.evtechnote.us/";
+			$html .= $itemtype;
+			$html .= "/view/";
+			$html .= trim($itemid);
+			$html .= "'>View</a>";
+			$html .= "<br/>";
+		}
+	}
 	$html .= "<br/>";
 	$view->content = $html;
 
@@ -428,6 +527,55 @@ class ContainerController extends AbstractActionController
 	$view->items = $itemArray;
 
 	
+
+        return $view;
+    }
+    public function viewAction()
+    {
+	$view = new ViewModel();
+
+	$this->log = $this->getServiceLocator()->get('log');
+        $log = $this->log;
+    	$userSession = new Container('user');
+	$this->username = $userSession->username;
+	$loggedIn = $userSession->loggedin;
+	if ($loggedIn)
+	{
+		// Set the Helpers
+		$layout = $this->layout();
+		foreach($layout->getVariables() as $child)
+		{
+			$child->setLoggedIn(true);
+			$child->setUserName($this->username);
+			}
+	}
+	else
+	{
+	       return $this->redirect()->toUrl('https://www.evtechnote.us/');
+	}
+
+        $em = $this->getEntityManager();
+
+	$viewId = $this->params()->fromQuery('id');
+
+        $em = $this->getEntityManager();
+
+	$containerItems = new ContainerItems();
+	$containerItems->setContainerId($viewId);
+	$containerItems->setEntityManager($em);
+	$containerItems->loadDataSource();
+		
+	$view = new ViewModel();
+
+	
+	foreach ($containerItems->toArray() as $num => $item)
+	{
+		$html .= print_r($item,true);
+	}
+		
+	$html .= "<br/>";
+
+	$view->content = $html;
 
         return $view;
     }

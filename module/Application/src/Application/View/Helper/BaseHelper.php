@@ -69,6 +69,12 @@ class BaseHelper extends AbstractHelper implements ServiceLocatorAwareInterface
         $this->title = $baseObject->getTitle();
         $this->code = $baseObject->getCode();
         $username = $this->getUsername();
+
+	$webRoot = "https://www.evtechnote.us/";
+	$fileDirectory = "filestore/Arduino/Blink/";
+	$fileRelative = "/usr/local/apache2/htdocs/evtechnote/public/" . $fileDirectory . $this->title;
+
+	$this->fileContents = file_get_contents($fileRelative);
     }
     public function setUsername($username)
     {
@@ -101,6 +107,7 @@ class BaseHelper extends AbstractHelper implements ServiceLocatorAwareInterface
 	$view->fileid = $this->fileid;
 	$view->description = $this->description;
 	$view->author = $this->author;
+	$view->fileContents = $this->fileContents;
 
 	$view->setTemplate('items/codebase.phtml');
 		

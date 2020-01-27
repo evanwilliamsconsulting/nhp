@@ -117,6 +117,8 @@ class WordageHelper extends AbstractHelper implements ServiceLocatorAwareInterfa
     	$containerItems = $this->getContainerItems();
 
     	$view->containerItems = $containerItems;
+	
+		$view->wordage = $this->wordage;
 		
 		$view->setTemplate('items/wordage.phtml');
 		

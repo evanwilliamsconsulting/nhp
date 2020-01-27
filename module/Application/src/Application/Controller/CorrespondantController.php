@@ -215,14 +215,15 @@ class CorrespondantController extends AbstractActionController
     	$userSession = new Container('user');
 	$this->username = $userSession->username;
 	$loggedIn = $userSession->loggedin;
-	$loggedIn = true;
+	//$loggedIn = true;
 	if ($loggedIn)
 	{
 		// Set the Helpers
 		$layout = $this->layout();
 		foreach($layout->getVariables() as $child)
 		{
-			$child->setLoggedIn(true);
+			//$child->setLoggedIn(true);
+			$child->setLoggedIn($loggedIn);
 			$child->setUserName($this->username);
 			}
 	}

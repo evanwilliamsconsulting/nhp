@@ -212,31 +212,6 @@ class Container implements InputFilterAwareInterface
      */
     private $backgroundheight;
 
-
-    private $items;
-
-    public function getItems()
-    {
-	$em = $this->getEntityManager();
-	$containerId = $this->getId();
-	$criteria = Array();
-	$criteria["containerid"] = $containerId;
-	$containers = $em->getRepository('Application\Entity\ContainerItems')->findBy($criteria);
-	$this->items= Array();
-
-	foreach ($containers as $container)
-	{
-		$this->items["type"] = "ContainerItem";
-		$this->items["object"] = $container;
-	}
-	
-
-	return $this->items;
-    }
-    public function setItems($itemsArray)
-    {
-	$this->items = $itemsArray;
-    }
     /**
      * Get id
      *

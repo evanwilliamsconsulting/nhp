@@ -82,7 +82,7 @@ class CodeHelper extends AbstractHelper implements ServiceLocatorAwareInterface
 	$charptr = 0;
 	$someString = "";
 	$someChar = "";
-	$fileArray = explode("\r\n",$fileContents);
+	$fileArray = explode("\n",$fileContents);
 	$this->origArray = $fileArray;
 
 
@@ -94,6 +94,8 @@ class CodeHelper extends AbstractHelper implements ServiceLocatorAwareInterface
 	$this->styleOrig = $styleArray;
 
 	$i = 0;
+
+	$previousPart = "";
 
 	while ($i<$arrayLength)
 	{
@@ -107,38 +109,40 @@ class CodeHelper extends AbstractHelper implements ServiceLocatorAwareInterface
 			if ($pos == 0)
 			{
 				/* Comment is length of line */
-				$fileLine .= "<br/>";
+				//$fileLine .= "<br/>";
 				$fileArray[$i] = $fileLine;
 				$styleArray[$i] = 'color:red;';
 				$i++;
 			} 
 			else
 			{
+				$lineLength = strlen($fileLine);
 				$firstPartOfLine = substr($fileLine,0,$pos);
-				$secondPartOfLine = substr($fileLine,$pos);
-				$insertLine1 = $firstPartOfLine . "<br/>";
-				$insertLine2 = "<br/>" . $secondPartOfLine . "<br/>";
+				$secondPartOfLine = substr($fileLine,$pos,$lineLength - $pos);
+				$originalNextLine = $i + 1;
+				$lastPartOfLine = $fileArray[$originalNextLine];
+				$insertLine1 = $firstPartOfLine;
+				$insertLine2 = $secondPartOfLine;
 
 				$insertLine = $fileLine;
 				$insertLine .= "<br/>";
 				$insertArray = Array();
-				$insertArray2 = Array();
+				$insertStyle = Array();
 				$insertArray[] = $insertLine1;
-				$insertArray2[] = $insertLine2;
-				$arrayLength++;
-				$arrayLength++;
+				$insertArray[] = $insertLine2;
+				$insertArray[] = "<br/>";
+				$arrayLength += 2;
+				$previousPart = $lastPartOfLine;
 				$firstArray = array_slice($fileArray,0,$i-1,true);
-				$secondArray = array_slice($fileArray,$i,$arrayLength - $i-1,true);
+				$secondArray = array_slice($fileArray,$i+1,$arrayLength - $i - 1,true);
 				$fileArray = array_merge($firstArray,$insertArray,$secondArray);
 				$firstArray = array_slice($styleArray,0,$i-1,true);
-				$secondArray = array_slice($styleArray,$i,$arrayLength - $i+1, true);
-				$insertArray3[] = 'color:black;';	
-				$insertArray4[] = 'color:orange;';	
-				$styleArray = array_merge($firstArray,$insertArray3,$secondArray);
-				$styleArray[$i] = 'color:orange;';
+				$secondArray = array_slice($styleArray,$i+1,$arrayLength - $i, true);
+				$insertStyle[] = 'color:black;';	
+				$styleArray = array_merge($firstArray,$insertStyle,$secondArray);
+				$styleArray[$i] = "color:orange;";
 				$i++;
-
-				$styleArray[$i] = 'color:black;';
+				$i++;
 				$i++;
 			}
 

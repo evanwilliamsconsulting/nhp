@@ -286,6 +286,11 @@ return array(
                        'controller' => 'container',
                        'action' => 'view',
                     ),
+                    'edit' => array(
+                       '__NAMESPACE__' => 'Application\Controller',
+                       'controller' => 'container',
+                       'action' => 'edit',
+                    ),
                 ), 
                 'may_terminate' => true,
                 'child_routes' => array(

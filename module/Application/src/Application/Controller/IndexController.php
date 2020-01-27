@@ -20,7 +20,10 @@ use Publish\Block\Broadsheet;
 use Application\Model\Containers as Containers;
 use Application\Entity\Container as ContainerObject;
 use Application\Entity\ContainerItems as Items;
+use Application\Model\ContainerItems as ContainerItems;
 use Application\View\Helper\ContainerHelper as ContainerHelper;
+
+use Application\View\Helper\WordageHelper as WordageHelper;
 
 class IndexController extends AbstractActionController
 {
@@ -49,24 +52,42 @@ class IndexController extends AbstractActionController
     }
     public function indexAction()
     {
-        $em = $this->getEntityManager();
-
-	$view = new ViewModel();
-
 	$layout = $this->layout();
 
-        $theItems= $em->getRepository('Application\Entity\Container')->findAll();
+	$this->log = $this->getServiceLocator()->get('log');
+        $log = $this->log;
 
-	$theObject = $theItems[0];
+	$viewId = 1;
 
-	$containerItem = new ContainerHelper();
-	$containerItem->setEntityManager($em);
-	$containerItem->setServiceLocator($this->getServiceLocator());
-	$containerItem->setViewModel($view);
-	$containerItem->setContainerObject($theObject);
-	$html = $containerItem->toHTML();
+        $em = $this->getEntityManager();
 
-	$view->content = $html;
+	$containerItems = new ContainerItems();
+	$containerItems->setContainerId($viewId);
+	$containerItems->setEntityManager($em);
+	$containerItems->loadDataSource();
+		
+	$view = new ViewModel();
+
+		
+	foreach ($containerItems->toArray() as $num => $item)
+	{
+		$type = $item["type"];
+		if (0 == strcmp($type,"Wordage"))
+		{
+			$helper = new WordageHelper();
+			$helper->setLog($this->log);
+			$helper->setServiceLocator($this->getServiceLocator());
+			$helper->setEntityManager($this->getEntityManager());
+			$object = $item["object"];
+			$helper->setWordageObject($object);
+			$helper->setViewModel($view);
+			$view->content = $helper;
+		}
+	}
+		
+	//$html .= "<br/>";
+
+	//$view->content = $html;
 
         return $view;
     }
