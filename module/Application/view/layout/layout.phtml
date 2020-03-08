@@ -1,11 +1,12 @@
-﻿<!DOCTYPE html>
-<html>
-  <head>
+<!DOCTYPE html>
+<!-- saved from url=(0026)https://www.evtechnote.us/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Home</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-    <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <link href="/data/styles.css" type="text/css" rel="stylesheet"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link href="/css/styles.css" type="text/css" rel="stylesheet">
+    <link href="/css/nhp.css" type="text/css" rel="stylesheet">
     <!-- development version, includes helpful console warnings -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
@@ -13,38 +14,37 @@
     <script src="/js/nhpress.js"></script>
     <script>tinymce.init({selector: '#wordage-edit-textarea'});</script>
  </head>
- <body>
-    <div id="main-bar">
+<body class="body_class">
+    <div id="main-bar" class="evtechnote-color-1">
     	<ul>
 		<?php echo print_r($this->layout()->site_toolbar,true) ?>
 		<?php echo print_r($this->layout()->user_toolbar,true) ?>
        </ul>
     </div>
-    <div id="main-header">
-      <div id="menu-crumbs" onclick="showMenu();"><img src="/img/menu.png"/></div>
+    <div id="main-header" class="evtechnote-color-2">
+      <div id="menu-crumbs" onclick="showMenu();"><img src="./Home_files/menu.png"></div>
       <!-- Unnamed (Shape) -->
-      <div id="top-bar"> 
+      <div id="top-bar" class="evtechnote-color-2"> 
           <div id="masthead">
-	  	<div id="slogan">
-                  <span class="bright">Covering the Internet and Internet Technology</span>
-	      </div>
-              <div id="issue_date">
-                  <span class="bright"><?php echo date("F j, Y");  ?>&nbsp;&nbsp;</span>
-              </div>
-	      <div id="site-title">
-              	<span class="white">&nbsp;&nbsp;Evan's TechNote</span>
-	      </div>
+		      <div id="issue_date">
+				  <span class="issue_date_text"><?php echo date("F j, Y");  ?>&nbsp;&nbsp;</span>
+			  </div>
+              <h1>&nbsp;&nbsp;evtechnote.us</h1>
+			  <h4><i>&quot;Covering the Internet and Internet Technology&quot;</i></h4>
+			  <br/>
+		  </div>
+		</div>
+	</div>
+	<div id="main-page">
+          <div id="content-" class="evtechnote-color-2-">
+		<?php echo $this->content; ?>
           </div>
-      </div>
-    <div>
-    <div id="content" class="bluebkg">
-	<?php echo $this->content; ?>
     </div>
-    <div id="main_footer">
-    	<div id="dialog_box">
-    	</div>
+    <div id="main-footer" class="evtechnote-color-1">
+	<div id="dialog_box">
+	</div>
     	<div id="footer_text">
-		<span>&copy; 2019 Evan Williams Consulting, LLC</span>
+		<span>© <?php echo date("Y") ?> Evan Williams Consulting, LLC</span>
     	</div>
     </div>
 </body>
