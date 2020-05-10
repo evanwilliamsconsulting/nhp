@@ -305,6 +305,7 @@ class CorrespondantController extends AbstractActionController
 
 	$items = new Items();
 	$items->setEntityManager($em);
+	$items->setBinderId(1);
 	$items->loadDataSource();
 		
 	$view = new ViewModel();

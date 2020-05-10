@@ -26,6 +26,11 @@
       <!-- Unnamed (Shape) -->
       <div id="top-bar" class="evtechnote-color-2"> 
           <div id="masthead">
+		      <div id="binder_note">
+				<span>BINDER NAME HERE</span>
+				<span>binder selectors</span>
+				<span>Add New Binder</span>
+		      </div>
 		      <div id="issue_date">
 				  <span class="issue_date_text"><?php echo date("F j, Y");  ?>&nbsp;&nbsp;</span>
 			  </div>
@@ -36,7 +41,10 @@
 		</div>
 	</div>
 	<div id="main-page">
-          <div id="content-" class="evtechnote-color-2-">
+	  <div id="main-toolbar">
+		<span>Main Toolbar</span>
+	  </div>
+          <div id="content" class="evtechnote-color-2-">
 		<?php echo $this->content; ?>
           </div>
     </div>

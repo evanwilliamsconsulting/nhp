@@ -25,10 +25,12 @@ class ContainerItems extends AbstractResultSet
     public function setLog($log)
     {
 	$this->log = $log;
+	$this->log->info("Container Items Set Log");
     }
     public function setEntityManager($em)
     {
     	$this->em = $em;
+	$this->log->info("Container Items Set Entity Manager");
     }
 	public function getEntityManager()
 	{
@@ -36,11 +38,14 @@ class ContainerItems extends AbstractResultSet
 	}
 	public function loadDataSource()
 	{
+		$this->log->info("Container Items Enter Load Data Source");
 		$em = $this->getEntityManager();
 		$containerId = $this->containerId;
 		$criteria = Array();
 		$criteria["containerid"] = $containerId;
+		$this->log->info("Container Items Get Repository");
 		$containers = $em->getRepository('Application\Entity\ContainerItems')->findBy($criteria);
+		$this->log->info("Container Items Get Repository");
 
 		foreach ($containers as $container)
 		{
@@ -52,11 +57,17 @@ class ContainerItems extends AbstractResultSet
 			$itemtype = $container->getItemType();
 			$itemid = $container->getItemId();
 			$criteria = array("id" => $itemid);
+			
+			$this->log->info("Process Item");
+			$this->log->info($itemtype);
 
 			if (0 == strcmp($itemtype,"wordage"))
 			{
 				$em = $this->getEntityManager();
+				$this->log->info("Get Wordage");
+				$this->log->info($criteria);
 				$wordages = $em->getRepository('Application\Entity\Wordage')->findBy($criteria);
+				$this->log->info("Get Wordage");
 				foreach	($wordages as $wordage)
 				{
 					$newArray = Array();

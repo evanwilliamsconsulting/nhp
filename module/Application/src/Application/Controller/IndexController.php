@@ -57,23 +57,33 @@ class IndexController extends AbstractActionController
 	$this->log = $this->getServiceLocator()->get('log');
         $log = $this->log;
 
+	$log->info("Index Action");
+
 	$viewId = 1;
 
         $em = $this->getEntityManager();
 
+	$log->info("Got Entity Manager");
+
 	$containerItems = new ContainerItems();
+	$containerItems->setLog($log);
 	$containerItems->setContainerId($viewId);
 	$containerItems->setEntityManager($em);
 	$containerItems->loadDataSource();
+
+	$log->info("Got Container Items");
 		
 	$view = new ViewModel();
 
+	$log->info("View Model");
 		
 	foreach ($containerItems->toArray() as $num => $item)
 	{
+		$log->info("Got Container Item");
 		$type = $item["type"];
 		if (0 == strcmp($type,"Wordage"))
 		{
+			$log->info("Got Wordage");
 			$helper = new WordageHelper();
 			$helper->setLog($this->log);
 			$helper->setServiceLocator($this->getServiceLocator());
@@ -81,6 +91,7 @@ class IndexController extends AbstractActionController
 			$object = $item["object"];
 			$helper->setWordageObject($object);
 			$helper->setViewModel($view);
+			$log->info("Set Wordage Helper");
 			$view->content = $helper;
 		}
 	}
@@ -89,6 +100,7 @@ class IndexController extends AbstractActionController
 
 	//$view->content = $html;
 
+	$log->info("Return View");
         return $view;
     }
 	public function loginAction()

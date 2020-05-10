@@ -25,6 +25,7 @@ class Experience implements InputFilterAwareInterface
     public function exchangeArray($data)
     {
         $this->id = (isset($data['id'])) ? $data['id'] : null;
+        $this->binder_id = (isset($data['binder_id'])) ? $data['binder_id'] : null;
         $this->username = (isset($data['username'])) ? $data['username'] : null;
         $this->original = (isset($data['original'])) ? $data['original'] : null;
         $this->startdate = (isset($data['startdate'])) ? $data['startdate'] : null;
@@ -48,6 +49,12 @@ class Experience implements InputFilterAwareInterface
             $inputFilter->add(
             	$factory->createInput(array(
                 'name' => 'id',
+                'required' => false,
+            )));
+
+            $inputFilter->add(
+            	$factory->createInput(array(
+                'name' => 'binder_id',
                 'required' => false,
             )));
 
@@ -140,6 +147,14 @@ class Experience implements InputFilterAwareInterface
      */
     private $id;
 
+
+    /**
+     *
+	 * 
+     * @ORM\Column(name="binder_id", type="integer", length=255, nullable=false)
+     * @var integer
+     */
+    private $binder_id;
 
     /**
      * @var string
@@ -420,5 +435,28 @@ class Experience implements InputFilterAwareInterface
     public function getCompany()
     {
         return $this->company;
+    }
+
+    /**
+     * Set binder_id 
+     *
+     * @param integer $binder_id
+     * @return Experience
+     */
+    public function setBinderId($binder_id)
+    {
+        $this->binder_id = $binder_id;
+
+        return $this;
+    }
+
+    /**
+     * Get binder_id
+     *
+     * @return integer 
+     */
+    public function getBinderId()
+    {
+        return $this->binder_id;
     }
 }

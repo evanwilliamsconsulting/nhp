@@ -5,6 +5,7 @@
 | Field       | Type         | Null | Key | Default | Extra          |
 +-------------+--------------+------+-----+---------+----------------+
 | id          | int(11)      | NO   | PRI | NULL    | auto_increment |
+binder_id
 | title       | varchar(255) | YES  |     | NULL    |                |
 | fileid      | int(11)      | YES  |     | NULL    |                |
 | description | text         | YES  |     | NULL    |                |
@@ -41,6 +42,7 @@ class CodeBase implements InputFilterAwareInterface
     public function exchangeArray($data)
     {
         $this->id = (isset($data['id'])) ? $data['id'] : null;
+        $this->binder_id = (isset($data['binder_id'])) ? $data['binder_id'] : null;
         $this->fileid = (isset($data['fileid'])) ? $data['fileid'] : null;
         $this->title= (isset($data['title'])) ? $data['title'] : null;
         $this->description= (isset($data['description'])) ? $data['description'] : null;
@@ -62,6 +64,12 @@ class CodeBase implements InputFilterAwareInterface
             $inputFilter->add(
             	$factory->createInput(array(
                 'name' => 'id',
+                'required' => false,
+            )));
+
+            $inputFilter->add(
+            	$factory->createInput(array(
+                'name' => 'binder_id',
                 'required' => false,
             )));
 
@@ -132,6 +140,15 @@ class CodeBase implements InputFilterAwareInterface
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
+
+
+    /**
+     *
+	 * 
+     * @ORM\Column(name="binder_id", type="integer", length=255, nullable=false)
+     * @var integer
+     */
+    private $binder_id;
 
     /**
      *
@@ -368,5 +385,28 @@ class CodeBase implements InputFilterAwareInterface
     public function getAuthor()
     {
         return $this->author;
+    }
+
+    /**
+     * Set binder_id 
+     *
+     * @param integer $binder_id
+     * @return CodeBase 
+     */
+    public function setBinderId($binder_id)
+    {
+        $this->binder_id = $binder_id;
+
+        return $this;
+    }
+
+    /**
+     * Get binder_id
+     *
+     * @return integer 
+     */
+    public function getBinderId()
+    {
+        return $this->binder_id;
     }
 }

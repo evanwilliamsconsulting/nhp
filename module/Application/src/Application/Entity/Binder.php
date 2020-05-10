@@ -12,9 +12,9 @@ use Zend\Validator\Date;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="Wordage")
+ * @ORM\Table(name="Binder")
  */
-class Wordage implements InputFilterAwareInterface
+class Binder implements InputFilterAwareInterface
 {
     private $columnsize;
 
@@ -25,12 +25,9 @@ class Wordage implements InputFilterAwareInterface
     public function exchangeArray($data)
     {
         $this->id = (isset($data['id'])) ? $data['id'] : null;
-        $this->binder_id = (isset($data['binder_id'])) ? $data['binder_id'] : null;
         $this->username = (isset($data['username'])) ? $data['username'] : null;
         $this->original = (isset($data['original'])) ? $data['original'] : null;
         $this->title= (isset($data['title'])) ? $data['title'] : null;
-        $this->wordage = (isset($data['wordage'])) ? $data['wordage'] : null;
-        $this->columnSize = (isset($data['columnSize'])) ? $data['columnSize'] : null;
     }
     public function setEntityManager($em)
     {
@@ -45,12 +42,6 @@ class Wordage implements InputFilterAwareInterface
             $inputFilter->add(
             	$factory->createInput(array(
                 'name' => 'id',
-                'required' => false,
-            )));
-
-            $inputFilter->add(
-            	$factory->createInput(array(
-                'name' => 'binder_id',
                 'required' => false,
             )));
 
@@ -77,18 +68,6 @@ class Wordage implements InputFilterAwareInterface
                 'required' => false,
             )));
 
-            $inputFilter->add(
-            	$factory->createInput(array(
-                'name' => 'wordage',
-                'required' => false,
-            )));
-
-            $inputFilter->add(
-            	$factory->createInput(array(
-                'name' => 'columnSize',
-                'required' => false,
-            )));
- 
             $this->inputFilter = $inputFilter;
         }
         return $this->inputFilter;
@@ -110,31 +89,6 @@ class Wordage implements InputFilterAwareInterface
      */
     private $id;
 
-
-    /**
-     *
-	 * 
-     * @ORM\Column(name="binder_id", type="integer", length=255, nullable=false)
-     * @var integer
-     */
-    private $binder_id;
-
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="wordage", type="string", length=255, nullable=false)
-     */
-    private $wordage;
-
-    /**
-     *
-	 * 
-     * @ORM\Column(name="columnSize", type="integer", length=255, nullable=false)
-     * @var integer
-     */
-    private $columnSize;
-	
     /**
      * @var string
 	 * 
@@ -171,7 +125,7 @@ class Wordage implements InputFilterAwareInterface
      * Set username
      *
      * @param string $username
-     * @return Wordage
+     * @return Binder
      */
     public function setUsername($username)
     {
@@ -194,7 +148,7 @@ class Wordage implements InputFilterAwareInterface
      * Set original_date
      *
      * @param \DateTime $original
-     * @return Wordage
+     * @return Binder
      */
     public function setOriginal($originalDate)
     {
@@ -217,7 +171,7 @@ class Wordage implements InputFilterAwareInterface
      * Set title
      *
      * @param string $title
-     * @return Wordage
+     * @return Binder
      */
     public function setTitle($title)
     {
@@ -234,74 +188,5 @@ class Wordage implements InputFilterAwareInterface
     public function getTitle()
     {
         return $this->title;
-    }
-
-    /**
-     * Set wordage
-     *
-     * @param string $wordage
-     * @return Wordage
-     */
-    public function setWordage($wordage)
-    {
-        $this->wordage = $wordage;
-
-        return $this;
-    }
-
-    /**
-     * Get wordage
-     *
-     * @return string 
-     */
-    public function getWordage()
-    {
-        return $this->wordage;
-    }
-
-    /**
-     * Set columnsize
-     *
-     * @param integer $columnsize
-     * @return Wordage
-     */
-    public function setColumnsize($columnsize)
-    {
-        $this->columnSize = $columnsize;
-
-        return $this;
-    }
-
-    /**
-     * Get columnsize
-     *
-     * @return integer 
-     */
-    public function getColumnsize()
-    {
-        return $this->columnsize;
-    }
-
-    /**
-     * Set binder_id 
-     *
-     * @param integer $binder_id
-     * @return Wordage
-     */
-    public function setBinderId($binder_id)
-    {
-        $this->binder_id = $binder_id;
-
-        return $this;
-    }
-
-    /**
-     * Get binder_id
-     *
-     * @return integer 
-     */
-    public function getBinderId()
-    {
-        return $this->binder_id;
     }
 }

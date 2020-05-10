@@ -9,7 +9,7 @@
 {
 	.body_class
 	{
-		background-color:black;
+		background-color:white;
 
 	}
     #main-header
@@ -39,11 +39,13 @@
     .toolbar-list
     {
 	list-style:none;
+	display:inline;
 	float:left;
     }
     .toolbar-tab
     {
-	color:black;
+	list-style:none;
+	display:inline;
 	font-size:18pt;
     }
     .sitelist {
@@ -117,6 +119,8 @@
     }
     #login_box 
     {
+	    opacity:0.8;
+	    background-color:white;
 	    width:350px;
 	    height:350px;
 	    top:200px;
@@ -145,7 +149,7 @@
 {
 	.body_class
 	{
-        background-color:black;
+        background-color:white;
 	}
     #main-header
     {
@@ -252,6 +256,8 @@
     }
     #login_box 
     {
+	    opacity:0.8;
+	    background-color:white;
 	    width:350px;
 	    height:350px;
 	    top:200px;
@@ -280,7 +286,7 @@
 {
 	.body_class
 	{
-		background-color:black;
+		background-color:white;
 	}
     #main-header
     {
@@ -387,6 +393,8 @@
     }
     #login_box 
     {
+	    opacity:0.8;
+	    background-color:white;
 	    width:350px;
 	    height:350px;
 	    position:absolute;

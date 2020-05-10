@@ -95,12 +95,12 @@ class Toolbar extends AbstractHelper
       if ($this->context=="objects")
       {
     	$retval = "<div id='toolbar'>";
-	$retval .= "<ul class='toolbar_list'>";
-	$retval .= "<li class='toolbar_tab'><a href='/correspondant/index?new=wordage'>Wordage</a></li>";
-	$retval .= "<li class='toolbar_tab'><a href='/correspondant/index?new=picture'>Pix</a></li>";
-	$retval .= "<li class='toolbar_tab'><a href='/correspondant/index?new=file'>File</a></li>";
-	$retval .= "<li class='toolbar_tab'><a href='/correspondant/index?new=code'>Code Sample</a></li>";
-	$retval .= "<li class='toolbar_tab'><a href='/correspondant/index?new=experience'>Experience</a></li>";
+	$retval .= "<ul class='toolbar-list'>";
+	$retval .= "<li class='toolbar-tab'><a href='/correspondant/index?new=wordage'>Wordage</a></li>";
+	$retval .= "<li class='toolbar-tab'><a href='/correspondant/index?new=picture'>Pix</a></li>";
+	$retval .= "<li class='toolbar-tab'><a href='/correspondant/index?new=file'>File</a></li>";
+	$retval .= "<li class='toolbar-tab'><a href='/correspondant/index?new=code'>Code Sample</a></li>";
+	$retval .= "<li class='toolbar-tab'><a href='/correspondant/index?new=experience'>Experience</a></li>";
 	$retval .= "</ul>";
 	$retval .= "</div>";
       }

@@ -497,8 +497,8 @@ return array(
         'invokables' => array(
             'Application\Controller\Auth' => 'Application\Controller\AuthController',
             'Application\Controller\Success' => 'Application\Controller\SuccessController',
-            'Application\Controller\Index' => 'Application\Controller\IndexController',
             'Application\Controller\Issue' => 'Application\Controller\IssueController',
+            'Application\Controller\Index' => 'Application\Controller\IndexController',
             'Application\Controller\Broadsheet' => 'Application\Controller\BroadsheetController',
             'Application\Controller\Block' => 'Application\Controller\BlockController',
             'Application\Controller\Container' => 'Application\Controller\ContainerController',
