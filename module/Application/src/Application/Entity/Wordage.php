@@ -113,8 +113,8 @@ class Wordage implements InputFilterAwareInterface
 
     /**
      *
-	 * 
-     * @ORM\Column(name="binder_id", type="integer", length=255, nullable=false)
+     * 
+     * @ORM\Column(name="binder_id", type="integer", nullable=false)
      * @var integer
      */
     private $binder_id;

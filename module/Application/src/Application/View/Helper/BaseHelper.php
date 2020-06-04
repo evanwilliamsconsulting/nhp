@@ -60,7 +60,7 @@ class BaseHelper extends AbstractHelper implements ServiceLocatorAwareInterface
     {
         return $this->viewmodel;
     }
-    public function setBaseObject($baseObject)
+    public function setObject($baseObject)
     {
         $this->baseObject = $baseObject;
 	$this->id = $baseObject->getId();

@@ -44,6 +44,7 @@ use Application\View\Helper\ExperienceHelper as ExperienceHelper;
 use Application\View\Helper\HeadlineHelper as HeadlineHelper;
 
 use Application\View\Helper\Toolbar as Toolbar;
+use Application\View\Helper\Binder as Binder;
 
 
 use Application\Model\Containers as Containers;
@@ -158,12 +159,6 @@ class CorrespondantController extends AbstractActionController
     
         $em = $this->getEntityManager();
 
-
-	$items = new Containers();
-	$items->setLog($log);
-	$items->setEntityManager($em);
-	$items->loadDataSource();
-		
 	$view = new ViewModel();
 		
 	$itemArray = Array();
@@ -212,18 +207,16 @@ class CorrespondantController extends AbstractActionController
     }
     public function indexAction()
     {
-    	$userSession = new Container('user');
+    	$userSession = new Container('user'); // Talk about conflicting names!
 	$this->username = $userSession->username;
 	$loggedIn = $userSession->loggedin;
-	//$loggedIn = true;
 	if ($loggedIn)
 	{
 		// Set the Helpers
 		$layout = $this->layout();
 		foreach($layout->getVariables() as $child)
 		{
-			//$child->setLoggedIn(true);
-			$child->setLoggedIn($loggedIn);
+			$child->setLoggedIn(true);
 			$child->setUserName($this->username);
 			}
 	}
@@ -231,281 +224,93 @@ class CorrespondantController extends AbstractActionController
 	{
 	       return $this->redirect()->toUrl('https://www.evtechnote.us/');
 	}
-    
+	$binder = $this->params()->fromQuery("binder");
+
+	if (is_null($binder))
+	{
+		$binder_id = 1;
+	}
+	else
+	{
+		$binder_id = $binder;
+	}
+
+	/* Here is an example for you!
+
+	The id for the binder object and database table is the primary id,
+	So it is called just 'id'.  Everywhere else, that is, in every
+	Other table where the binder_id is used it is called 'binder_id',
+	Because it is not the native key to the table (so far that is!)
+
+	So as a result we have the confusing code below!!!
+	2DO: Maybe we should use composite keys rather than autonumbers!!!
+
+	*/
+
+	$criteria = array("binder_id" => $binder_id);
+	$binderCriteria = array("id" => $binder_id);
+
+	/* See that! */
         $em = $this->getEntityManager();
+	$binder= $em->getRepository('Application\Entity\Binder')->findBy($binderCriteria);
+	$binders = $em->getRepository('Application\Entity\Binder')->findAll();
 
-	$new = $this->params()->fromQuery('new');
-
-	if (!is_null($new))
-	{
-		if ($new == "wordage")
-		{
-			$newWordage = new Wordage();
-			$newWordage->setTitle("new");
-			$newWordage->setUsername($this->username);
-			$newWordage->setOriginal("20200101");
-			$newWordage->setColumnSize(45);
-			$newWordage->setWordage("test");
-			$em->persist($newWordage);
-			$em->flush();
-
-			return $this->redirect()->toRoute('correspondant');
-		}
-		else if ($new == "picture")
-		{
-			$newPicture = new Picture();
-			$newPicture->setTitle("new");
-			$newPicture->setUsername("evanwill");
-			$newPicture->setCredit("EJW");
-			$newPicture->setWidth(150);
-			$newPicture->setHeight(150);
-			$em->persist($newPicture);
-			$em->flush();
-
-			return $this->redirect()->toRoute('correspondant');
-		}
-		else if ($new == "file")
-		{
-			$newFile = new File();
-			$newFile->setUsername("evanwill");
-			$newFile->setFilename("test");
-			$newFile->setFilepath("/filestore");
-			$newFile->setAuthor("EJW");
-			$em->persist($newFile);
-			$em->flush();
-
-			return $this->redirect()->toRoute('correspondant');
-		}
-		else if ($new == "code")
-		{
-			$newCodeSample = new CodeSample();
-			$newCodeSample->setUsername("evanwill");
-			$em->persist($newCodeSample);
-			$em->flush();
-
-			return $this->redirect()->toRoute('correspondant');
-		}
-		else if ($new == "experience")
-		{
-			$newExperience = new Experience();
-			$dt = new \DateTime("20200101");
-			$newExperience->setUsername("evanwill");
-			$newExperience->setStartDate($dt);
-			$newExperience->setOriginal($dt);
-			$newExperience->setEndDate($dt);
-			$em->persist($newExperience);
-			$em->flush();
-
-			return $this->redirect()->toRoute('correspondant');
-		}
-	}
-
-	// This second layout look really should happen if logged in.
-	//$layout->setTemplate('layout/correspondant');
-
-	$items = new Items();
-	$items->setEntityManager($em);
-	$items->setBinderId(1);
-	$items->loadDataSource();
-		
+	$itemArray = array();
 	$view = new ViewModel();
-		
-	$itemArray = Array();
+	$ENTITY_ROOT = "Application\\Entity\\";
 
-	foreach ($items->toArray() as $num => $item)
-	{
-		if ($item["type"] == "Wordage")
-		{
-			$wordageObject = $item["object"];
-			$wordage = $wordageObject->getWordage();
-			$id = $wordageObject->getId();
-			$original = $wordageObject->getOriginal();
-			$title = $wordageObject->getTitle();
-			$username = $wordageObject->getUsername();
-			$bcolor = '#ff22bb';
-			$view = new ViewModel(array('wordage' => $wordage,
-				'id' => $id,
-				'original' => $original,
-				'title' => $title,
-				'username' => $username,
-				'bcolor' => $bcolor
-			));
-			$wordageItem = new WordageHelper();
-			$wordageItem->setServiceLocator($this->getServiceLocator());
-			$wordageItem->setViewModel($view);
-			$wordageItem->setWordageObject($item["object"]);
-			$itemArray[] = $wordageItem;
-		}
-		else if ($item["type"] == "Picture")
-		{
-			$pictureObject = $item["object"];
-			$picture = $pictureObject->getPicture();
-			$id = $pictureObject->getId();
-			$original = $pictureObject->getOriginal();
-			$caption = $pictureObject->getTitle();
-			$username = $pictureObject->getUsername();
-			$bcolor = '#00bbbb';
-			$view = new ViewModel(array('picture' => $picture,
-				'id' => $id,
-				'original' => $original,
-				'caption' => $caption,
-				'username' => $username,
-				'bcolor' => $bcolor
-			));
-			$pictureItem = new PictureHelper();
-			$pictureItem->setServiceLocator($this->getServiceLocator());
-			$pictureItem->setViewModel($view);
-			$pictureItem->setPictureObject($item["object"]);
-			$itemArray[] = $pictureItem;
-		}		
-		else if ($item["type"] == "File")
-		{
-			$fileObject = $item["object"];
-			$filename = $fileObject->getFilename();
-			$filepath = $fileObject->getFilepath();
-			$id = $fileObject->getId();
-			$original = $fileObject->getOriginal();
-			$author = $fileObject->getAuthor();
-			$username = $fileObject->getUsername();
-			$bcolor = '#00bbb0';
-			$view = new ViewModel(array('filename' => $filename,
-				'filepath' => $filepath,
-				'id' => $id,
-				'original' => $original,
-				'author' => $author,
-				'username' => $username,
-				'bcolor' => $bcolor
-			));
-			$fileItem = new FileHelper();
-			$fileItem->setServiceLocator($this->getServiceLocator());
-			$fileItem->setViewModel($view);
-			$fileItem->setFileObject($item["object"]);
-			$itemArray[] = $fileItem;
-		}
-		else if ($item["type"] == "CodeBase")
-		{
-			$baseObject = $item["object"];
-			$id = $baseObject->getId();
-			$fileid = $baseObject->getFileId();
-			$title = $baseObject->getTitle();
-			$description = $baseObject->getDescription();
-			$code = $baseObject->getCode();
-			$author = $baseObject->getAuthor();
-			$username = $baseObject->getUsername();
-			$original = $baseObject->getOriginal();
-			$view = new ViewModel(array('id' => $id,
-					'fileid' => $fileid,
-					'code' => $code,
-					'title' => $title,
-					'description' => $description,
-					'author' => $author,
-					'original' => $original,
-					'username' => $username,
-					));
-			$baseItem = new BaseHelper();
-			$baseItem->setServiceLocator($this->getServiceLocator());
-			$baseItem->setViewModel($view);
-			$baseItem->setBaseObject($item["object"]);
-			$itemArray[] = $baseItem;
-		}
-		else if ($item["type"] == "CodeSample")
-		{
-			$codeObject = $item["object"];
-			$id = $codeObject->getId();
-			$fileid = $codeObject->getFileId();
-			$firstLine = $codeObject->getFirstLine();
-			$lastLine = $codeObject->getLastLine();
-			$title = $codeObject->getTitle();
-			$code = $codeObject->getCode();
-			$username = $codeObject->getUsername();
-			$original = $codeObject->getOriginal();
-			$language = $codeObject->getLanguage();	
-			$view = new ViewModel(array('fileid' => $fileid,
-				'id' => $id,
-				'fileid' => $fileid,
-				'first_line' => $firstLine,
-				'last_line' => $lastLine,
-				'title' => $title,
-				'code' => $code,
-				'language' => $language,
-				'original' => $original,
-				'username' => $username,
-				'bcolor' => $bcolor
-			));
-			$codeItem = new CodeHelper();
-			$codeItem->setServiceLocator($this->getServiceLocator());
-			// What do you suppose that the Service Locator does?
-			$codeItem->setViewModel($view);
-			$codeItem->setCodeObject($item["object"]);
-			$itemArray[] = $codeItem;
+	$types = array("Wordage","Picture","Experience","File","CodeBase","CodeSample");
 
-		}
-		else if ($item["type"] == "Experience")
+	foreach ($types as $key => $type)
+	{	
+		$entity = $ENTITY_ROOT . $type;
+		$items = $em->getRepository($entity)->findBy($criteria);
+		foreach	($items as $item)
 		{
-			$experienceObject = $item["object"];
-			$id = $experienceObject->getId();
-
-			
-			$log = $this->getServiceLocator()->get('log');
-			$log->info($id);
-			$description = $experienceObject->getDescription();
-			$log->info($description);
-			$title = $experienceObject->getTitle();
-			$skills = $experienceObject->getSkills();
-			$company = $experienceObject->getCompany();
-			$role = $experienceObject->getRole();
-			
-
-			$dtStart = $experienceObject->getStartDate();
-			$dtEnd= $experienceObject->getEndDate();
-
-			if ($dtStart != null)
+			// Here is where an factory might be used?
+			if (0 == strcmp($type,"Wordage"))
 			{
-				$startDate = $dtStart->format("m-d-Y");
+				$helperItem = new WordageHelper();
 			}
-			if ($dtEnd != null)
+			else if (0 == strcmp($type,"Picture"))
 			{
-				$endDate = $dtEnd->format("m-d-Y");
+				$helperItem = new PictureHelper();
 			}
-			//$log->info($startDate);
-			//$log->info($endDate);
-
-
-			//$startDate='2010-01-01';
-			//$endDate='2011-02-02';
-
-			
-			//$title='Web Developer';
-			//$skills='PHP';
-			//$role='Employment';
-			//$description='Built Website';
-			
-			$view = new ViewModel(array('id' => $id,
-				'startDate' => $startDate,
-				'endDate' => $endDate,
-				'title' => $title,
-				'skills' => $skills,
-				'company' => $company,
-				'role' => $role,
-				'description' => $description,
-				'original' => $original,
-				'username' => $username,
-			));
-			$experienceItem = new ExperienceHelper();
-			$experienceItem->setServiceLocator($this->getServiceLocator());
-			// What do you suppose that the Service Locator does?
-			$experienceItem->setViewModel($view);
-			$experienceItem->setExperienceObject($item["object"]);
-			$itemArray[] = $experienceItem;
+			else if (0 == strcmp($type,"Experience"))
+			{
+				$helperItem = new ExperienceHelper();
+			}
+			else if (0 == strcmp($type,"CodeBase"))
+			{
+				$helperItem = new BaseHelper();
+			}
+			else if (0 == strcmp($type,"CodeSample"))
+			{
+				$helperItem = new CodeHelper();
+			}
+			else if (0 == strcmp($type,"File"))
+			{
+				$helperItem = new FileHelper();
+			}
+			$helperItem->setServiceLocator($this->getServiceLocator());
+			$helperItem->setViewModel($view);
+			$helperItem->setObject($item);
+			$itemArray[] = $helperItem;
 		}
 	}
+	$binderItem = $binder[0];
 
-	$toolbar = new Toolbar();
-	$toolbar->setContext("objects");
-	$view->toolbar = $toolbar;	
+	$binderName = $binderItem->getTitle();
+	$binderCount = count($binders);
+
+	$binder2 = new Binder();
+	$binder2->setBinderId($binder_id);
+	$binder2->setBinderCount($binderCount);
+	$binder2->setBinderName($binderName);
+
+	$view->binder = $binder2;
+
 	$view->items = $itemArray;
-	
-
-        return $view;
+	return $view;
     }
 }

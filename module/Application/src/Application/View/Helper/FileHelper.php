@@ -51,7 +51,7 @@ class FileHelper extends AbstractHelper implements ServiceLocatorAwareInterface
     {
         return $this->viewmodel;
     }
-    public function setFileObject($fileObject)
+    public function setObject($fileObject)
     {
         $this->fileObject = $fileObject;
         $this->filename = $fileObject->getFilename();

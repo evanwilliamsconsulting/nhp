@@ -70,7 +70,7 @@ class WordageHelper extends AbstractHelper implements ServiceLocatorAwareInterfa
 	{
 		return $this->viewmodel;
 	}
-	public function setWordageObject($wordageObject)
+	public function setObject($wordageObject)
 	{
 		$this->wordageObject = $wordageObject;
 		$this->wordage = $wordageObject->getWordage();

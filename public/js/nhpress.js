@@ -276,6 +276,34 @@ $(document).ready(function()
 			}
 		});
 	},
+	upBinder = function(binder,maxBinder)
+        {
+		if (binder == maxBinder)
+		{
+			binder = 1;
+		}
+		else
+		{
+			binder += 1;
+		}
+		theBinderId = binder;
+		theBinderId += 1;
+		url = "/correspondant/index?binder=" + binder;
+		window.location.href=url;
+        }
+	downBinder = function(binder,maxBinder)
+        {
+		if (binder == 1)
+		{
+			binder = maxBinder;
+		}
+		else
+		{
+			binder -= 1;
+		}
+		url = "/correspondant/index?binder=" + binder;
+		window.location.href=url;
+        }
 	closeEditWordage = function()
         {
 	    $("#dialog").show();

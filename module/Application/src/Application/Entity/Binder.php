@@ -25,9 +25,9 @@ class Binder implements InputFilterAwareInterface
     public function exchangeArray($data)
     {
         $this->id = (isset($data['id'])) ? $data['id'] : null;
+        $this->title = (isset($data['title'])) ? $data['title'] : null;
         $this->username = (isset($data['username'])) ? $data['username'] : null;
         $this->original = (isset($data['original'])) ? $data['original'] : null;
-        $this->title= (isset($data['title'])) ? $data['title'] : null;
     }
     public function setEntityManager($em)
     {
@@ -107,7 +107,7 @@ class Binder implements InputFilterAwareInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="text", length=2255, nullable=false)
+     * @ORM\Column(name="title", type="text", length=255, nullable=false)
      */
     private $title;
 

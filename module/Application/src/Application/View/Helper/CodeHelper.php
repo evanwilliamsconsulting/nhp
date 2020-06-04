@@ -60,7 +60,7 @@ class CodeHelper extends AbstractHelper implements ServiceLocatorAwareInterface
     {
         return $this->viewmodel;
     }
-    public function setCodeObject($codeObject)
+    public function setObject($codeObject)
     {
         $this->codeObject = $codeObject;
         $this->first_line = $codeObject->getFirstLine();

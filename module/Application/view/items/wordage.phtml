@@ -1,14 +1,18 @@
-<div style="background-color:<?php echo $this->bcolor;?>" class="wordage-item" id="wordage-<?php echo $this->id;?>">
-    <h2><?php echo $this->title; ?></h2>
-    <div class="wordage-item-title">
-<!--
-        <span><a href="/wordage/view/<?php echo $this->id; ?>">Edit</a></span>
-        <span><a href="/wordage/delete/<?php echo $this->id; ?>">Delete</a></span>
+<div class="wordage-item" id="wordage-<?php echo $this->id;?>">
+    <div class="lines">
+        <h2><?php echo $this->title; ?></h2>
+        <div class="wordage-item-title">
+            <span><a href="/wordage/view/<?php echo $this->id; ?>">Edit</a></span>
+<!--            <span><a href="/wordage/delete/<?php echo $this->id; ?>">Delete</a></span>
 -->
-	<br />
-        <span><?php echo $this->original;?></span>
-    </div>
-    <div class="wordage-item-text" onclick="clickWordageItemText('wordage-<?php echo $this->id;?>')">
+	    <br />
+            <span><?php echo $this->original;?></span>
+        </div>
+        <div class="wordage-item-text" onclick="clickWordageItemText('wordage-<?php echo $this->id;?>')">
     	<span><?php echo $this->wordage; ?></span>
+	</div>
+        <div class="holes hole-top"></div>
+        <div class="holes hole-middle"></div>
+        <div class="holes hole-bottom"></div>
     </div>
 </div>

@@ -50,7 +50,7 @@ class PictureHelper extends AbstractHelper implements ServiceLocatorAwareInterfa
     {
         return $this->viewmodel;
     }
-    public function setPictureObject($pictureObject)
+    public function setObject($pictureObject)
     {
         $this->pictureObject = $pictureObject;
         $picture = $pictureObject->getPicture();

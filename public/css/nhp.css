@@ -190,8 +190,10 @@
 	text-align:center;
 }
 .wordage-item {
-	width: 100%;
+	width: 80%;
+	left:10px;
 	margin-left:auto;
+	height:550px;
 	background-color:white;
 	margin-right:auto;
 	margin-top:5px;
@@ -207,12 +209,12 @@
 .wordage-item-title {
 	position:relative;
 	width:30%;
-	left:0%;
+	left:20%;
 	float:right;
 }
 .wordage-item-text {
 	width:70%;
-	left:0%;
+	left:30px;
 	top:10px;
 	flush:right;
 	position:relative;
@@ -395,4 +397,57 @@
 .details
 {
 	visibility:hidden;
+}
+.paper {
+  position: absolute;
+  height: 550px;
+  width: 550px;
+  background: rgba(255,255,255,0.9);
+  margin: -225px -175px;
+  left: 20%;
+  top: 20%;
+  box-shadow: 0px 0px 5px 0px #888;
+}
+.paper::before {
+  content: '';
+  position: absolute;
+  left: 45px;
+  height: 100%;
+  width: 2px;
+  background: rgba(255,0,0,0.4);
+}
+.lines {
+  margin-top: 40px;
+  height: calc(100% - 40px);
+  width: 100%;
+  background-image: repeating-linear-gradient(white 0px, white 24px, steelblue 25px);
+}
+.text {
+  position: absolute;
+  top: 65px;
+  left: 55px;
+  bottom: 10px;
+  right: 10px;
+  line-height: 25px;
+  font-family: 'Indie Flower';
+  overflow: hidden;
+  outline: none;
+}
+.holes {
+  position: absolute;
+  left: 0px;
+  height: 25px;
+  width: 25px;
+  background: lightgoldenrodyellow;
+  border-radius: 50%;
+  box-shadow: inset 0px 0px 2px 0px #888;
+}
+.hole-top {
+  top: 10%;
+}
+.hole-middle {
+  top: 50%;
+}
+.hole-bottom {
+  bottom: 10%;
 }

@@ -70,7 +70,7 @@ class ExperienceHelper extends AbstractHelper implements ServiceLocatorAwareInte
 	{
 		return $this->viewmodel;
 	}
-	public function setExperienceObject($experienceObject)
+	public function setObject($experienceObject)
 	{
 		$this->experienceObject = $experienceObject;
 		$this->description = $experienceObject->getDescription();

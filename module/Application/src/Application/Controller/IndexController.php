@@ -20,10 +20,7 @@ use Publish\Block\Broadsheet;
 use Application\Model\Containers as Containers;
 use Application\Entity\Container as ContainerObject;
 use Application\Entity\ContainerItems as Items;
-use Application\Model\ContainerItems as ContainerItems;
 use Application\View\Helper\ContainerHelper as ContainerHelper;
-
-use Application\View\Helper\WordageHelper as WordageHelper;
 
 class IndexController extends AbstractActionController
 {
@@ -52,57 +49,20 @@ class IndexController extends AbstractActionController
     }
     public function indexAction()
     {
-	$layout = $this->layout();
-
-	$this->log = $this->getServiceLocator()->get('log');
-        $log = $this->log;
-
-	$log->info("Index Action");
-
-	$viewId = 1;
-
         $em = $this->getEntityManager();
-
-	$log->info("Got Entity Manager");
-
-	$containerItems = new ContainerItems();
-	$containerItems->setLog($log);
-	$containerItems->setContainerId($viewId);
-	$containerItems->setEntityManager($em);
-	$containerItems->loadDataSource();
-
-	$log->info("Got Container Items");
-		
 	$view = new ViewModel();
-
-	$log->info("View Model");
-		
-	foreach ($containerItems->toArray() as $num => $item)
-	{
-		$log->info("Got Container Item");
-		$type = $item["type"];
-		if (0 == strcmp($type,"Wordage"))
-		{
-			$log->info("Got Wordage");
-			$helper = new WordageHelper();
-			$helper->setLog($this->log);
-			$helper->setServiceLocator($this->getServiceLocator());
-			$helper->setEntityManager($this->getEntityManager());
-			$object = $item["object"];
-			$helper->setWordageObject($object);
-			$helper->setViewModel($view);
-			$log->info("Set Wordage Helper");
-			$view->content = $helper;
-		}
-	}
-		
-	//$html .= "<br/>";
-
-	//$view->content = $html;
-
-	$log->info("Return View");
+	$layout = $this->layout();
+        $theItems= $em->getRepository('Application\Entity\Container')->findAll();
+	$theObject = $theItems[0];
+	$containerItem = new ContainerHelper();
+	$containerItem->setEntityManager($em);
+	$containerItem->setServiceLocator($this->getServiceLocator());
+	$containerItem->setViewModel($view);
+	$containerItem->setContainerObject($theObject);
+	$html = $containerItem->toHTML();
+	$view->content = $html;
         return $view;
-    }
+    } 
 	public function loginAction()
 	{
 		$view = new ViewModel();

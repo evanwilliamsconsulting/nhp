@@ -62,6 +62,7 @@ class ContainerHelper extends AbstractHelper implements ServiceLocatorAwareInter
 	public function toHTML()
 	{
 		$html = " Items: ";
+/*
 		$containerObject = $this->containerObject;
 		$containerObject->setEntityManager($this->em);
 		$items = $containerObject->getItems();
@@ -69,6 +70,8 @@ class ContainerHelper extends AbstractHelper implements ServiceLocatorAwareInter
 			$obj2 = $items["object"];
 			$itemid = $obj2->getItemId();
 			$itemtype = $obj2->getItemType();
+*/
+/*
 			if ($itemtype == "WORD")
 			{
 				$html .= "<br/>";
@@ -86,6 +89,7 @@ class ContainerHelper extends AbstractHelper implements ServiceLocatorAwareInter
 				$html .= $theWords;
 		
 			}
+*/
 			$html .= "</br>";
 			$html .= "</br>";
 
