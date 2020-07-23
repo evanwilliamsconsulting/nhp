@@ -2,9 +2,16 @@
     <div class="lines">
         <h2><?php echo $this->title; ?></h2>
         <div class="wordage-item-title">
+	<?php if ($this->editOn == True)
+	{
+	?>
+	<div id="wordage_controls" class="edit_controls">
             <span><a href="/wordage/view/<?php echo $this->id; ?>">Edit</a></span>
-<!--            <span><a href="/wordage/delete/<?php echo $this->id; ?>">Delete</a></span>
--->
+            <span><a href="/wordage/delete/<?php echo $this->id; ?>">Delete</a></span>
+	</div>
+	<?php
+	}
+	?>
 	    <br />
             <span><?php echo $this->original;?></span>
         </div>

@@ -25,6 +25,7 @@ use Zend\Authentication\Adapter\DbTable as DbTableAuthAdapter;
 use Application\View\Helper\Welcome as Welcome;
 use Application\View\Helper\UserToolbar as UserToolbar;
 use Application\View\Helper\SiteToolbar as SiteToolbar;
+use Application\View\Helper\ActionToolbar as ActionToolbar;
 use Zend\Session\SessionManager;
 use Zend\Session\Container;
 use Zend\Session\Config\SessionConfig;
@@ -126,9 +127,11 @@ class Module implements AutoloaderProviderInterface, ViewHelperProviderInterface
 
 	    $userToolbar = new UserToolbar();
 		$siteToolbar = new SiteToolbar();
+		$actionToolbar = new ActionToolbar();
 
 	    $viewModel->user_toolbar = $userToolbar;
 		$viewModel->site_toolbar = $siteToolbar;
+		$viewModel->action_toolbar = $actionToolbar;
 /*
 	$this->initSession([
 		´remember_me_seconds´ => 180,

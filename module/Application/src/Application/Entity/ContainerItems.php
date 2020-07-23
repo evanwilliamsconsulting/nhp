@@ -259,3 +259,4 @@ class ContainerItems implements InputFilterAwareInterface
         return $this;
     }
 }
+

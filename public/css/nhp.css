@@ -1,5 +1,17 @@
 @charset "utf-8";
 /* CSS Document */
+#menucrumbs
+{
+    top:-100px;
+}
+#lightbulb
+{
+	width:100px;
+	height:100px;
+	position:fixed;
+	top:75px;
+	left:50px;
+}
 #menubody
 {
     margin:auto;
@@ -353,6 +365,7 @@
 #dialog {
 	display:none;
 }
+/*j
 .bright a:hover
 {
 	color:white;
@@ -361,6 +374,7 @@
 {
 	color:white;
 }
+*/
 .white {
 	color:white;
 	margin:10px;
@@ -450,4 +464,27 @@
 }
 .hole-bottom {
   bottom: 10%;
+}
+.hidden {
+	visibility:hidden;
+}
+#file_sub {
+	width:auto;
+	height:auto;
+}
+#action_menu {
+	color:pink;
+	position:absolute;
+	left:100px;
+	top:100px;
+	width:200px;
+	height:auto;
+	z-index:100;
+}
+.action_item {
+	background-color:black;
+}
+.action_item a {
+	width:200px;
+	color:white;
 }

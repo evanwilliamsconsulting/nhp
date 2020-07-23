@@ -5,7 +5,6 @@ use Zend\Db\Adapter\Driver\ResultInterface;
 use Zend\Db\ResultSet\AbstractResultSet as AbstractResultSet;
 use Zend\Stdlib\ArrayObject as ArrayObject;
 
-use Application\Model\ContainerItems as ContainerItems;
 use Application\Entity\ContainerItems as ContainerItemObject;
 
 class ContainerItems extends AbstractResultSet

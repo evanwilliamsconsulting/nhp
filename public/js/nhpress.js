@@ -29,6 +29,11 @@ $(document).ready(function()
 	{
 	//	$("#main-bar").show();
 	},
+	showFileSub = function()
+	{
+		alert("Hello");
+		//$("#file_sub").show();
+	},
 	closeForm = function()
 	{
 	    $("#dialog_box").hide();

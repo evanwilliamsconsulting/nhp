@@ -218,7 +218,7 @@ class CorrespondantController extends AbstractActionController
 		{
 			$child->setLoggedIn(true);
 			$child->setUserName($this->username);
-			}
+		}
 	}
 	else
 	{

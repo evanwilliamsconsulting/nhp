@@ -17,10 +17,12 @@ use Zend\EventManager\EventManger;
 use Publish\BlockHelper as BlockHelper;
 use Publish\Block\Broadsheet;
 
-use Application\Model\Containers as Containers;
+use Application\Entity\Items as Items; 
+use Application\Entity\Content as Content; 
 use Application\Entity\Container as ContainerObject;
-use Application\Entity\ContainerItems as Items;
+use Application\Model\ContainerItems as ContainerItems;
 use Application\View\Helper\ContainerHelper as ContainerHelper;
+use Application\View\Helper\WordageHelper as WordageHelper;
 
 class IndexController extends AbstractActionController
 {
@@ -52,6 +54,29 @@ class IndexController extends AbstractActionController
         $em = $this->getEntityManager();
 	$view = new ViewModel();
 	$layout = $this->layout();
+
+	$content = new Content();
+	$content->setContainerId(1);
+	$content->setEntityManager($em);
+	$content->loadDataSource();
+
+	$view = new ViewModel();
+
+	foreach ($content->toArray() as $num => $item)
+	{
+		$type = $item["type"];
+		if (0 == strcmp($type,"Wordage"))
+		{
+			$helper = new WordageHelper();
+			$helper->setServiceLocator($this->getServiceLocator());
+			$helper->setEntityManager($this->getEntityManager());
+			$object = $item["object"];
+			$helper->setObject($object);
+			$helper->setViewModel($view);
+			$view->content=$helper;
+		}
+	}
+/*
         $theItems= $em->getRepository('Application\Entity\Container')->findAll();
 	$theObject = $theItems[0];
 	$containerItem = new ContainerHelper();
@@ -61,7 +86,8 @@ class IndexController extends AbstractActionController
 	$containerItem->setContainerObject($theObject);
 	$html = $containerItem->toHTML();
 	$view->content = $html;
-        return $view;
+*/
+	return $view;
     } 
 	public function loginAction()
 	{

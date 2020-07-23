@@ -21,7 +21,7 @@
 		<?php echo print_r($this->layout()->user_toolbar,true) ?>
        </ul>
     </div>
-    <div id="main-header" class="evtechnote-color-2">
+    <div id="main-header">
       <div id="menu-crumbs" onclick="showMenu();"><img src="./Home_files/menu.png"></div>
       <!-- Unnamed (Shape) -->
       <div id="top-bar" class="evtechnote-color-2"> 
@@ -35,11 +35,14 @@
 		  </div>
 		</div>
 	</div>
+        <div id="lightbulb"><a href="/"><img src="./img/lightbulb.jpg"/></a></div>
+      </div>
+      <div id="firstpage">
 	<div id="main-page">
-	  <div id="main-toolbar">
-		<span>Main Toolbar</span>
+	  <div id="main-toolbar" class="evtechnote-color-5">
+	      <?php echo print_r($this->layout()->action_toolbar,true) ?>
 	  </div>
-          <div id="content" class="evtechnote-color-2-">
+          <div id="content" class="evtechnote-color-2">
 		<?php echo $this->content; ?>
           </div>
     </div>

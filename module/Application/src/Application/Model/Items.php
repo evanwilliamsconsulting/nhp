@@ -1,5 +1,47 @@
 <?php
-namespace Application\Model;
+namespace Application\Entity;
+
+use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\ViewModel;
+
+use Doctrine\ORM\EntityManager;
+use Application\Form\Entity\CorrespondantForm;
+use Zend\InputFilter\InputFilter;
+use Zend\InputFilter\InputFilterInterface;
+use Zend\InputFilter\InputFilterAwareInterface;
+use Zend\Session\Container;
+use Zend\Stdlib\ArrayObject as ArrayObject;
+
+//use Application\Model\Items as Items;
+use Application\Entity\Wordage as Wordage;
+use Application\Entity\Picture as Picture;
+use Application\Entity\File as File;
+use Application\Entity\CodeSample as CodeSample;
+use Application\Entity\Experience as Experience;
+
+use Application\Entity\Container as Bag;
+use Application\Entity\Schematic as Schematic;
+use Application\Entity\Lesson as Lesson;
+use Application\Entity\Graphic as Graphic;
+
+use Application\View\Helper\WordageHelper as WordageHelper;
+use Application\Service\WordageService as WordageService;
+
+use Application\View\Helper\PictureHelper as PictureHelper;
+use Application\View\Helper\FileHelper as FileHelper;
+use Application\View\Helper\CodeHelper as CodeHelper;
+use Application\View\Helper\BaseHelper as BaseHelper;
+use Application\View\Helper\ExperienceHelper as ExperienceHelper;
+
+use Application\View\Helper\HeadlineHelper as HeadlineHelper;
+
+use Application\View\Helper\Toolbar as Toolbar;
+use Application\View\Helper\Binder as Binder;
+
+
+use Application\Model\Containers as Containers;
+use Application\Entity\Container as ContainerObject;
+use Application\View\Helper\ContainerHelper as ContainerHelper;
 
 use Zend\Db\Adapter\Driver\ResultInterface;
 use Zend\Db\ResultSet\AbstractResultSet as AbstractResultSet;
@@ -28,6 +70,9 @@ class Items extends AbstractResultSet
 	{
 		$em = $this->getEntityManager();
 		$wordages = $em->getRepository('Application\Entity\Wordage')->findAll();
+	}
+	public function remainder()
+	{
 		foreach	($wordages as $wordage)
 		{
 			$newArray = Array();
