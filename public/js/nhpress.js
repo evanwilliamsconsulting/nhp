@@ -31,8 +31,8 @@ $(document).ready(function()
 	},
 	showFileSub = function()
 	{
-		alert("Hello");
-		//$("#file_sub").show();
+		//alert("Hello");
+		$("#file_sub").show();
 	},
 	closeForm = function()
 	{

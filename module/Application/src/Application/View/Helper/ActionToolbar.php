@@ -38,10 +38,10 @@ class ActionToolbar extends AbstractHelper
     }
     public function fileSubMenu()
     {
-	$subMenu = "<div id='file_sub'>";
-	$subMenu .= "<span id='file_new_menu' class='action_item hidden'>New</span>";
+	$subMenu = "<div id='file_sub' class='hidden'>";
+	$subMenu .= "<span id='file_new_wordage_menu' class='action_item'>New Wordage</span>";
 	$subMenu .= "<br/>";
-	$subMenu .= "<span id='file_open_menu' class='action_item hidden'>Open</span>";
+	$subMenu .= "<span id='file_new_outline_menu' class='action_item'>New Outline</span>";
 	$subMenu .= "</div>";
 	return $subMenu;
     }
