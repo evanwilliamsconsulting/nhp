@@ -98,7 +98,7 @@ class CorrespondantController extends AbstractActionController
 	{
 	       return $this->redirect()->toUrl('https://www.evtechnote.us/');
 	}
-
+/*
         $em = $this->getEntityManager();
 
 	$new = $this->params()->fromQuery('new');
@@ -203,6 +203,7 @@ class CorrespondantController extends AbstractActionController
 	$view->toolbar = $toolbar;	
 	$view->items = $itemArray;
 
+*/
         return $view;
     }
     public function indexAction()
@@ -311,6 +312,43 @@ class CorrespondantController extends AbstractActionController
 	$view->binder = $binder2;
 
 	$view->items = $itemArray;
+	return $view;
+    }
+    public function addAction()
+    {
+	$this->log = $this->getServiceLocator()->get('log');
+        $log = $this->log;
+    	$userSession = new Container('user');
+	$this->username = $userSession->username;
+	$loggedIn = $userSession->loggedin;
+	$loggedIn = true;
+	if ($loggedIn)
+	{
+		// Set the Helpers
+		$layout = $this->layout();
+		foreach($layout->getVariables() as $child)
+		{
+			$child->setLoggedIn(true);
+			$child->setUserName($this->username);
+			}
+	}
+	else
+	{
+	       return $this->redirect()->toUrl('https://www.evtechnote.us/');
+	}
+
+        $em = $this->getEntityManager();
+	$type = $this->params()->fromQuery("type");
+	if (0==strcmp($type,"Wordage"))
+        {
+		$newContent = new Wordage();
+		$newContent->setTitle("new");
+                $newContent->setUsername("evanwill");
+		$newContent->setColumnsize(40);
+		$newContent->setBinderId(1);
+                $em->persist($newContent);
+                $em->flush();
+        }
 	return $view;
     }
 }

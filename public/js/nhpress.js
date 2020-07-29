@@ -39,6 +39,15 @@ $(document).ready(function()
 	    $("#dialog_box").hide();
 	    $('#content').css("opacity", "1");
 	},
+	closeBox = function()
+	{
+	    $("#dialog_box").hide();
+	    $('#content').css("opacity", "1");
+	},
+	editWordage = function(wordageId)
+	{
+		alert(wordageId);
+	},
 	clickLogin = function()
 	{
 		$.ajax({

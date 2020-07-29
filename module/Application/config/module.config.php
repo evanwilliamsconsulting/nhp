@@ -230,6 +230,48 @@ return array(
         )
     ),
     'router' => array(
+     'routes' => array(
+         'default' => array(
+             'type' => 'segment',
+             'options' => array(
+                 'route'    => '/[:controller[/:action]]',
+                 'defaults' => array(
+                     '__NAMESPACE__' => 'Application\Controller',
+                     'controller'    => 'Index',
+                     'action'        => 'index',
+                 ),
+                 'constraints' => [
+                     'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                     'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                 ]
+             ),
+         ),
+         'correspondant' => array(
+              'type' => 'literal',
+              'options' => array(
+                    'route' => '/correspondant/index',
+                    'defaults' => array(
+                          '__NAMESPACE__' => 'Application\Controller',
+                         'controller' => 'correspondant',
+                         'action' => 'index',
+                    )
+              )
+	),
+	'home' => array(
+              'type' => 'literal',
+              'options' => array(
+                    'route' => '/',
+                    'defaults' => array(
+                          '__NAMESPACE__' => 'Application\Controller',
+                         'controller' => 'index',
+                         'action' => 'index',
+                    )
+              )
+	)
+     )
+ ),
+/*
+    'router' => array(
         'routes' => array(
             'login' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
@@ -240,37 +282,6 @@ return array(
                         'action'     => 'index',
                     ),
                 ), 
-            ), 
-            'correspondant' => array(
-                'type' => 'Literal',
-                'options' => array(
-                    'route' => '/correspondant/',
-                    'defaults' => array(
-                       '__NAMESPACE__' => 'Application\Controller',
-                       'controller' => 'correspondant',
-                       'action' => 'index',
-                    ),
-                    'container' => array(
-                       '__NAMESPACE__' => 'Application\Controller',
-                       'controller' => 'correspondant',
-                       'action' => 'container',
-                    ),
-                ), 
-                'may_terminate' => true,
-                'child_routes' => array(
-                    'process' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                            'route' => '/[:action]',
-                            'constraints' => array(
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                            ),
-                            'defaults' => array(
-                            ),
-                        ),
-                    ),
-                ),
             ), 
             'binder' => array(
                 'type' => 'Literal',
@@ -391,32 +402,6 @@ return array(
                     ),
                 ),
             ), 
-            'wordage' => array(
-                'type' => 'Literal',
-                'options' => array(
-                    'route' => '/wordage/',
-                    'defaults' => array(
-                       '__NAMESPACE__' => 'Application\Controller',
-                       'controller' => 'correspondant',
-                       'action' => 'index',
-                    ),
-                ), 
-                'may_terminate' => true,
-                'child_routes' => array(
-                    'process' => array(
-                        'type' => 'Segment',
-                        'options' => array(
-                  	    'route'    => '/:item[/]',
-                            'constraints' => array(
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                            ),
-                            'defaults' => array(
-                            ),
-                        ),
-                    ),
-                ),
-            ), 
             'experience' => array(
                 'type' => 'Literal',
                 'options' => array(
@@ -500,6 +485,7 @@ return array(
               ),
          ),
     ),
+*/
     'service_manager' => array(
         'abstract_factories' => array(
             'Zend\Cache\Service\StorageCacheAbstractServiceFactory',
@@ -553,8 +539,6 @@ return array(
             'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
             'layout/correspondant'           => __DIR__ . '/../view/layout/correspondant.phtml',
             'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',
-            'error/404'               => __DIR__ . '/../view/error/404.phtml',
-            'error/index'             => __DIR__ . '/../view/error/index.phtml',
         ),
         'template_path_stack' => array(
             __DIR__ . '/../view',

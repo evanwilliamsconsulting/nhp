@@ -447,6 +447,7 @@
   overflow: hidden;
   outline: none;
 }
+/*
 .holes {
   position: absolute;
   left: 0px;
@@ -465,6 +466,7 @@
 .hole-bottom {
   bottom: 10%;
 }
+*/
 .hidden {
 	display:none;
 }
@@ -487,4 +489,10 @@
 .action_item a {
 	width:200px;
 	color:white;
+}
+.small_letters {
+	font-size: 10pt;
+}
+.far_right {
+	float:right;
 }
