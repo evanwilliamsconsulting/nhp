@@ -49,27 +49,12 @@ class WordageController extends AbstractActionController
     }
     public function indexAction()
     {
-    	$view = new ViewModel();
-	    $view->content = $this->content();
-		
-		$layout = $this->layout();
-		// This second layout look really should happen if logged in.
-		$layout->setTemplate('layout/correspondant');
-		
-        return $view;
-    }
-    public function contentAction()
-    {
     	$this->log = $this->getServiceLocator()->get('log');
     	$log = $this->log;
     	$log->info("view action");
 
 	// Initialize the View
     	$view = new ViewModel();
-	$view->setTerminal(true);
-	// Retreive the parameters
-	$id = $this->params()->fromRoute('item');
-	$log->info($id);
 
 	// 2Do: Check to see that user is logged in
 
@@ -80,6 +65,7 @@ class WordageController extends AbstractActionController
     	// 2Do: Populate username with user's username
     	$userSession = new Container('user');
 	$this->username = $userSession->username;
+	$username = $this->username;
 	$log->info($this->username);
 	$loggedIn = $userSession->loggedin;
 	if ($loggedIn)
@@ -98,19 +84,8 @@ class WordageController extends AbstractActionController
 		$log->info("Not Logged In");
 	       	return $this->redirect()->toUrl('https://www.evtechnote.us/');
 	}
-		
-	$em = $this->getEntityManager()	;
-		
-	$wordage = $em->getRepository('Application\Entity\Wordage')->find($id);
-		
-	$theWords = $wordage->getWordage();
-	$title = $wordage->getTitle();
-		
-	$variables = array("status" => "200",'id'=>$theId,'title'=>$title,'content'=>$theWords,true);
-        $response = $this->getResponse();
-        $response->setStatusCode(200);
-        $response->setContent(json_encode($variables));
-	return $response;
+
+	return $view;
     }
     public function deleteAction()
     {
