@@ -25,6 +25,7 @@ class WordageHelper extends AbstractHelper implements ServiceLocatorAwareInterfa
 	// Array of Containers that this Wordage participates in.
 	protected $containerItems;
 	protected $em;
+	protected $loggedIn = false;
 
     /** 
      * Set the service locator. 
@@ -34,6 +35,10 @@ class WordageHelper extends AbstractHelper implements ServiceLocatorAwareInterfa
      */ 
     public function __construct()
 	{
+	}
+	public function setLoggedIn($loggedIn)
+	{
+		$this->loggedIn = $loggedIn;
 	}
 	public function setLog($log)
 	{
@@ -129,6 +134,15 @@ class WordageHelper extends AbstractHelper implements ServiceLocatorAwareInterfa
     	$view = $this->getViewModel();
 
     	$containerItems = $this->getContainerItems();
+
+	if ($this->loggedIn == false)
+	{
+		$view->loggedIn = false;
+	}
+	else
+	{
+		$view->loggedIn = true;
+	}
 
     	$view->containerItems = $containerItems;
 	

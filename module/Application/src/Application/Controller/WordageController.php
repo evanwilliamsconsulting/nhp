@@ -231,9 +231,6 @@ class WordageController extends AbstractActionController
 	$resolver = new Resolver\AggregateResolver();
 	$renderer->setResolver($resolver);
 
-	//$this->_helper->layout()->disableLayout();
-	//$this->_helper->viewRenderer->setNoRender(true);
-
 	$map = new Resolver\TemplateMapResolver(array(
     		'edit'      => __DIR__ . '/../../../view/application/wordage/edit.phtml',
 	));
@@ -263,7 +260,7 @@ class WordageController extends AbstractActionController
 	$view->id =$id;
 	return $view;
     }
-    public function editinplaceAction()
+    public function jsonAction()
     {
 	$viewModel = new ViewModel();
 	$viewModel->setTemplate("edit");

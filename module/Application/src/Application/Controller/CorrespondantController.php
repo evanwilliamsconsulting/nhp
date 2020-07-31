@@ -272,6 +272,7 @@ class CorrespondantController extends AbstractActionController
 			if (0 == strcmp($type,"Wordage"))
 			{
 				$helperItem = new WordageHelper();
+				$helperItem->setLoggedIn(true);
 			}
 			else if (0 == strcmp($type,"Picture"))
 			{

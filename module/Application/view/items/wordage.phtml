@@ -3,24 +3,16 @@
         <h2>Wordage - <?php echo $this->title; ?></h2>
 	<div id="wordage-username" class="small_letters"><?php echo $this->original; ?></div>
 	<div id="wordage-timestamp" class="small_letters"><?php echo $this->username; ?></div>
+	<?php if ($this->loggedIn == true): ?>
 	<ul>
 		<li><a href="#" onclick="editWordage(<?php echo $this->id;?>)">Edit</a></li>
 	</ul>
+	<?php endif; ?>
         <div class="wordage-item-title">
-	<?php if ($this->editOn == True)
-	{
-	?>
-	<div id="wordage_controls" class="edit_controls">
-            <span><a href="/wordage/view/<?php echo $this->id; ?>">Edit</a></span>
-            <span><a href="/wordage/delete/<?php echo $this->id; ?>">Delete</a></span>
-	</div>
-	<?php
-	}
-	?>
 	    <br />
             <span><?php echo $this->original;?></span>
         </div>
-        <div class="wordage-item-text" onclick="clickWordageItemText('wordage-<?php echo $this->id;?>')">
+        <div id="wordage-target-<?php echo $this-id; ?>" class="wordage-item-text" onclick="clickWordageItemText('wordage-<?php echo $this->id;?>')">
     	<span><?php echo $this->wordage; ?></span>
 	</div>
         <div class="holes hole-top"></div>

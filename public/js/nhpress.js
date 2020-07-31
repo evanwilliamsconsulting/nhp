@@ -44,9 +44,32 @@ $(document).ready(function()
 	    $("#dialog_box").hide();
 	    $('#content').css("opacity", "1");
 	},
-	editWordage = function(wordageId)
+	editWordage = function(wordagetextid)
 	{
-		alert(wordageId);
+		theWordageId = wordagetextid;
+		$.ajax({
+			type:"POST",
+			url:"/wordage/json?id=" + wordagetextid,
+			theWordageID:wordagetextid,
+			success: function(data) {
+				var objJSON = JSON.parse(data);
+				var theId = "#wordage";
+				var theWordageText = objJSON.view;
+				theTextAreaId = theId
+				theTarget = "#wordage-target-" + theId
+				$(theTarget).show();
+				$(theTarget).html(theWordageText);
+ 				tinymce.init({
+            				'selector': '#wordage-edit-textarea',
+            				'plugins' : 'insertdatetime,link,image',
+            				'theme' : 'modern',
+            				'theme__layout_manager' : 'SimpleLayout',
+            				'theme__buttons1' : 'backcolor, forecolor, |, bold, underline, strikethrough, |, numlist, bullist, charmap, |, undo, redo, |, anchor, link, tvlink, unlink',
+            				'theme__buttons2' : '',
+            				'theme__buttons3' : ''
+        			});
+			}
+		});
 	},
 	clickLogin = function()
 	{
@@ -243,32 +266,6 @@ $(document).ready(function()
 			url:"/picture/delete?id=" + picturetextid,
 			success: function(data) {
 				window.location.href="/correspondant/index";
-			}
-		});
-	},
-	clickWordageItemText = function(wordagetextid)
-	{
-		theWordageId = wordagetextid;
-		$.ajax({
-			type:"POST",
-			url:"/wordage/edit?id=" + wordagetextid,
-			theWordageID:wordagetextid,
-			success: function(data) {
-				var objJSON = JSON.parse(data);
-				var theId = "#wordage";
-				var theWordageText = objJSON.view;
-				theTextAreaId = theId
-				$("#content-inner").show();
-				$("#content-inner").html(theWordageText);
- 				tinymce.init({
-            				'selector': '#wordage-edit-textarea',
-            				'plugins' : 'insertdatetime,link,image',
-            				'theme' : 'modern',
-            				'theme__layout_manager' : 'SimpleLayout',
-            				'theme__buttons1' : 'backcolor, forecolor, |, bold, underline, strikethrough, |, numlist, bullist, charmap, |, undo, redo, |, anchor, link, tvlink, unlink',
-            				'theme__buttons2' : '',
-            				'theme__buttons3' : ''
-        			});
 			}
 		});
 	},
