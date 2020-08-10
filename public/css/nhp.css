@@ -154,12 +154,14 @@
 }
 .itemHelper_Wide > ul > li {
 }
+/*
 #topic-toolbar-edit {
 	display:block;
 }
 #topic-toolbar-save {
 	display:none;
 }
+*/
 #correspondent-toolbar {
 	width: 80%;
 	margin-left:20%;

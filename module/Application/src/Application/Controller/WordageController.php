@@ -293,7 +293,9 @@ class WordageController extends AbstractActionController
 	$viewModel->setVariable('actualWords',$actualWords);
 	$viewModel->setVariable('id',$theId);
 
-	$variables = array("id" => $wordageid,"view" => $renderer->render($viewModel),"thewordage" => print_r($wordage,true));
+	$responseHTML = "<textarea>" . $actualWords . "</textarea>";
+
+	$variables = array("id" => $wordageid,"view" => $responseHTML);
 	$jsonModel = new JsonModel($variables);
         $response = $this->getResponse();
         $response->setStatusCode(200);

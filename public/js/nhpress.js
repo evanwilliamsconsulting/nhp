@@ -44,6 +44,32 @@ $(document).ready(function()
 	    $("#dialog_box").hide();
 	    $('#content').css("opacity", "1");
 	},
+	loadWordageForm = function(wordagetextid,thetarget)
+	{
+		theWordageId = wordagetextid;
+		$.ajax({
+			type:"POST",
+			url:"/wordage/json/" + wordagetextid,
+			theWordageID:wordagetextid,
+			success: function(data) {
+				var objJSON = JSON.parse(data);
+				var theId = "#wordage";
+				var theWordageText = objJSON.view;
+				thetarget = "#" + thetarget;
+				$(thetarget).show();
+				$(thetarget).html(theWordageText);
+ 				tinymce.init({
+            				'selector': '#wordage-edit-textarea',
+            				'plugins' : 'insertdatetime,link,image',
+            				'theme' : 'modern',
+            				'theme__layout_manager' : 'SimpleLayout',
+            				'theme__buttons1' : 'backcolor, forecolor, |, bold, underline, strikethrough, |, numlist, bullist, charmap, |, undo, redo, |, anchor, link, tvlink, unlink',
+            				'theme__buttons2' : '',
+            				'theme__buttons3' : ''
+        			});
+			}
+		});
+	},
 	editWordage = function(wordagetextid)
 	{
 		theWordageId = wordagetextid;
