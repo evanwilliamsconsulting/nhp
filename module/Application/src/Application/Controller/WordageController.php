@@ -290,12 +290,14 @@ class WordageController extends AbstractActionController
 	$em = $this->getEntityManager();
 	$wordage = $em->getRepository('Application\Entity\Wordage')->findOneBy($theArray);
 	$actualWords = $wordage->getWordage();
-	$viewModel->setVariable('actualWords',$actualWords);
+	$viewModel->setVariable('content',$actualWords);
 	$viewModel->setVariable('id',$theId);
 
-	$responseHTML = "<textarea>" . $actualWords . "</textarea>";
+	//$responseHTML = "<textarea>" . $actualWords . "</textarea>";
 
-	$variables = array("id" => $wordageid,"view" => $responseHTML);
+	$wordageResponse = $renderer->render($viewModel);
+
+	$variables = array("id" => $wordageid,"view" => $wordageResponse);
 	$jsonModel = new JsonModel($variables);
         $response = $this->getResponse();
         $response->setStatusCode(200);
