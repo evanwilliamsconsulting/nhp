@@ -204,7 +204,7 @@
 	text-align:center;
 }
 .wordage-item {
-	width: 80%;
+	width: 800px;
 	left:10px;
 	margin-left:auto;
 	height:550px;
@@ -227,7 +227,7 @@
 	float:right;
 }
 .wordage-item-text {
-	width:70%;
+	width:800px;
 	left:30px;
 	top:10px;
 	flush:right;
@@ -239,9 +239,14 @@
 	position:relative;
 	top:10px;
 	left:10px;
-	width:60%;
+	width:800px;
+	height:600px;
 	color:black;
 	margin:10px;
+}
+.wordage-edit-textarea {
+	width:800px;
+	height:600px;
 }
 .wordage-edit-text > textarea {
 	width:99%;
