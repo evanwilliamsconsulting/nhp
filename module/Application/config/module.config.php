@@ -257,10 +257,10 @@ return array(
                     )
               )
 	),
-        'wordage' => array(
+        'content' => array(
               'type' => 'Segment',
               'options' => array(
-                    'route' => '/wordage/:action/:item',
+                    'route' => '/:controller/:action/:item',
                     'defaults' => array(
                           '__NAMESPACE__' => 'Application\Controller',
                          'controller' => 'wordage',
@@ -517,6 +517,7 @@ return array(
             'Application\Controller\Pix' => 'Application\Controller\PixController',
             'Application\Controller\PixLink' => 'Application\Controller\PixlinkController',
             'Application\Controller\Wordage' => 'Application\Controller\WordageController',
+            'Application\Controller\Outline' => 'Application\Controller\OutlineController',
             'Application\Controller\Experience' => 'Application\Controller\ExperienceController',
             'Application\Controller\Code' => 'Application\Controller\CodeController',
             'Application\Controller\Picture' => 'Application\Controller\PictureController',

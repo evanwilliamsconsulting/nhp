@@ -9,6 +9,7 @@
 
 namespace Application\Controller;
 
+
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -22,6 +23,7 @@ use Zend\Stdlib\ArrayObject as ArrayObject;
 
 use Application\Model\Items as Items;
 use Application\Entity\Wordage as Wordage;
+use Application\Entity\Outline as Outline;
 use Application\Entity\Picture as Picture;
 use Application\Entity\File as File;
 use Application\Entity\CodeSample as CodeSample;
@@ -34,6 +36,9 @@ use Application\Entity\Graphic as Graphic;
 
 use Application\View\Helper\WordageHelper as WordageHelper;
 use Application\Service\WordageService as WordageService;
+
+use Application\View\Helper\OutlineHelper as OutlineHelper;
+use Application\Service\OutlineService as OutlineService;
 
 use Application\View\Helper\PictureHelper as PictureHelper;
 use Application\View\Helper\FileHelper as FileHelper;
@@ -260,7 +265,7 @@ class CorrespondantController extends AbstractActionController
 	$view = new ViewModel();
 	$ENTITY_ROOT = "Application\\Entity\\";
 
-	$types = array("Wordage","Picture","Experience","File","CodeBase","CodeSample");
+	$types = array("Wordage","Picture","Experience","File","CodeBase","CodeSample","Outline");
 
 	foreach ($types as $key => $type)
 	{	
@@ -294,7 +299,12 @@ class CorrespondantController extends AbstractActionController
 			{
 				$helperItem = new FileHelper();
 			}
+			else if (0 == strcmp($type,"Outline"))
+			{
+				$helperItem = new OutlineHelper();
+			}
 			$helperItem->setServiceLocator($this->getServiceLocator());
+			$helperItem->setEntityManager($em);
 			$helperItem->setViewModel($view);
 			$helperItem->setObject($item);
 			$itemArray[] = $helperItem;
@@ -344,12 +354,22 @@ class CorrespondantController extends AbstractActionController
         {
 		$newContent = new Wordage();
 		$newContent->setTitle("new");
-                $newContent->setUsername("evanwill");
+                $newContent->setUsername("ewilliams");
 		$newContent->setColumnsize(40);
 		$newContent->setBinderId(1);
                 $em->persist($newContent);
                 $em->flush();
         }
+	else if (0==strcmp($type,"Outline"))
+	{
+		$newContent = new Outline();
+		$newContent->setTitle("outline1");
+                $newContent->setUsername("ewilliams");
+		$newContent->setDescription("test");
+		$newContent->setBinderId(1);
+                $em->persist($newContent);
+                $em->flush();
+	}
 	return $view;
     }
 }

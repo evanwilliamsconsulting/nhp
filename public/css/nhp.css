@@ -251,6 +251,54 @@
 .wordage-edit-text > textarea {
 	width:99%;
 }
+.outline-item {
+	width: 800px;
+	left:10px;
+	margin-left:auto;
+	height:550px;
+	background-color:white;
+	margin-right:auto;
+	margin-top:5px;
+	margin-bottom:0px;
+	position:relative;
+	flush:right;
+	text-align:left;
+	float:top;
+}
+.outline-item > span {
+	font-size:11pt;
+}
+.outline-item-title {
+	position:relative;
+	width:30%;
+	left:20%;
+	float:right;
+}
+.outline-item-text {
+	width:800px;
+	left:30px;
+	top:10px;
+	flush:right;
+	position:relative;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+.outline-edit-text {
+	position:relative;
+	top:10px;
+	left:10px;
+	width:800px;
+	height:600px;
+	color:black;
+	margin:10px;
+}
+.outline-edit-textarea {
+	width:800px;
+	height:600px;
+}
+.outline-edit-text > textarea {
+	width:99%;
+}
 .picture-item {
 	width: 80%;
 	margin-left:20%;

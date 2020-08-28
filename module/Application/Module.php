@@ -119,6 +119,12 @@ class Module implements AutoloaderProviderInterface, ViewHelperProviderInterface
     public function onBootstrap(MvcEvent $e)
     {
         $eventManager        = $e->getApplication()->getEventManager();
+	// handle the dispatch error (exception)
+	$eventManager->attach(\Zend\Mvc\MvcEvent::EVENT_DISPATCH_ERROR, array($this,'handleError'));
+	// handle the view render error (exception)
+	$eventManager->attach(\Zend\Mvc\MvcEvent::EVENT_RENDER_ERROR, array($this,'handleError'));
+
+
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
 
@@ -139,6 +145,11 @@ class Module implements AutoloaderProviderInterface, ViewHelperProviderInterface
 		´cookie_httponly´ => true,
 	]);
 */
+    }
+    public function handleError(MvcEvent $e)
+    {
+	$exception = $e->getParam('exception');
+	print($exception);
     }
     public function getConfig()
     {

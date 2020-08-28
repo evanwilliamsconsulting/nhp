@@ -1,0 +1,24 @@
+<div id="outline_div" class="width800 viewcolor">
+	<div id="topic-toolbar">
+		<?php echo $this->topicToolbar('outline',$this->id); ?>
+	</div>
+	<h2><?php echo $this->title; ?></h2>
+	<div id="outline-view">
+		<?php echo $this->content; ?>	
+	</div>
+	<div id="outline-entries">
+		<?php foreach ($this->entries as $key => $item) { ?>
+		<div>
+			<?php echo $key ?>
+			<?php foreach ($item as $key2 => $item2) { ?>
+			<div>
+			<?php echo $item2; ?>
+			</div>
+			<?php } ?>
+		</div>
+		<?php } ?>
+	</div>
+	<div id="outline-edit" class="hidden">
+    		<textarea id="outline-edit-textarea" rows="24" cols="200"><?php echo $this->content; ?></textarea>
+	</div>
+</div>
