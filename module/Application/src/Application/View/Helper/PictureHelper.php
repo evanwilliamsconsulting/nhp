@@ -42,6 +42,27 @@ class PictureHelper extends AbstractHelper implements ServiceLocatorAwareInterfa
     {  
         return $this->serviceLocator;  
     }  
+
+	public function setLoggedIn($loggedIn)
+	{
+		$this->loggedIn = $loggedIn;
+	}
+	public function setLog($log)
+	{
+		$this->log = $log;
+	}
+	public function getLog()
+	{
+		return $this->log;
+	}
+    public function setEntityManager($em)
+    {
+    	$this->em = $em;
+    }
+    public function getEntityManager()
+    {
+    	return $this->em;
+    }
     public function setViewModel(ViewModel $viewmodel)
     {
         $this->viewmodel = $viewmodel;

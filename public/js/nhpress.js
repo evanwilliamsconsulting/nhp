@@ -125,12 +125,15 @@ $(document).ready(function()
 		    $("#experience-edit").show();
 		    $("#topic-toolbar-edit").hide();
 		    $("#topic-toolbar-save").show();
-/*
-		    $experienceEditMode = true;
-		$.get("/experience/edit/1", function(data, status){
-			$("#experience-edit").html(data);
-  			});
-*/
+		}
+		else if (topic == "outline")
+		{
+		    $("#outline-view").hide();
+		    $("#outline-edit").show();
+		    $("#topic-toolbar-edit").hide();
+		    $("#topic-toolbar-save").show();
+		    $(".outline_tools").show();
+		    $(".outline_tools").css("visibility","visible");
 		}
 	},
 	loadViewForm = function(topic,id)
@@ -221,6 +224,33 @@ $(document).ready(function()
 		    $("#endDate-view").html(endDate);
 		    $("#experience-view").show();
 		}
+	},
+	deleteOutlineEntry = function(id,key)
+	{
+		alert(id);
+		alert(key);
+		theOutlineId = id;
+		theEntryKey = key;
+		$.ajax({
+			type:"POST",
+			url:"/outline/delete",
+			id:theOutlineId,
+			key:theEntryKey,
+			success: function(data) {
+					alert(data);
+        			}
+		});
+	},
+	editOutlineEntry = function(id,key)
+	{
+		viewIdDescription = "#outline-entry-view-"+id+"-"+key+"-description";
+		editIdDescription = "#outline-entry-edit-"+id+"-"+key+"-description";
+		viewIdTitle = "#outline-entry-view-"+id+"-"+key+"-title";
+		editIdTitle = "#outline-entry-edit-"+id+"-"+key+"-title";
+		$(viewIdDescription).css("visibility","hidden");
+		$(editIdDescription).css("visibility","visible");
+		$(viewIdTitle).css("visibility","hidden");
+		$(editIdTitle).css("visibility","visible");
 	},
 	clickLogout = function()
         {

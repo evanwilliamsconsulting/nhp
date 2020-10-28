@@ -7,16 +7,37 @@
 		<?php echo $this->content; ?>	
 	</div>
 	<div id="outline-entries">
-		<?php foreach ($this->entries as $key => $item) { ?>
+		<?php foreach ($this->entries as $num => $entries)
+		  {
+		      $title = $entries['title'];
+		      $description = $entries['description'];
+		      $id = $entries['id'];
+		      $key2 = $entries['key'];
+		?>
 		<div>
-			<?php echo $key ?>
-			<?php foreach ($item as $key2 => $item2) { ?>
-			<div>
-			<?php echo $item2; ?>
+			<?php echo $title ?>
+			<?php echo $description ?>
+			<ul class="outline_tools edit_off">
+				<li>
+					<a href="#" onclick="editOutlineEntry(<?php echo $this->id; ?>,<?php echo $key ?>)">Edit</a>
+					<a href="#" onclick="saveOutlineEntry(<?php echo $this->id; ?>,<?php echo $key ?>)">Save</a>
+					<a href="#" onclick="addOutlineEntry(<?php echo $this->id; ?>,<?php echo $key ?>)">Add</a>
+					<a href="#" onclick="indentOutlineEntry(<?php echo $this->id; ?>,<?php echo $key ?>)">Indent</a>
+					<a href="#" onclick="outdentOutlineEntry(<?php echo $this->id; ?>,<?php echo $key2 ?>)">Out-dent</a>
+					<a href="#" onclick="deleteOutlineEntry(<?php echo $this->id; ?>,<?php echo $key2 ?>)">Delete</a>
+				</li>
+			</ul>
+			<div id="outline-entry-<?php echo $id; ?>-<?php echo $key2; ?>">
+				<div>
+					<span><?php echo $key2; ?></span>
+					<textarea id="outline-entry-view-<?php echo $id; ?>-<?php echo $key; ?>-<?php echo $key2; ?>"><?php echo $title; ?></textarea>
+					<textarea id="outline-entry-edit-<?php echo $id; ?>-<?php echo $key; ?>-<?php echo $key2;?>" class="edit_off"><?php echo $description; ?></textarea>
+				</div>
 			</div>
-			<?php } ?>
 		</div>
-		<?php } ?>
+		<?php
+			}
+		?>
 	</div>
 	<div id="outline-edit" class="hidden">
     		<textarea id="outline-edit-textarea" rows="24" cols="200"><?php echo $this->content; ?></textarea>

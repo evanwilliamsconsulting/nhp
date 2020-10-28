@@ -551,3 +551,6 @@
 .far_right {
 	float:right;
 }
+.edit_off {
+	visibility:hidden;
+}

@@ -87,6 +87,7 @@ class OutlineController extends AbstractActionController
 
 	return $view;
     }
+/*
     public function deleteAction()
     {
     	$this->log = $this->getServiceLocator()->get('log');
@@ -139,6 +140,7 @@ class OutlineController extends AbstractActionController
         $response->setContent(json_encode($variables));
 	return $response;
     }
+*/
     public function viewAction()
     {
     	// Load the logger
@@ -195,7 +197,7 @@ class OutlineController extends AbstractActionController
 		{
 			$entryTitle = $item->getTitle();
 			$entryDescription = $item->getDescription();
-			$entryItem = array("title"=>$entryTitle,"description"=>$entryDescription);
+			$entryItem = array("title"=>$entryTitle,"description"=>$entryDescription,"id"=>$id,"key"=>$key);
 			$entries[] = $entryItem;	
 		}
 		$view->title = $title;
@@ -235,6 +237,17 @@ class OutlineController extends AbstractActionController
         $response = $this->getResponse();
         $response->setStatusCode(200);
         $response->setContent(json_encode($variables));
+	return $response;
+    }
+    public function deleteAction()
+    {
+	$post = $this->getRequest()->getPost();
+	$outlineId = $post['id'];
+	$key = $post['key'];	
+	$variables = array("status" => "200",'result'=>'test','id'=>$outlineId,'key'=>$key);
+        $response = $this->getResponse();
+        $response->setStatusCode(200);
+        $response->setContent(json_encode($post));
 	return $response;
     }
     public function editAction()
