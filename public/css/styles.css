@@ -338,7 +338,7 @@
         font-size:18pt;
         margin:10px;
         padding:10px;
-        display:inline;
+        //display:inline;
         visibility:hidden;
     }
     .usertab {
@@ -346,10 +346,11 @@
         font-size:18pt;
         margin:10px;
         padding:10px;
-        display:inline;
+        //display:inline;
         visibility:hidden;	
     }
     .sidebar {
+	visibility:hidden;
 	background-image: url("/images/home/u28.png")
     }
     #site_toolbar {

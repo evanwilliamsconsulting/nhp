@@ -234,8 +234,11 @@ $(document).ready(function()
 		$.ajax({
 			type:"POST",
 			url:"/outline/delete",
-			id:theOutlineId,
-			key:theEntryKey,
+			data: 
+			{
+				id:theOutlineId,
+				key:theEntryKey,
+			}, 
 			success: function(data) {
 					alert(data);
         			}

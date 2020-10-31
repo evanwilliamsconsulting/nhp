@@ -88,7 +88,7 @@ class OutlineController extends AbstractActionController
 	return $view;
     }
 /*
-    public function deleteAction()
+    public function d_eleteAction()
     {
     	$this->log = $this->getServiceLocator()->get('log');
     	$log = $this->log;
@@ -244,10 +244,12 @@ class OutlineController extends AbstractActionController
 	$post = $this->getRequest()->getPost();
 	$outlineId = $post['id'];
 	$key = $post['key'];	
+	$test['id']=$outlineId;
+	$test['key']=$key;
 	$variables = array("status" => "200",'result'=>'test','id'=>$outlineId,'key'=>$key);
         $response = $this->getResponse();
         $response->setStatusCode(200);
-        $response->setContent(json_encode($post));
+        $response->setContent(json_encode($test));
 	return $response;
     }
     public function editAction()
