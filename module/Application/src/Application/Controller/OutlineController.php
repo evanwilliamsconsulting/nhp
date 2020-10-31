@@ -197,7 +197,8 @@ class OutlineController extends AbstractActionController
 		{
 			$entryTitle = $item->getTitle();
 			$entryDescription = $item->getDescription();
-			$entryItem = array("title"=>$entryTitle,"description"=>$entryDescription,"id"=>$id,"key"=>$key);
+			$key2 = $item->getId();
+			$entryItem = array("title"=>$entryTitle,"description"=>$entryDescription,"id"=>$id,"key"=>$key2);
 			$entries[] = $entryItem;	
 		}
 		$view->title = $title;
@@ -247,6 +248,10 @@ class OutlineController extends AbstractActionController
 	$test['id']=$outlineId;
 	$test['key']=$key;
 	$variables = array("status" => "200",'result'=>'test','id'=>$outlineId,'key'=>$key);
+	$em = $this->getEntityManager();
+	$outline = $em->getRepository('Application\Entity\OutlineEntry')->find($key);
+	$em->remove($outline);
+	$em->flush();
         $response = $this->getResponse();
         $response->setStatusCode(200);
         $response->setContent(json_encode($test));
