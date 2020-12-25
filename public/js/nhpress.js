@@ -244,6 +244,120 @@ $(document).ready(function()
         			}
 		});
 	},
+	addOutlineEntry = function(id,key)
+	{
+		alert(id);
+		alert(key);
+		theOutlineId = id;
+		theEntryKey = key;
+		$.ajax({
+			type:"POST",
+			url:"/outline/add",
+			data: 
+			{
+				id:theOutlineId,
+				key:theEntryKey,
+			}, 
+			success: function(data) {
+					alert(data);
+        			}
+		});
+	},
+	saveOutlineEntry = function(id,key)
+	{
+		alert(id);
+		alert(key);
+		theOutlineId = id;
+		theEntryKey = key;
+		$.ajax({
+			type:"POST",
+			url:"/outline/save",
+			data: 
+			{
+				id:theOutlineId,
+				key:theEntryKey,
+			}, 
+			success: function(data) {
+					alert(data);
+        			}
+		});
+	},
+	indentOutlineEntry = function(id,key)
+	{
+		alert(id);
+		alert(key);
+		theOutlineId = id;
+		theEntryKey = key;
+		$.ajax({
+			type:"POST",
+			url:"/outline/indent",
+			data: 
+			{
+				id:theOutlineId,
+				key:theEntryKey,
+			}, 
+			success: function(data) {
+					alert(data);
+        			}
+		});
+	},
+	outdentOutlineEntry = function(id,key)
+	{
+		alert(id);
+		alert(key);
+		theOutlineId = id;
+		theEntryKey = key;
+		$.ajax({
+			type:"POST",
+			url:"/outline/outdent",
+			data: 
+			{
+				id:theOutlineId,
+				key:theEntryKey,
+			}, 
+			success: function(data) {
+					alert(data);
+        			}
+		});
+	},
+	upOutlineEntry = function(id,key)
+	{
+		alert(id);
+		alert(key);
+		theOutlineId = id;
+		theEntryKey = key;
+		$.ajax({
+			type:"POST",
+			url:"/outline/up",
+			data: 
+			{
+				id:theOutlineId,
+				key:theEntryKey,
+			}, 
+			success: function(data) {
+					alert(data);
+        			}
+		});
+	},
+	downOutlineEntry = function(id,key)
+	{
+		alert(id);
+		alert(key);
+		theOutlineId = id;
+		theEntryKey = key;
+		$.ajax({
+			type:"POST",
+			url:"/outline/down",
+			data: 
+			{
+				id:theOutlineId,
+				key:theEntryKey,
+			}, 
+			success: function(data) {
+					alert(data);
+        			}
+		});
+	},
 	editOutlineEntry = function(id,key)
 	{
 		viewIdDescription = "#outline-entry-view-"+id+"-"+key+"-description";
