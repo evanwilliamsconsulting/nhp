@@ -20,6 +20,7 @@ use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\Session\Container;
 use Zend\View\Renderer\PhpRenderer;
 use Zend\View\Resolver;
+use Application\Entity\OutlineEntry as OutlineEntry;
 
 class OutlineController extends AbstractActionController
 {
@@ -242,34 +243,42 @@ class OutlineController extends AbstractActionController
     }
     public function addAction()
     {
-	$this->_helper->layout()->disableLayout();
-	$this->_helper->viewRenderer->setNoRender(true);
 	$post = $this->getRequest()->getPost();
 	$outlineId = $post['id'];
 	$key = $post['key'];	
 	$test['id']=$outlineId;
 	$test['key']=$key;
-	$variables = array("status" => "200",'result'=>'test','id'=>$outlineId,'key'=>$key);
+	$variables = array("status" => "200",'result'=>'test');
+
 	$em = $this->getEntityManager();
 	$outlineEntry = $em->getRepository('Application\Entity\OutlineEntry')->find($key);
 	$thisOutlineId = $outlineEntry->getOutlineId();
 	$thisBinderId = $outlineEntry->getBinderId();
 	$outlineEntries = $em->getRepository('Application\Entity\OutlineEntry')->findAll();
-	$countAll = $outlineEntries->count();
+	$countAll = count($outlineEntries);
 	$newOrderNo = $countAll + 1;
 	
     	$userSession = new Container('user');
 	$username = $userSession->username;
+
 	$newEntry = new OutlineEntry();
 	$newEntry->setUsername($username);
 	$theDate = date("Y-m-d");
-	$newEntry->setOriginalDate($theDate);
+	$newEntry->setOriginal($theDate);
 	$newEntry->setTitle("New Title");
 	$newEntry->setLabel("New Label");
 	$newEntry->setDescription("New Description");
-	$newEntry->setOrderNo($newOrderNo);
-	$newEtnry->setBinderId($thisBinderId);
-	$newEntry->setOutlineId($thisOutlineId);
+	$newEntry->setOrderNo(1);
+	$newEntry->setBinderId(1);
+	$newEntry->setOutlineId($outlineId);
+
+	$em->persist($newEntry);
+	$em->flush();
+
+        $response = $this->getResponse();
+        $response->setStatusCode(200);
+        $response->setContent(json_encode($variables));
+	return $response;
     }
     public function deleteAction()
     {
