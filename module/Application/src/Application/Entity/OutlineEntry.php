@@ -355,7 +355,7 @@ class OutlineEntry implements InputFilterAwareInterface
      */
     public function getOrderNo()
     {
-        return $this->orderno;
+        return $this->order_no;
     }
 
     /**

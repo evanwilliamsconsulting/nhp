@@ -280,6 +280,67 @@ class OutlineController extends AbstractActionController
         $response->setContent(json_encode($variables));
 	return $response;
     }
+    public function upAction()
+    {
+	$post = $this->getRequest()->getPost();
+	$outlineId = $post['id'];
+	$key = $post['key'];	
+	$outlineId = 1;
+	$key = 6;
+	$em = $this->getEntityManager();
+	$params = array();
+	$params['outline_id'] = $outlineId;
+	$outlineEntry = $em->getRepository('Application\Entity\OutlineEntry')->findBy($params);
+	$entries = array();
+	$previousKey = 1;
+	$currentKey = 0;
+	foreach ($outlineEntry as $entry => $item)
+	{
+	    $entryTitle = $item->getTitle();
+	    $entryDescription = $item->getDescription();
+	    $key2 = $item->getId();
+	    $orderNo = $item->getOrderNo();
+	    if ($key2 == $key)
+            {
+		$currentKey = 1;
+		$previousKey = 0;
+            }
+	    $entries[$key2] = array('order_no'=>$orderNo,'current_key'=>$currentKey,'previous_key'=>$previousKey);	
+	    $currentKey = 0;
+	}
+	// Now read the entries.  If it starts with currentKey = 1 then key is currently at the top.
+	$top = 1;	
+	foreach ($entries as $key2 => $entryArray)
+        {
+	    $order_no = $entryArray['order_no'];
+	    $current_key = $entryArray['current_key'];
+	    $previous_key = $entryArray['previous_key'];
+	    if ($current_key == 1 && $top == 1)
+		break;
+	    if ($current_key == 1 && $top == 0)
+	    { 
+		// Current Record should be replace by Previous Record
+		// Previous Record should be replace by Current Record
+		$outlineCurrent = $em->getRepository('Application\Entity\OutlineEntry')->find($key2);
+		$outlineCurrent->setOrderNo($previous_orderNo);
+		$em->persist($outlineCurrent);
+/*
+		$outlinePrevious= $em->getRepository('Application\Entity\OutlineEntry')->find($previous_key);
+		$outlinePrevious->setOrderNo($orderNo);
+		$em->persist($outlinePrevious);
+*/
+	    }
+	    $previous_key = $key2;
+	    $previous_orderNo = $orderNo;
+	    $top = 0;	
+        }	
+	$em->flush();
+	$variables = array("status" => "200",'result'=>'test','id'=>$outlineId,'key'=>$key,'entries'=>print_r($entries,true));
+        $response = $this->getResponse();
+        $response->setStatusCode(200);
+        $response->setContent(json_encode($variables));
+	return $response;
+    }
     public function deleteAction()
     {
 	$post = $this->getRequest()->getPost();
