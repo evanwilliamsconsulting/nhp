@@ -190,8 +190,10 @@ class OutlineController extends AbstractActionController
 		$outline_id = $id;
 
 		$params = array();
+		$orderby = array();
 		$params['outline_id'] = $id;
-		$outlineEntry = $em->getRepository('Application\Entity\OutlineEntry')->findBy($params);
+                $orderby['order_no'] = 'ASC';
+		$outlineEntry = $em->getRepository('Application\Entity\OutlineEntry')->findBy($params,$orderby);
 
 		$entries = array();
 		foreach ($outlineEntry as $key => $item)
@@ -285,8 +287,6 @@ class OutlineController extends AbstractActionController
 	$post = $this->getRequest()->getPost();
 	$outlineId = $post['id'];
 	$key = $post['key'];	
-	$outlineId = 1;
-	$key = 6;
 	$em = $this->getEntityManager();
 	$params = array();
 	$params['outline_id'] = $outlineId;
@@ -310,31 +310,100 @@ class OutlineController extends AbstractActionController
 	}
 	// Now read the entries.  If it starts with currentKey = 1 then key is currently at the top.
 	$top = 1;	
+	$previous_order_no = 1;
+	$previous_key2;
+	$update = 0;
 	foreach ($entries as $key2 => $entryArray)
         {
 	    $order_no = $entryArray['order_no'];
 	    $current_key = $entryArray['current_key'];
 	    $previous_key = $entryArray['previous_key'];
-	    if ($current_key == 1 && $top == 1)
-		break;
 	    if ($current_key == 1 && $top == 0)
 	    { 
 		// Current Record should be replace by Previous Record
 		// Previous Record should be replace by Current Record
 		$outlineCurrent = $em->getRepository('Application\Entity\OutlineEntry')->find($key2);
-		$outlineCurrent->setOrderNo($previous_orderNo);
+		$outlineCurrent->setOrderNo($previous_order_no);
 		$em->persist($outlineCurrent);
-/*
-		$outlinePrevious= $em->getRepository('Application\Entity\OutlineEntry')->find($previous_key);
-		$outlinePrevious->setOrderNo($orderNo);
-		$em->persist($outlinePrevious);
-*/
+		$update = 1;
+		break;
 	    }
-	    $previous_key = $key2;
-	    $previous_orderNo = $orderNo;
+	    $previous_key2 = $key2;
+	    $previous_order_no = $order_no;
 	    $top = 0;	
         }	
 	$em->flush();
+	if ($update == 1)
+	{
+	    $outlinePrevious = $em->getRepository('Application\Entity\OutlineEntry')->find($previous_key2);
+	    $outlinePrevious->setOrderNo($order_no);
+	    $em->persist($outlinePrevious);
+	    $em->flush();
+	}
+	$variables = array("status" => "200",'result'=>'test','id'=>$outlineId,'key'=>$key,'entries'=>print_r($entries,true));
+        $response = $this->getResponse();
+        $response->setStatusCode(200);
+        $response->setContent(json_encode($variables));
+	return $response;
+    }
+    public function downAction()
+    {
+	$post = $this->getRequest()->getPost();
+	$outlineId = $post['id'];
+	$key = $post['key'];	
+	$em = $this->getEntityManager();
+	$params = array();
+	$params['outline_id'] = $outlineId;
+	$outlineEntry = $em->getRepository('Application\Entity\OutlineEntry')->findBy($params);
+	$entries = array();
+	$previousKey = 1;
+	$currentKey = 0;
+	foreach ($outlineEntry as $entry => $item)
+	{
+	    $entryTitle = $item->getTitle();
+	    $entryDescription = $item->getDescription();
+	    $key2 = $item->getId();
+	    $orderNo = $item->getOrderNo();
+	    if ($key2 == $key)
+            {
+		$currentKey = 1;
+		$previousKey = 0;
+            }
+	    $entries[$key2] = array('order_no'=>$orderNo,'current_key'=>$currentKey,'previous_key'=>$previousKey);	
+	    $currentKey = 0;
+	}
+	// Now read the entries.  If it starts with currentKey = 1 then key is currently at the top.
+	$top = 1;	
+	$previous_order_no = 1;
+	$previous_key2;
+	$update = 0;
+	foreach ($entries as $key2 => $entryArray)
+        {
+	    $order_no = $entryArray['order_no'];
+	    $current_key = $entryArray['current_key'];
+	    $previous_key = $entryArray['previous_key'];
+	    if ($current_key == 1 && $top == 0)
+	    { 
+		// Current Record should be replace by Previous Record
+		// Previous Record should be replace by Current Record
+	        $outlinePrevious = $em->getRepository('Application\Entity\OutlineEntry')->find($previous_key2);
+	        $outlinePrevious->setOrderNo($order_no);
+	        $em->persist($outlinePrevious);
+		$update = 1;
+		break;
+	    }
+	    $previous_key2 = $key2;
+	    $previous_order_no = $order_no;
+	    $top = 0;	
+        }	
+	$outlineCurrent = $em->getRepository('Application\Entity\OutlineEntry')->find($key2);
+	$outlineCurrent->setOrderNo($previous_order_no);
+	$em->persist($outlineCurrent);
+	$em->flush();
+	if ($update == 1)
+	{
+	    $em->flush();
+	}
 	$variables = array("status" => "200",'result'=>'test','id'=>$outlineId,'key'=>$key,'entries'=>print_r($entries,true));
         $response = $this->getResponse();
         $response->setStatusCode(200);
