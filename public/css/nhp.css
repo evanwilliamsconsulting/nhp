@@ -9,7 +9,7 @@
 	width:100px;
 	height:100px;
 	position:fixed;
-	top:75px;
+	top:175px;
 	left:50px;
 }
 #menubody
@@ -553,4 +553,7 @@
 }
 .edit_off {
 	visibility:hidden;
+}
+.header-text {
+	color:white;
 }
