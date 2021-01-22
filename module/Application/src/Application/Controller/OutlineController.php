@@ -201,7 +201,8 @@ class OutlineController extends AbstractActionController
 			$entryTitle = $item->getTitle();
 			$entryDescription = $item->getDescription();
 			$key2 = $item->getId();
-			$entryItem = array("title"=>$entryTitle,"description"=>$entryDescription,"id"=>$id,"key"=>$key2);
+			$orderNo = $item->getOrderNo();
+			$entryItem = array("title"=>$entryTitle,"description"=>$entryDescription,"id"=>$id,"key"=>$key2,"order_no"=>$orderNo);
 			$entries[] = $entryItem;	
 		}
 		$view->title = $title;
