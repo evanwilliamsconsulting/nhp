@@ -40,6 +40,8 @@ use Application\View\Helper\ItemHelper as ItemHelper;
 use Application\Service\ItemService as ItemService;
 use Zend\Db\Adapter;
 use Application\Entity\Correspondant;
+use Application\Controller\IndexController as IndexController;
+use Application\Service\IndexControllerFactory as IndexControllerFactory;
 
 
 class Module implements AutoloaderProviderInterface, ViewHelperProviderInterface, ConfigProviderInterface

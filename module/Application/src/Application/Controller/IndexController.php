@@ -32,7 +32,7 @@ class IndexController extends AbstractActionController
     protected $storage;
     protected $authservice;
     protected $log;
- 
+
     public function getAuthService()
     {
         if (! $this->authservice) {
@@ -76,7 +76,7 @@ class IndexController extends AbstractActionController
 			$view->content=$helper;
 		}
 	}
-/*
+
         $theItems= $em->getRepository('Application\Entity\Container')->findAll();
 	$theObject = $theItems[0];
 	$containerItem = new ContainerHelper();
@@ -86,7 +86,6 @@ class IndexController extends AbstractActionController
 	$containerItem->setContainerObject($theObject);
 	$html = $containerItem->toHTML();
 	$view->content = $html;
-*/
 	return $view;
     } 
 	public function loginAction()

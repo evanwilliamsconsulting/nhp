@@ -104,11 +104,11 @@ class OutlineHelper extends AbstractHelper implements ServiceLocatorAwareInterfa
 		$timestamp = explode(' ',$outlineObject->getOriginal());
 		$datets = explode('-',$timestamp[0]);
 		$year = $datets[0];
-		$day = $datets[2];
+		//$day = $datets[2];
 		$monthArray = Array("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec");
-		$month = $monthArray[intval($datets[1])];
+		//$month = $monthArray[intval($datets[1])];
 		$month = "Jan";
-		$this->original = $month . " " . intval($day) . ", " . $year;
+		//$this->original = $month . " " . intval($day) . ", " . $year;
 		$this->username = $outlineObject->getUsername();
 		$em = $this->getEntityManager();
 		$outlineObject->setEntityManager($em);

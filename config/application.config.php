@@ -31,7 +31,7 @@ return array(
         // provided by modules themselves. Paths may use GLOB_BRACE notation.
         'config_glob_paths' => array(
 	    // 2DO: EJW Site Relative Paths should be used
-            '/var/www/html/config/autoload/global.php',
+            '/opt/lampp/htdocs/evtechnote/config/autoload/global.php',
         ),
 
         // Whether or not to enable a configuration cache.

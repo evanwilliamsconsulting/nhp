@@ -87,11 +87,11 @@ class WordageHelper extends AbstractHelper implements ServiceLocatorAwareInterfa
 		$timestamp = explode(' ',$wordageObject->getOriginal());
 		$datets = explode('-',$timestamp[0]);
 		$year = $datets[0];
-		$day = $datets[2];
+		//$day = $datets[2];
 		$monthArray = Array("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec");
-		$month = $monthArray[intval($datets[1])];
+		//$month = $monthArray[intval($datets[1])];
 		$month = "Jan";
-		$this->original = $month . " " . intval($day) . ", " . $year;
+		//$this->original = $month . " " . intval($day) . ", " . $year;
 		$this->username = $wordageObject->getUsername();
 		$em = $this->getEntityManager();
 		$wordageObject->setEntityManager($em);

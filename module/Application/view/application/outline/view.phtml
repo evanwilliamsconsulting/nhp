@@ -1,11 +1,16 @@
-<div id="outline_div" class="width800 viewcolor">
+<div id="outline_div" class="viewcolor">
+	<!--
 	<div id="topic-toolbar">
 		<?php echo $this->topicToolbar('outline',$this->id); ?>
 	</div>
+	-->
+	<!--
 	<h2><?php echo $this->title; ?></h2>
 	<div id="outline-view">
 		<?php echo $this->content; ?>	
 	</div>
+	<h2><?php echo $this->title; ?></h2>
+	-->
 	<div id="outline-entries">
 		<?php foreach ($this->entries as $num => $entries)
 		  {
@@ -16,26 +21,31 @@
 		      $order_no = $entries['order_no'];
 		?>
 		<div>
+			<div id="outline-entry-<?php echo $id; ?>-<?php echo $key2; ?>">
+				<span><?php echo $order_no; ?></span>
+			</div>
 			<div id="outline-entry-view-<?php echo $id; ?>-<?php echo $key2; ?>-title" class="edit_on">
 				<?php echo $title ?>
+			</div>
+			<div>
+				<textarea id="outline-entry-edit-<?php echo $id; ?>-<?php echo $key2; ?>-title" class="edit_off"><?php echo $title; ?></textarea>
 			</div>
 			<div id="outline-entry-view-<?php echo $id; ?>-<?php echo $key2; ?>-description" class="edit_on">
 				<?php echo $description ?>
 			</div>
-			<ul class="outline_tools">
-				<li>
+			<div>
+				<textarea id="outline-entry-edit-<?php echo $id; ?>-<?php echo $key2;?>-description" class="edit_off"><?php echo $description; ?></textarea>
+			</div>
+			<div>
+				<ul class="outline_tools">
+					<li>
 					<a href="#" onclick="editOutlineEntry(<?php echo $this->id; ?>,<?php echo $key2 ?>)">Edit</a>
 					<a href="#" onclick="addOutlineEntry(<?php echo $this->id; ?>,<?php echo $key2 ?>)">Add</a>
 					<a href="#" onclick="upOutlineEntry(<?php echo $this->id; ?>,<?php echo $key2 ?>)">Up</a>
 					<a href="#" onclick="downOutlineEntry(<?php echo $this->id; ?>,<?php echo $key2 ?>)">Down</a>
 					<a href="#" onclick="deleteOutlineEntry(<?php echo $this->id; ?>,<?php echo $key2 ?>)">Delete</a>
-				</li>
-			</ul>
-			<div id="outline-entry-<?php echo $id; ?>-<?php echo $key2; ?>">
-				<span><?php echo $order_no; ?></span>
-				<textarea id="outline-entry-edit-<?php echo $id; ?>-<?php echo $key2; ?>-title" class="edit_off"><?php echo $title; ?></textarea>
-				<textarea id="outline-entry-edit-<?php echo $id; ?>-<?php echo $key2;?>-description" class="edit_off"><?php echo $description; ?></textarea>
-			</div>
+					</li>
+				</ul>
 			</div>
 		</div>
 		<?php

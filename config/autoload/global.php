@@ -14,7 +14,7 @@
 return array(
     'db' => array(
         'driver'         => 'PdoMysql',
-        'dsn'            => 'mysql:dbname=nhpress;host=localhost',
+        'dsn'            => 'mysql:dbname=evtechnote;host=127.0.0.1',
         'username'       => 'root',
         'password'       => 'ptH3984z'
     ),
@@ -29,7 +29,7 @@ return array(
             'class' => 'Zend\Session\Config\SessionConfig',
             'options' => array(
                 'name' => 'nhp',
-		'gc_maxlifetime' =? 3600,
+		'gc_maxlifetime' => 3600,
 		'gc_divisor' => 1,
             ),
         ),
@@ -44,11 +44,11 @@ return array(
             'orm_default' => array(
 	        'driverClass' => 'Doctrine\DBAL\Driver\PDOMySql\Driver',
                 'params' => array(
-		    'host' => 'localhost',
+		    'host' => '127.0.0.1',
 		    'port' => '3306',
 		    'user' => 'root',
 		    'password' => 'ptH3984z', 
-		    'dbname' => 'nhpress',
+		    'dbname' => 'evtechnote',
                     'charset'  => 'utf8',
                     'driverOptions' => array(
                         1002 => 'SET NAMES utf8'

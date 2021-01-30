@@ -5,7 +5,7 @@ use Zend\Db\Adapter\Driver\ResultInterface;
 use Zend\Db\ResultSet\AbstractResultSet as AbstractResultSet;
 use Zend\Stdlib\ArrayObject as ArrayObject;
 
-use Application\Entity\ContainerItems as ContainerItemObject;
+use Application\Entity\ContainerItems;
 
 class Content extends AbstractResultSet
 {
@@ -41,6 +41,7 @@ class Content extends AbstractResultSet
 		$containerId = $this->containerId;
 		$criteria = Array();
 		$criteria["containerid"] = $containerId;
+/*
 		$containers = $em->getRepository('Application\Entity\ContainerItems')->findBy($criteria);
 
 		foreach ($containers as $container)
@@ -123,6 +124,7 @@ class Content extends AbstractResultSet
 				}
 			}
 		}
+*/
 
 	}
     public function getDataSource()

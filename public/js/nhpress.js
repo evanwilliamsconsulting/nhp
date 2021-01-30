@@ -364,9 +364,9 @@ $(document).ready(function()
 		editIdDescription = "#outline-entry-edit-"+id+"-"+key+"-description";
 		viewIdTitle = "#outline-entry-view-"+id+"-"+key+"-title";
 		editIdTitle = "#outline-entry-edit-"+id+"-"+key+"-title";
-		$(viewIdDescription).css("visibility","hidden");
+		//$(viewIdDescription).css("visibility","hidden");
 		$(editIdDescription).css("visibility","visible");
-		$(viewIdTitle).css("visibility","hidden");
+		//$(viewIdTitle).css("visibility","hidden");
 		$(editIdTitle).css("visibility","visible");
 	},
 	clickLogout = function()
