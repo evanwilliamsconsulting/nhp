@@ -428,6 +428,28 @@ class OutlineController extends AbstractActionController
         $response->setContent(json_encode($test));
 	return $response;
     }
+    public function saveAction()
+    {
+	$post = $this->getRequest()->getPost();
+	$outlineId = $post['id'];
+	$key = $post['key'];	
+	$title = $post['title'];
+	$description = $post['description'];
+	$test['id']=$outlineId;
+	$test['key']=$key;
+	
+	$variables = array("status" => "200",'result'=>'test','id'=>$outlineId,'key'=>$key,'title'=>$title,'description'=>$description);
+	$em = $this->getEntityManager();
+	$outline = $em->getRepository('Application\Entity\OutlineEntry')->find($key);
+	$outline->setTitle($title);
+	$outline->setDescription($description);
+	$em->persist($outline);
+	$em->flush();
+        $response = $this->getResponse();
+        $response->setStatusCode(200);
+        $response->setContent(json_encode($variables));
+	return $response;
+    }
     public function editAction()
     {
 	$view = new ViewModel();

@@ -1,5 +1,6 @@
 $(document).ready(function()
 {
+	var editInProgress = false;
 	var theTextAreaId;
 	var theWordageId;
 	var wordageEditMode = false;
@@ -227,6 +228,8 @@ $(document).ready(function()
 	},
 	deleteOutlineEntry = function(id,key)
 	{
+	    if (editInProgress == false)
+	    {
 		alert(id);
 		alert(key);
 		theOutlineId = id;
@@ -243,9 +246,12 @@ $(document).ready(function()
 					alert(data);
         			}
 		});
+	   }
 	},
 	addOutlineEntry = function(id,key)
 	{
+	    if (editInProgress == false)
+	    {
 		alert(id);
 		alert(key);
 		theOutlineId = id;
@@ -262,6 +268,7 @@ $(document).ready(function()
 					alert(data);
         			}
 		});
+           }
 	},
 	saveOutlineEntry = function(id,key)
 	{
@@ -321,7 +328,9 @@ $(document).ready(function()
 		});
 	},
 	upOutlineEntry = function(id,key)
-	{
+	{	
+	    if (editInProgress == false)
+	    {
 		alert(id);
 		alert(key);
 		theOutlineId = id;
@@ -338,9 +347,12 @@ $(document).ready(function()
 					alert(data);
         			}
 		});
+	    }
 	},
 	downOutlineEntry = function(id,key)
 	{
+	    if (editInProgress == false)
+	    {
 		alert(id);
 		alert(key);
 		theOutlineId = id;
@@ -357,6 +369,7 @@ $(document).ready(function()
 					alert(data);
         			}
 		});
+	    }
 	},
 	editOutlineEntry = function(id,key)
 	{
@@ -364,10 +377,58 @@ $(document).ready(function()
 		editIdDescription = "#outline-entry-edit-"+id+"-"+key+"-description";
 		viewIdTitle = "#outline-entry-view-"+id+"-"+key+"-title";
 		editIdTitle = "#outline-entry-edit-"+id+"-"+key+"-title";
-		//$(viewIdDescription).css("visibility","hidden");
-		$(editIdDescription).css("visibility","visible");
-		//$(viewIdTitle).css("visibility","hidden");
-		$(editIdTitle).css("visibility","visible");
+		editCmdTitle = "#outline-entry-button-"+id+"-"+key+"-edit";
+		addCmdTitle = "#outline-entry-button-"+id+"-"+key+"-add";
+		upCmdTitle = "#outline-entry-button-"+id+"-"+key+"-up";
+		downCmdTitle = "#outline-entry-button-"+id+"-"+key+"-down";
+		deleteCmdTitle = "#outline-entry-button-"+id+"-"+key+"-delete";
+		if (editInProgress == false)
+		{
+			//$(viewIdDescription).css("visibility","hidden");
+			$(editIdDescription).css("visibility","visible");
+			//$(viewIdTitle).css("visibility","hidden");
+			$(editIdTitle).css("visibility","visible");
+			$(editCmdTitle).html("Save");
+			$(editCmdTitle).css("color","red");
+			$(addCmdTitle).css("color","grey");
+			$(upCmdTitle).css("color","grey");
+			$(downCmdTitle).css("color","grey");
+			$(deleteCmdTitle).css("color","grey");
+			editInProgress = true;
+		}
+		else 
+		{
+		   // Save the edits
+		    theOutlineId = id;
+		    theEntryKey = key;
+		    theTitle = $(editIdTitle).val();
+		    theDescription = $(editIdDescription).val();
+		    //alert(theOutlineId);
+		    //alert(theEntryKey);
+		    //alert(theTitle);
+		    //alert(theDescription);
+		    $.ajax({
+			type:"POST",
+			url:"/outline/save",
+			data: 
+			{
+				id:theOutlineId,
+				key:theEntryKey,
+				title:theTitle,
+				description:theDescription
+			}, 
+			success: function(data) {
+					alert(data);
+        		}
+		    });
+		    editInProgress = false;
+		    $(editCmdTitle).html("Edit");
+		    $(editCmdTitle).css("color","black");
+		    $(addCmdTitle).css("color","black");
+		    $(upCmdTitle).css("color","black");
+		    $(downCmdTitle).css("color","black");
+		    $(deleteCmdTitle).css("color","black");
+		}
 	},
 	clickLogout = function()
         {
